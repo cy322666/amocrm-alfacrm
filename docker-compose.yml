@@ -1,0 +1,55 @@
+version: '3.5'
+services:
+    platform-app:
+        build: ./docker
+        volumes:
+            - ./application:/app
+        ports:
+            - "8000:8000"
+        links:
+            - platform-postgresql
+        networks:
+             - platform
+    platform-postgresql:
+        image: postgres:9.6.21-alpine
+        ports:
+            - "5432:5432"
+        networks:
+            - platform
+        volumes:
+            - ./database:/var/lib/postgresql
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: jdasfjnkk3HJSD
+            POSTGRES_DB: platform
+        restart: always
+
+    crontab:
+        build: ./docker/crontab
+#        container_name: crontab
+#        volumes:
+#            - ./application:/app
+        networks:
+            - platform
+#    platform-supervisor:
+#        build: ./docker/supervisor
+#        env_file:
+#            - .env
+#        container_name: platform-supervisor
+#        restart: unless-stopped
+#        environment:
+#            APP_ROOT: ${APP_ROOT}
+#            QUEUE_DRIVER: ${QUEUE_CONNECTION}
+#            OPTIONS: ${QUEUE_OPTIONS}
+#            NUM_PROCS: ${NUM_PROCS}
+#        volumes:
+#            - ./application:${APP_ROOT}
+##        network_mode: host
+#        networks:
+#            - platform
+networks:
+    platform:
+        name: platform-cluster
+        external: true
+        driver: bridge
+
