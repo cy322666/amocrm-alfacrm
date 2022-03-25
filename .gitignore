@@ -4,3 +4,4 @@
 /application/storage/framework
 /application/node_modules
 /elastdocker
+/application/.env

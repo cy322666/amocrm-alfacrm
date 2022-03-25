@@ -16,6 +16,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "7.4.x-dev",
         "laravel/framework": "^8.0",
+        "laravel/horizon": "^5.9",
         "laravel/octane": "^1.0",
         "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.0",
@@ -23,6 +24,7 @@
         "monolog/monolog": "2.x-dev",
         "orchid/platform": "^10.3.0",
         "pavel-marachkov/laravel-elk-log": "^3.0",
+        "predis/predis": "^1.1",
         "ramsey/uuid": "^4.1"
     },
     "require-dev": {

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -60,12 +62,12 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\Models\User
+     * @param Request $request
+     * @return Builder|Model
      */
-    protected function register(Request $request)
+    protected function register(Request $request): Model|Builder
     {
-        return User::create([
+        return User::query()->create([
             'name'      => $request->input('name'),
             'email'     => $request->input('email'),
             'password'  => Hash::make($request->input('password')),

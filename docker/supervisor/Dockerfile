@@ -1,13 +1,28 @@
-FROM php:8.0-cli-alpine3.13
+FROM ubuntu:20.04
 
-LABEL author="cy322666"
+RUN apt-get update && apt-get install supervisor -y
 
-ENV APP_ROOT=/home/app QUEUE_DRIVER=database NUM_PROCS=4 OPTIONS=
+RUN apt install lsb-release ca-certificates apt-transport-https software-properties-common -y
+RUN add-apt-repository ppa:ondrej/php
 
-ADD supervisord.conf /etc/
+RUN apt install php8.0 -y
+RUN apt install php8.0-pgsql -y \
+    php8.0-gd \
+    php8.0-fpm \
+    php8.0-cli \
+    php8.0-common \
+    php8.0-imap \
+    php8.0-redis \
+    php8.0-snmp \
+    php8.0-xml \
+    php8.0-zip \
+    php8.0-mbstring
 
-RUN docker-php-ext-install pdo_mysql \
-    && docker-php-ext-install bcmath \
-    && apk update && apk add --no-cache supervisor
+#RUN systemctl status php8.0-fpm start
 
-CMD ["supervisord", "-c", "/etc/supervisord.conf"]
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY worker.conf /etc/supervisor/conf.d/worker.conf
+
+EXPOSE 8008
+
+CMD ["/usr/bin/supervisord"]

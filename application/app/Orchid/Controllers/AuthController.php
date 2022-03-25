@@ -11,23 +11,24 @@ use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Orchid\Platform\Http\Controllers\LoginController;
 
 class AuthController extends LoginController
 {
-    public function signupForm(Request $request)
+    public function signupForm(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('auth.signup');
     }
     
-    public function resetForm(Request $request)
+    public function resetForm(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         return view('auth.passwords.reset');
     }
     
-    public function login(Request $request)
+    public function login(Request $request): \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
     {
         $request->validate([
             'email'    => 'required|email',
@@ -49,7 +50,7 @@ class AuthController extends LoginController
         ]);
     }
     
-    public function loginForm(Request $request)
+    public function loginForm(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
     {
         $user = $request->cookie('lockUser');
         
@@ -75,12 +76,12 @@ class AuthController extends LoginController
             'password' => 'required|min:4',
         ]);
         
-        $user = User::create([
+        $user = User::query()->create([
             'email' => $request->post('email'),
             'name' => $request->post('name'),
             'password' => Hash::make($request->post('password')),
             'permissions' => ['platform.index' => 1],
-            'uuid' => User::generateUuid(),
+            'uuid' => Str::uuid(),
         ]);
         
         $account = $user->account()->create([

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Api\Core\Account;
 use Orchid\Platform\Models\User as Authenticatable;
 
 class User extends Authenticatable
@@ -63,4 +64,9 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+    public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Account::class);
+    }
 }

@@ -45,6 +45,10 @@ ENV SWOOLE_TASK_WORKERS "auto"
 ENV SWOOLE_WATCH $true
 ENV SWOOLE_WORKERS "auto"
 
+RUN chown -R www-data:www-data /app
+
+#RUN chmod -R 777 /app/storage/
+
 COPY ./start.sh /
 RUN chmod +x /start.sh
 ENTRYPOINT ["/start.sh"]
