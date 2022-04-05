@@ -11,7 +11,7 @@ interface StrategyInterface
 {
     public function setApiClient($apiClient);
 
-    public function searchContact(string $search_search_query);
+    public function searchContact($apiClient, string $search_search_query);
 
     public function searchLeads(ContactModel $model);
 

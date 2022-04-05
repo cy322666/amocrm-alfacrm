@@ -11,10 +11,11 @@ use App\Models\Api\Logger;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Screen\AsSource;
 
 class Account extends Model
 {
-    use HasFactory;
+    use HasFactory, AsSource;
     
     public $timestamps = false;
     
@@ -49,9 +50,9 @@ class Account extends Model
         }
     }
     
-    public function bizon_settings()
+    public function bizon_settings(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(BizonSetting::class);//, 'id', 'account_id');
+        return $this->hasOne(BizonSetting::class);
     }
     
     public function user()
@@ -62,11 +63,6 @@ class Account extends Model
     public static function generateUrl(string $client_id = null): string
     {
         return env('APP_URL').''.\Ramsey\Uuid\Uuid::uuid4()->toString();
-    }
-    
-    public static function generateUuid(): string
-    {
-        return \Ramsey\Uuid\Uuid::uuid4()->toString();
     }
 
     public function access(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -97,10 +93,5 @@ class Account extends Model
     public function logs(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Logger::class);
-    }
-    
-    public function getContent($key)
-    {
-        return $this->$key;
     }
 }

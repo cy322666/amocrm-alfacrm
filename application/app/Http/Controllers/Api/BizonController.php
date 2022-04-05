@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\BizonWebinarSend;
 use App\Models\Api\Core\Access;
 use App\Models\Api\Core\Account;
+use App\Models\Api\Integrations\Bizon\BizonDispatcher;
 use App\Models\Api\Integrations\Bizon\BizonSetting;
 use App\Models\Api\Integrations\Bizon\Viewer;
 use App\Models\Api\Integrations\Bizon\Webinar;
@@ -33,18 +34,12 @@ class BizonController extends Controller
         );
 
         $setting = $account->bizon_settings;
-        $access  = $account->access
-            ->where('service_name', 'bizon365')
-            ->where('status', 1)
-            ->first();
 
         //new BizonAccessException(); //TODO check
 
         //TODO facade
         $bizon = (new Client())
-            ->setLogin($access->login)
-            ->setPassword($access->password)
-            ->auth();
+            ->setToken($account->token_bizon);
 
         $info = $bizon->webinar($webinar->webinarId);
 
@@ -59,12 +54,12 @@ class BizonController extends Controller
 
         $commentariesTS = json_decode($info->report->messages, true);
 
-        $webinar->setViewers($report, $setting, $commentariesTS);//TODO response
+        $webinar->setViewers($report, $setting, $commentariesTS);
 
         $webinar->status = 'wait';
         $webinar->save();
 
-//        BizonWebinarSend::dispatch($webinar, $setting)->afterCommit();; //TODO observer?
+        BizonDispatcher::schedule($webinar, $setting);
     }
 
     //TODO jobs
@@ -72,11 +67,25 @@ class BizonController extends Controller
     {
         $webinar = Webinar::query()->first();
 
-        /* @var BizonSetting $setting */
         $setting = $webinar->account->bizon_settings;
 
-        $amoApi = amoApi::getInstance();
+        $viewers = $webinar->viewers()
+            ->skip(20)
+            ->take(5)
+            ->get();
 
-        BizonWebinarSend::dispatch($webinar, $setting)->afterCommit();//TODO передавать юзера для авторизации клиента амо
+        $amoApi = amoApi::getInstance($webinar->account);
+
+        foreach ($viewers as $viewer) {
+
+            $result = ViewerSender::send(
+                $amoApi,
+                $viewer,
+                SendFactory::getStrategy('unite_leads', $setting), //TODO strategy name
+                $setting);
+
+            $viewer->status = 'ok';//TODO ?
+            $viewer->save();
+        }
     }
 }

@@ -1,4 +1,4 @@
-@extends('auth.core')
+@extends('auth.head')
 @section('title',__('Регистрация'))
 
 @section('content')

@@ -1,11 +1,11 @@
-@extends('platform::app')
+{{--@extends('platform::app')--}}
 
-@section('body-right')
+{{--@section('body-right')--}}
 
 
     <div class="form-signin container h-full p-0 px-sm-5 py-5 my-sm-5">
 
-        <a class="d-flex justify-content-center mb-4" href="{{Dashboard::prefix()}}">
+        <a class="d-flex justify-content-center mb-4" href="{{\Orchid\Platform\Dashboard::prefix()}}">
             @includeFirst([config('platform.template.header'), 'platform::header'])
         </a>
 
@@ -18,14 +18,14 @@
 
                     <div style="margin-top : 20px"></div>
 
-{{--                    <div class="form-group row mb-0">--}}
-{{--                        <div class="col-md-6 offset-md-3">--}}
-{{--                            <a href="{{ route('auth.login') }}" type="submit" class="btn btn-outline-primary">--}}
-{{--                                <?php echo e(__('На главную')); ?>--}}
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-3">
+                            <a href="{{ route('auth.login') }}" type="submit" class="btn btn-outline-primary">
+                                <?php echo e(__('На главную')); ?>
 
-{{--                            </a>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -36,4 +36,4 @@
         </div>
     </div>
 
-@endsection
+{{--@endsection--}}

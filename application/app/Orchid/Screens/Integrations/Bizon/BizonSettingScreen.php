@@ -9,8 +9,12 @@ use App\Models\Api\amoCRM\Staff;
 use App\Models\Api\amoCRM\Status;
 use App\Models\Api\Core\Account;
 use App\Models\Api\Integrations\Bizon\BizonSetting;
+use App\Models\User;
+use Illuminate\Auth\SessionGuard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\Link;
@@ -30,9 +34,9 @@ class BizonSettingScreen extends Screen
     
     public function __construct(Request $request)
     {
-        $this->account = Account::find(1);//Auth::user()->account;
-        $this->amoApi  = amoApi::getInstance();
-        $this->setting = BizonSetting::find(2);
+//        $this->account = Account::find(1);//->account;
+//        $this->amoApi  = amoApi::getInstance();
+//        $this->setting = BizonSetting::find(2);
     }
     
     /**
@@ -54,8 +58,12 @@ class BizonSettingScreen extends Screen
      *
      * @return array
      */
-    public function query(): array
+    public function query(Request $request): array
     {
+
+        $this->account = $request->user()->account;
+        $this->setting = $this->account->bizon_settings;
+
         return [
             'staffs'    => $this->account->staffs ?? [],
             'statuses'  => $this->account->statuses ?? [],

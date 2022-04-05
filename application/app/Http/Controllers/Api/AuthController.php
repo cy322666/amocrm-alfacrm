@@ -17,26 +17,25 @@ class AuthController extends Controller
         Log::info(__METHOD__, $request->toArray());
         
         try {
-            
+
             $account = Auth::user()->account;
-            
-            if($account) {
-                
+
+            if ($account) {
                 $account->client_id = $request->client_id;
                 $account->code = $request->code;
                 $account->save();
 
-//                $this->amoApi->init($access);
-//
-//                $setting = $account->setting;
-//
-//                $setting->updateStatuses($this->amoApi);
-//
-//                $setting->updatePipelines($this->amoApi);
-//
-//                $setting->updateStaffs($this->amoApi);
+                $this->amoApi->init($access);
+
+                $setting = $account->setting;
+
+                $setting->updateStatuses($this->amoApi);
+
+                $setting->updatePipelines($this->amoApi);
+
+                $setting->updateStaffs($this->amoApi);
             }
-    
+
 //            if($request->get('state') == 'reconnect') {
 //
 //                $this->amoApi->init($account);
@@ -49,9 +48,9 @@ class AuthController extends Controller
 //
 //                $setting->updateStaffs($this->amoApi);
 //            }
-    
+
             return view('redirect');
-            
+
         } catch (\Exception $exception) {
             
             dd($exception->getMessage().' > '.$exception->getFile().' > '.$exception->getLine());

@@ -3,8 +3,11 @@
 namespace App\Orchid\Screens;
 
 use App\Models\Api\Core\Account;
+use App\Models\Orchid\amoCRMButton;
 use App\Orchid\Layouts\ConnectAmoCRM;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Orchid\Screen\Action;
 use Orchid\Screen\Screen;
 use Orchid\Screen\Sight;
 use Orchid\Support\Facades\Layout;
@@ -30,7 +33,7 @@ class AccountIndexScreen extends Screen
      *
      * @return array
      */
-    public function query(): array
+    public function query(Request $request): array
     {
         return [
             'user'    => Auth::user(),
@@ -41,7 +44,7 @@ class AccountIndexScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): array
     {
@@ -51,7 +54,8 @@ class AccountIndexScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return array
+     * @throws \Throwable
      */
     public function layout(): array
     {
@@ -76,14 +80,9 @@ class AccountIndexScreen extends Screen
                 }),
                 Sight::make('token_bizon', 'Токен в Бизон 365'),
             ]),
-            
-            Layout::block(Layout::view('hello'))
-                ->title('Подключение amoCRM')
-                ->description('Подключите свою amoCRM к платформе'),//TODO под ним кнопка с инструкцией
-//            Layout::legend('account', [
-//                Sight::make('token_bizon', 'Токен в Бизон 365'),
-//            ]),
-        
+
+            Layout::rows([
+                amoCRMButton::make('name')])->title('Подключите amoCRM'),
         ];
     }
 }

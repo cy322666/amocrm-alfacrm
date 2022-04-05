@@ -6,6 +6,7 @@ use AmoCRM\Client\AmoCRMApiClient;
 use App\Facades\amoApi;
 use App\Models\Api\Core\Account;
 use App\Models\Api\Integrations\Bizon\BizonSetting;
+use App\Models\Api\Integrations\Bizon\Viewer;
 use App\Models\Api\Integrations\Bizon\Webinar;
 use App\Services\amoCRM\Strategy\Bizon\SendFactory;
 use App\Services\Bizon365\Client;
@@ -22,9 +23,6 @@ use Laravel\Octane\Exceptions\DdException;
 class BizonWebinarSend implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
-    private Webinar $webinar;
-    private BizonSetting $setting;
 
     /**
      * Количество попыток выполнения задания.
@@ -45,11 +43,13 @@ class BizonWebinarSend implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Webinar $webinar, BizonSetting $setting)
-    {
-        $this->webinar = $webinar;
-        $this->setting = $setting;
+    public function __construct(
+        private Webinar $webinar,
+        private BizonSetting $setting,
 
+        private int $offset,
+        private int $cursor)
+    {
         $this->onQueue('bizon_export');
     }
 
@@ -61,16 +61,14 @@ class BizonWebinarSend implements ShouldQueue
      */
     public function handle()
     {
-        Log::info(__METHOD__);
-
+//
 //        $amoApi = amoApi::getInstance();
 //
 //        $viewers = $this->webinar->viewers()
-//            ->where('status', 'wait')
-//            ->orderBy('time', 'DESC')
-//            ->limit(30)
+//            ->skip($this->offset)
+//            ->take($this->cursor)
 //            ->get();
-//
+
 //        foreach ($viewers as $viewer) {
 //
 //            $result = ViewerSender::send(
@@ -92,9 +90,6 @@ class BizonWebinarSend implements ShouldQueue
 //            $this->webinar->status = 'ok';
 //            $this->webinar->save();
 //
-//        } else {
-//            //вызываем еще 1 экземпляр задания
-//            BizonWebinarSend::dispatch($this->webinar, $this->setting)->afterCommit();
 //        }
     }
 }

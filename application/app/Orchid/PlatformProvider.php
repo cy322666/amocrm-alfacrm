@@ -80,12 +80,12 @@ class PlatformProvider extends OrchidServiceProvider
 //                ->icon('docs')
 //                ->url('https://orchid.software/en/docs'),
 
-            Menu::make('Логи')
-                ->icon('shuffle')
-                ->list([
-                    Menu::make('amoCRM')->icon('bag')->route('logs.amocrm.index'),
-                    Menu::make('Ошибки')->icon('heart')->route('logs.errors.index'),
-                ]),
+//            Menu::make('Логи')
+//                ->icon('shuffle')
+//                ->list([
+//                    Menu::make('amoCRM')->icon('bag')->route('logs.amocrm.index'),
+//                    Menu::make('Ошибки')->icon('heart')->route('logs.errors.index'),
+//                ]),
 
 
 //            Menu::make('Changelog')

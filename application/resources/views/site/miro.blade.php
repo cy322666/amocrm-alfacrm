@@ -8,12 +8,10 @@
                 <h3 class="text-gradient text-primary mb-0">Диаграммы строим</h3>
                 <h3>в Miro</h3>
                 <p class="pe-md-5 mb-4">
-                    Most complex and innovative Design System Made by <a href="https://creative-tim.com/" target="_blank">Creative Tim </a> . Check our latest Premium Bootstrap 5 UI Kit.
-
-                    Designed for those who like bold elements and beautiful websites. Made of hundred of elements, designed blocks and fully coded pages, Material Kit is ready to help you create stunning websites and webapps.
+                    Бесконечный холст <a href="https://miro.com" target="_blank">Miro</a> дает вам свободу выбора того, как вы работаете со своей командой. Независимо от того, проводите ли вы цифровой мозговой штурм, документируете встречу, ведете класс или управляете рабочим процессом Agile, возможности использования нашей цифровой доски безграничны.
                 </p>
                 <div class="github-buttons">
-                    <a href="https://www.creative-tim.com/product/material-kit-pro?ref=index-mk2" target="_blank" class="btn bg-gradient-primary mb-5 mb-sm-0">Upgrade to Pro</a>
+                    <a href="https://miro.com" target="_blank" class="btn bg-gradient-primary mb-5 mb-sm-0">Подробнее</a>
                     <div class="github-button">
                         <span></span>
                     </div>

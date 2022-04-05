@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Models\Api\Core\Account;
 use Orchid\Platform\Models\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends \Orchid\Platform\Models\User
 {
     /**
      * The attributes that are mass assignable.

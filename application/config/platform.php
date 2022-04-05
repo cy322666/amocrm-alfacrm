@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'prefix' => env('DASHBOARD_PREFIX', '/panel'),
+    'prefix' => env('DASHBOARD_PREFIX', '/platform'),
 
     /*
     |--------------------------------------------------------------------------
@@ -110,7 +110,7 @@ return [
 
     'resource' => [
         'stylesheets' => [
-            resource_path('css/app.css'),
+            '/platform/app.css',
         ],
         'scripts'     => [],
     ],

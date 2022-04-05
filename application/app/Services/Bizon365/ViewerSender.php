@@ -11,14 +11,30 @@ use Dflydev\DotAccessData\Data;
 
 abstract class ViewerSender
 {
-    public static function send(AmoCRMApiClient $amoApi, Viewer $viewer, StrategyInterface $strategy, BizonSetting $setting) :string|bool
+    public static function send(
+        AmoCRMApiClient $amoApi,
+        Viewer $viewer,
+        StrategyInterface $strategy,
+        BizonSetting $setting) :string|bool
     {
         try {
             $strategy->setApiClient($amoApi);
 
-            $contact = $strategy->searchContact($viewer->phone ?? $viewer->email) ?? $strategy->createContact($viewer);
-            $lead    = $strategy->searchLeads($contact) ?? $strategy->createLead($contact, $viewer, $setting);
-            $note    = $strategy->addLeadNote($lead, $viewer->createTextForNote());
+            $contact = $strategy->searchContact($amoApi, $viewer->phone ?? $viewer->email);
+
+            if ($contact == null) {
+                $contact = $strategy->createContact($viewer);
+            }
+
+            $lead = $strategy->searchLeads($contact);
+
+            if ($lead == null) {
+                $lead = $strategy->createLead($contact, $viewer, $setting);
+            }
+
+
+
+            $note = $strategy->addLeadNote($lead, $viewer->createTextForNote());
 
             $strategy->addLeadTags($lead, [
                 $setting->tag,

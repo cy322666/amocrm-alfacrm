@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dashboard $dashboard)
     {
+        //TODO cho eta?
         Dashboard::useModel(\Orchid\Platform\Models\User::class, \App\Models\User::class);
 
         $this->app->bind('amoApi', 'App\Services\amoCRM\Client');

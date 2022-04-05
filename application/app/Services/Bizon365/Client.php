@@ -22,9 +22,7 @@ class Client
     
     public function __construct()
     {
-        $this->http = new \GuzzleHttp\Client([
-            'cookies' => new CookieJar()
-        ]);
+        $this->http = new \GuzzleHttp\Client();
     }
     
     public function setLogin(string $login): static
@@ -53,7 +51,11 @@ class Client
      */
     public function webinar(string $id)
     {
-        $response = $this->http->get(self::$base_url.self::$version.'/webinars/reports/get?webinarId='.$id);
+        $response = $this->http->get(self::$base_url.self::$version.'/webinars/reports/get?webinarId='.$id, [
+            'headers' => [
+                'X-Token' => $this->token,
+            ]
+        ]);
         
         return json_decode(self::parse($response));
     }
@@ -63,19 +65,20 @@ class Client
         $response = $this->http->post(self::$base_url.self::$version.'/auth/login', [
     
             'headers' => [
-              //  'Content-type' => 'application/x-www-form-urlencoded',
+                'Content-type' => 'application/x-www-form-urlencoded',
             ],
             'form_params' => [
                 'username' => $this->login,
                 'password' => $this->password,
             ]
         ]);
-        
+
+        if($response->getStatusCode()) {
+
+            dd($response->getBody()->getContents());
+        }
         return $this;
-//        if($response->getStatusCode()) {
-//
-//            dd($response->getBody()->getContents());
-//        }
+
     }
     
     private static function parse(Response $response)

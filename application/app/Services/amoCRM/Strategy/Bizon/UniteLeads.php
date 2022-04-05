@@ -25,6 +25,10 @@ use AmoCRM\Models\NoteType\ServiceMessageNote;
 use AmoCRM\Models\TagModel;
 use App\Models\Api\Integrations\Bizon\BizonSetting;
 use App\Models\Api\Integrations\Bizon\Viewer;
+use App\Services\amoCRM\Strategy\Bizon\Actions\BizonCreateContact;
+use App\Services\amoCRM\Strategy\Bizon\Actions\BizonCreateLead;
+use App\Services\amoCRM\Strategy\Bizon\Actions\BizonSearchContact;
+use App\Services\amoCRM\Strategy\Bizon\Actions\BizonSearchLead;
 use App\Services\amoCRM\Strategy\Bizon\StrategyInterface;
 use Laravel\Octane\Exceptions\DdException;
 
@@ -53,82 +57,28 @@ class UniteLeads implements StrategyInterface
         return $this->setting;
     }
 
-    /**
-     * @throws AmoCRMApiException
-     * @throws AmoCRMoAuthApiException
-     * @throws AmoCRMMissedTokenException
-     */
-    public function searchContact(string $search_query): ?ContactModel
+    public function createContact(Viewer $viewer): bool|ContactModel
     {
-        try {
-            $contact = $this->apiClient
-                ->contacts()
-                ->get(
-                    (new ContactsFilter())->setQuery($search_query)
-                );
+        return BizonCreateContact::createContact($viewer);
+    }
 
-        } catch (AmoCRMApiNoContentException) {
-
-            return null;
-        }
-
-        return $contact->first();
+    public function searchContact($apiClient, $search_query): bool|ContactModel
+    {
+        return BizonSearchContact::searchContact($apiClient, $search_query);
     }
 
     /**
-     * @param ContactModel $model
+     * @param ContactModel $contactModel
      * @return mixed|null
      */
-    public function searchLeads(ContactModel $model): ?LeadModel
+    public function searchLeads(ContactModel $contactModel): ?LeadModel
     {
-        $leads = $model->getLeads();
-
-        if($leads !== null && $leads->first()) {
-
-            foreach ($leads as $lead) {
-
-                if($lead->getStatusId() != 142 && $lead->getStatusId()) {
-
-                    break;
-                }
-            }
-        }
-
-        return $lead ?? null;
+        return BizonSearchLead::searchLead($contactModel);
     }
 
-    public function createLead(ContactModel $model, Viewer $viewer, BizonSetting $setting): LeadModel
+    public function createLead(ContactModel $contactModel, Viewer $viewer, BizonSetting $setting): LeadModel
     {
-        $lead = (new LeadModel())
-            ->setName('Новый посетитель вебинара')
-            ->setStatusId($viewer->getStatusId($this->setting))
-            ->setResponsibleUserId($setting->responsible_user_id)
-            ->setContacts(
-                (new ContactsCollection())
-                    ->add(
-                        (new ContactModel())
-                            ->setId($model->getId())
-                            ->setIsMain(true)
-                    )
-            );//TODO  ->setExternalId($sourceExternalId)
-
-        try {
-            $leadsCollection = $this->apiClient
-                ->leads()
-                ->add((
-                    new LeadsCollection())->add($lead)
-                );
-
-            return $leadsCollection->first();
-
-        } catch (AmoCRMApiException $exception) {
-
-            //TODO log
-
-            echo '<pre>';print_r($exception->getValidationErrors());echo '</pre>';
-
-            return false;
-        }
+        return BizonCreateLead::createLead($contactModel, $viewer, $setting);
     }
 
     public function updateLead(LeadModel $lead, Viewer $viewer)
@@ -146,65 +96,7 @@ class UniteLeads implements StrategyInterface
         }
     }
 
-    public function createContact(Viewer $viewer): bool|ContactModel
-    {
-        $contact = (new ContactModel())
-            ->setName($viewer->username)
-            ->setCustomFieldsValues(
-                new CustomFieldsValuesCollection()
-            );
 
-        $customFields = $contact->getCustomFieldsValues();
-
-        if($viewer->phone !== null) {
-
-            $phoneField = (new MultitextCustomFieldValuesModel())
-                ->setFieldCode('PHONE');
-
-            $customFields->add($phoneField);
-
-            $phoneField->setValues(
-                    (new MultitextCustomFieldValueCollection())
-                        ->add(
-                            (new MultitextCustomFieldValueModel())
-                                ->setEnum('WORKDD')
-                                ->setValue($viewer->phone)
-                        )
-                );
-        }
-
-        if($viewer->email !== null) {
-
-            $emailField = (new MultitextCustomFieldValuesModel())
-                ->setFieldCode('EMAIL');
-
-            $customFields->add($emailField);
-
-            $emailField->setValues(
-                    (new MultitextCustomFieldValueCollection())
-                        ->add(
-                            (new MultitextCustomFieldValueModel())
-                                ->setEnum('WORK')
-                                ->setValue($viewer->email)
-                        )
-                );
-            // $emailField = (new MultitextCustomFieldValuesModel())->setFieldCode('EMAIL');
-            // $customFields->add($emailField);
-        }
-
-        try {
-             return $this->apiClient
-                ->contacts()
-                ->addOne($contact);
-
-        } catch (AmoCRMApiException $exception) {
-
-            echo '<pre>';print_r($exception->getValidationErrors());echo '</pre>';
-            //dd($exception->getLastRequestInfo());
-            //TODO log
-            return false;
-        }
-    }
 
     public function addLeadNote(LeadModel $lead, string $text): ?\AmoCRM\Models\NoteModel
     {

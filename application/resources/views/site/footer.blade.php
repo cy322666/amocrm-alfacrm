@@ -4,43 +4,43 @@
             <div class="col-md-3 mb-4 ms-auto">
                 <div>
                     <a href="https://www.creative-tim.com/product/material-kit">
-                        <img src="./assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">
+{{--                        <img src="./assets/img/logo-ct-dark.png" class="mb-3 footer-logo" alt="main_logo">--}}
                     </a>
-                    <h6 class="font-weight-bolder mb-4">Material Kit 2</h6>
+                    <h6 class="font-weight-bolder mb-4">BLACK CLEVER</h6>
                 </div>
                 <div>
-                    <ul class="d-flex flex-row ms-n3 nav">
-                        <li class="nav-item">
-                            <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim" target="_blank">
-                                <i class="fab fa-facebook text-lg opacity-8"></i>
-                            </a>
-                        </li>
+{{--                    <ul class="d-flex flex-row ms-n3 nav">--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim" target="_blank">--}}
+{{--                                <i class="fab fa-facebook text-lg opacity-8"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                        <li class="nav-item">
-                            <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
-                                <i class="fab fa-twitter text-lg opacity-8"></i>
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">--}}
+{{--                                <i class="fab fa-twitter text-lg opacity-8"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                        <li class="nav-item">
-                            <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
-                                <i class="fab fa-dribbble text-lg opacity-8"></i>
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">--}}
+{{--                                <i class="fab fa-dribbble text-lg opacity-8"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
 
-                        <li class="nav-item">
-                            <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
-                                <i class="fab fa-github text-lg opacity-8"></i>
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">--}}
+{{--                                <i class="fab fa-github text-lg opacity-8"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                        <li class="nav-item">
-                            <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w" target="_blank">
-                                <i class="fab fa-youtube text-lg opacity-8"></i>
-                            </a>
-                        </li>
-                    </ul>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w" target="_blank">--}}
+{{--                                <i class="fab fa-youtube text-lg opacity-8"></i>--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
+{{--                    </ul>--}}
                 </div>
             </div>
 
@@ -160,7 +160,7 @@
             <div class="col-12">
                 <div class="text-center">
                     <p class="text-dark my-4 text-sm font-weight-normal">
-                        All rights reserved. Copyright © <script>document.write(new Date().getFullYear())</script> Material Kit by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                        All rights reserved. Copyright © <script>document.write(new Date().getFullYear())</script> Black Clever.
                     </p>
                 </div>
             </div>

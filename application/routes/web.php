@@ -35,53 +35,9 @@ use App\Orchid\Controllers\AuthController;
 
 //Route::screen('/notifications', PlatformScreen::class)->name('platform.main');
 
-Route::screen('/main', PlatformScreen::class)->name('platform.main');
-
-Route::screen('profile', UserProfileScreen::class)->name('platform.profile');
-
-Route::screen('users/{user}/edit', UserEditScreen::class)->name('platform.systems.users.edit');
-
-Route::screen('users/create', UserEditScreen::class)->name('platform.systems.users.create');
-
-Route::screen('users', UserListScreen::class)->name('platform.systems.users');
-
-Route::screen('roles/{roles}/edit', RoleEditScreen::class)->name('platform.systems.roles.edit');
-
-Route::screen('roles/create', RoleEditScreen::class)->name('platform.systems.roles.create');
-
-Route::screen('roles', RoleListScreen::class)->name('platform.systems.roles');
-
-Route::screen('roles', RoleListScreen::class)->name('users.roles');
-
-
-Route::screen('example', ExampleScreen::class)->name('platform.example');
-Route::screen('example-fields', ExampleFieldsScreen::class)->name('platform.example.fields');
-Route::screen('example-layouts', ExampleLayoutsScreen::class)->name('platform.example.layouts');
-Route::screen('example-charts', ExampleChartsScreen::class)->name('platform.example.charts');
-Route::screen('example-editors', ExampleTextEditorsScreen::class)->name('platform.example.editors');
-Route::screen('example-cards', ExampleCardsScreen::class)->name('platform.example.cards');
-Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('platform.example.advanced');
-
-
-Route::screen('bizon/orders/webinars', WebinarIndexScreen::class)->name('bizon.orders.webinars');
-
-Route::screen('bizon/orders/{webinar}/viewers', ViewerIndexScreen::class)->name('bizon.orders.viewers');
-
-Route::screen('bizon/orders/{viewer}', ViewerDetailScreen::class)->name('bizon.orders.viewers.detail');
-
-Route::screen('bizon/analytics', BizonAnalyticsScreen::class)->name('bizon.analytics.index');
-
-Route::screen('bizon/connect', BizonConnectScreen::class)->name('bizon.connect.index');
-
-Route::screen('bizon/settings', BizonSettingScreen::class)->name('bizon.setting.index');
-
-Route::screen('logs/amocrm', LogAmoCRMScreen::class)->name('logs.amocrm.index');
-
-Route::screen('logs/errors', LogErrorsScreen::class)->name('logs.errors.index');
-
-Route::screen('account', AccountIndexScreen::class)->name('account.index');
-
-Route::screen('account/pay', AccountIndexPay::class)->name('account.pay');
+Route::get('/', function () {
+    return view('site.index');
+});
 
 Route::get('lock', [AuthController::class, 'resetCookieLockMe'])->name('login.lock');
 //});

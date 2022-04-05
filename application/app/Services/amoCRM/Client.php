@@ -5,8 +5,7 @@ namespace App\Services\amoCRM;
 use AmoCRM\Client\AmoCRMApiClient;
 use AmoCRM\Client\AmoCRMApiClientFactory;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Api\Core\Account;
 use League\OAuth2\Client\Token\AccessToken;
 
 class Client
@@ -14,15 +13,20 @@ class Client
     /**
      * @throws AmoCRMoAuthApiException
      */
-    public function getInstance(): AmoCRMApiClient
+    public function getInstance(Account $account): AmoCRMApiClient
     {
-        $account = User::query()->first()->account;//TODO заменить эту хуйню
+        if(!$this->checkAuth($account)) {
+
+            throw new AmoCRMoAuthApiException();
+            //TODO custom exception
+            //TODO event notification
+        }
 
         $apiClient = (new AmoCRMApiClientFactory(
             new OauthEloquentConfig($account),
             new OauthEloquentService($account))
         )->make()
-            ->setAccountBaseDomain($account->subdomain);
+         ->setAccountBaseDomain($account->subdomain);
 
         if($account->access_token == null) {
 
@@ -35,6 +39,7 @@ class Client
                 $account->access_token  = $access_token->getToken();
                 $account->refresh_token = $access_token->getRefreshToken();
                 $account->expires_in    = $access_token->getExpires();
+                $account->work = 1;
                 $account->save();
             }
         } else {
@@ -48,5 +53,18 @@ class Client
         $apiClient->setAccessToken($access_token);
 
         return  $apiClient;
+    }
+
+    public function checkAuth(Account $account) : bool
+    {
+        if ($account->work == 0 ||
+            $account->client_id == null ||
+            $account->subdomain == null ||
+            $account->access_token  == null ||
+            $account->client_secret == null) {
+
+            return false;
+        } else
+            return true;
     }
 }
