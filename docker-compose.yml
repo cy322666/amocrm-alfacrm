@@ -1,0 +1,31 @@
+version: '3.5'
+
+services:
+    app:
+        build: ./docker/images/php81
+        volumes:
+            - ./application:/app
+        ports:
+            - "80:8000"
+        links:
+            - postgresql
+        networks:
+            - cluster
+    postgresql:
+        image: postgres:9.6.21-alpine
+        ports:
+            - "5431:5432"
+        networks:
+            - cluster
+        volumes:
+            - ./database:/var/lib/postgresql
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: pQLkm8NOkS0gOBox
+            POSTGRES_DB: clever
+networks:
+    cluster:
+        name: cluster
+        external: true
+        driver: bridge
+
