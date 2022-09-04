@@ -2,6 +2,7 @@
 
 namespace App\Models\AlfaCRM;
 
+use App\Models\Account;
 use App\Models\amoCRM\Field;
 use App\Services\AlfaCRM\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -42,28 +43,88 @@ class Setting extends Model
         'branch_id',
     ];
 
-    public function checkStatusCame(int $statusId): bool
-    {
-       return match ($statusId) {
+//    public function branches()
+//    {
+//        return $this->morphMany('');
+//    }
 
-           $this->status_came_1 => true,
-           $this->status_came_2 => true,
-           $this->status_came_3 => true,
-           default => false,
+    public function checkStatus(string $action, int $statusId): bool
+    {
+        $action = 'status_'.$action;
+
+        return match ($statusId) {
+
+            $this->{$action_1},
+            $this->{$action_3},
+            $this->{$action_2} => true,
+
+            default => false,
         };
     }
 
-    public function getBranchId($lead)
+    public static function getFieldBranch(Lead $lead, ?Contact $contact, Setting $setting): bool|\App\Models\amoCRM\Field
     {
-        $branchId = $this->branches()
+
+        if ($setting->branch_id) {
+
+            $fieldBranch = \App\Models\amoCRM\Field::find($setting->branch_id);
+        }
+
+        if (!empty($fieldBranch)) {
+
+            if ($fieldBranch->field_id) {
+
+                $entity = $fieldBranch->entity == 1 ? $contact : $lead;
+
+                $branch = $entity->cf($fieldBranch->name)->getValue();
+            }
+        }
+        return $branch ?? false;
+    }
+
+    /*
+        $fields - json в поле
+        $code - поле из альфы
+        $fieldName - название поля амо в бд (в сущности)
+        $fieldValues - массив со значениями для клиента в АльфаСРМ
+    */
+    public function getFieldValues(Lead $lead, ?Contact $contact, Account $account): array
+    {
+        foreach (json_decode($this->fields) as $code => $fieldName) {
+
+            if ($fieldName !== null) {
+
+                $amoField = $account->fields(Field::class)
+                    ->where('name', $fieldName)
+                    ->first();
+
+                $entity = $amoField->entity == 1 ? $contact : $lead;
+
+                if ($amoField->field_id) {
+
+                    $fieldValue = $entity->cf($amoField->name)->getValue();
+                } else
+                    $fieldValue = $entity->{$amoField->code};
+
+                $fieldValues[$code] = $fieldValue;
+            }
+        }
+
+        return $fieldValues ?? [];
+    }
+
+    public static function getBranchId(Lead $lead, Contact $contact, Account $account, Setting $setting)
+    {
+        $branchId = $account->branches()
+            ->orderBy('branch_id')
             ->first()
             ->branch_id;
 
-        $branchValue = $this->getFieldBranch($lead);
+        $branchValue = self::getFieldBranch($lead, $contact, $setting);
 
         if ($branchValue) {
 
-            foreach ($this->branches as $branch) {
+            foreach ($account->branches as $branch) {
 
                 if (trim(mb_strtolower($branch->name)) == trim(mb_strtolower($branchValue))) {
 
@@ -74,57 +135,6 @@ class Setting extends Model
             }
         }
         return $branchId;
-    }
-
-    public function getFieldBranch($lead): bool|\App\Models\amoCRM\Field
-    {
-        if ($this->branch_id) {
-
-            $fieldBranch = \App\Models\amoCRM\Field::find($this->branch_id);
-        }
-
-        if (!empty($fieldBranch)) {
-
-            if ($fieldBranch->field_id) {
-
-                $branch = $lead->cf($fieldBranch->name)->getValue();
-            }
-        }
-        return $branch ?? false;
-    }
-
-    public function branches()
-    {
-        return $this->hasMany(Branch::class)->where('is_active', true);
-    }
-
-    /*
-        $fields - json в поле
-        $code - поле из альфы
-        $fieldId - id поля амо в бд
-        $fieldValues - массив со значениями для клиента в АльфаСРМ
-    */
-    public function getFieldValues(Lead $lead, ?Contact $contact): array
-    {
-        foreach (json_decode($this->fields) as $code => $fieldId) {
-
-            if ($fieldId !== null) {
-
-                $amoField = Field::find($fieldId);
-
-                $entity = $amoField->entity == 1 ? $contact : $lead;
-
-                if ($amoField->field_id) {
-
-                    $fieldValue = $entity->cf($amoField->name)->getValue();
-                } else
-                    $fieldValue = $entity->{$amoField->name};
-
-                $fieldValues[$code] = $fieldValue;
-            }
-        }
-
-        return $fieldValues ?? [];
     }
 
     public static function customerUpdateOrCreate(array $fieldValues, alfaApi $alfaApi)

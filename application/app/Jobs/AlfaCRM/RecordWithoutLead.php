@@ -9,7 +9,7 @@ use App\Services\AlfaCRM\Models\Customer;
 use App\Services\amoCRM\Client as amoApi;
 use App\Services\AlfaCRM\Client as alfaApi;
 use App\Services\amoCRM\Helpers\Notes;
-use App\Services\ManagerClients\AlfaCRMManager\AlfaCRMManager;
+use App\Services\ManagerClients\AlfaCRMManager;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -41,7 +41,7 @@ class RecordWithoutLead implements ShouldQueue
         public array $data,
     )
     {
-        $this->onConnection('alfacrm.record');
+//        $this->onConnection('alfacrm.record');
     }
 
     /**
@@ -56,20 +56,26 @@ class RecordWithoutLead implements ShouldQueue
         $amoApi  = $manager->amoApi;
         $alfaApi = $manager->alfaApi;
 
-        $lead = $amoApi->service
-            ->leads()
-            ->find($this->data['id']);
+        try {
+            $lead = $amoApi->service
+                ->leads()
+                ->find($this->data['id']);
 
-        $contact = $lead->contact;
+            $contact = $lead->contact;
 
-        $alfaApi->branchId = $this->setting->getBranchId($lead);
+            $alfaApi->branchId = $this->setting::getBranchId($lead, $contact, $manager->alfaAccount, $this->setting);
 
-        $fieldValues = $this->setting->getFieldValues($lead, $contact);
+            $fieldValues = $this->setting->getFieldValues($lead, $contact, $manager->amoAccount);
 
-        Notes::addOne($lead, 'Синхронизировано с АльфаСРМ, ссылка на клиента >>>');
+var_dump($fieldValues);
+//        Notes::addOne($lead, 'Синхронизировано с АльфаСРМ, ссылка на клиента >>>');
 
-        $customerId = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);
+//        $customerId = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);
 
-        //TODO сейвим транзакцию
+            //TODO сейвим транзакцию
+        } catch (\Throwable $exception) {
+
+            dd($exception->getMessage(), $exception->getFile(), $exception->getLine());
+        }
     }
 }

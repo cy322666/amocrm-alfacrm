@@ -12,7 +12,7 @@ class Customer
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->branchId}.".$this->client::$baseUrl.'branch/index', [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'branch/index', [
                 'headers' => $this->client->headers(),
                 'body' => json_encode([
                     "is_active" => 1,
@@ -27,10 +27,10 @@ class Customer
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->branchId}.".$this->client::$baseUrl.'customer/index', [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/index', [
                 'headers' => $this->client->headers(),
                 'body' => json_encode([
-                    "page"      => 0,
+                    "page" => 0,
                 ]),
             ]);
 
@@ -41,7 +41,7 @@ class Customer
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->branchId}.".$this->client::$baseUrl.'customer/index', [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/index', [
                 'headers' => $this->client->headers(),
                 'body' => json_encode([
                     "page"  => 0,
@@ -56,7 +56,7 @@ class Customer
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->branchId}.".$this->client::$baseUrl.'customer/index?id='.$id, [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/index?id='.$id, [
                 'headers' => $this->client->headers(),
                 'body' => json_encode([
                     "page"  => 0,
@@ -71,7 +71,7 @@ class Customer
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->branchId}.".$this->client::$baseUrl.'customer/create', [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/create', [
                 'headers' => $this->client->headers(),
                 'body' => json_encode([
                     "page"  => 0,

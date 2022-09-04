@@ -33,6 +33,8 @@ class Customer extends Model
         'paid_lesson_date',
         'last_attend_date',
         'company_id',
+        'e_date',
+        'b_date',
     ];
 
     public static function matchField(string $fieldName)

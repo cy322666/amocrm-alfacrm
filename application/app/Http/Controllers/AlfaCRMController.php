@@ -2,39 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Api\AlfaCRM\CameRequest;
 use App\Http\Requests\Api\AlfaCRM\RecordRequest;
 use App\Jobs\AlfaCRM\RecordWithLead;
 use App\Jobs\AlfaCRM\RecordWithoutLead;
 use App\Models\AlfaCRM\Setting;
 use App\Models\Webhook;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class AlfaCRMController extends Controller
 {
     public function record(Webhook $webhook, RecordRequest $request)
     {
+        $data = $request->leads['status'][0] ?? $request->leads['add'][0];
+
         try {
+            $setting = $webhook
+                ->settings(Setting::class)
+                ->firstOrFail();
 
-            $data = $request->leads['status'][0] ?? $request->leads['add'][0];
+            if($setting->checkStatus('record', $data['status_id'])) {
 
-            try {
-                $setting = $webhook
-                    ->settings(Setting::class)
-                    ->firstOrFail();
+                if ($setting->work_lead === true) {
 
-                if($setting->checkStatusCame($data['status_id'])) {
-
-                    if ($setting->work_lead === true) {
-
-                        RecordWithLead::dispatch($setting, $webhook, $data)
-                            ->onQueue('alfacrm.record');
-                    } else
-                        RecordWithoutLead::dispatch($setting, $webhook, $data);
-                }
-            } catch (ModelNotFoundException $exception) {
-
-                dd($exception->getMessage());
+                    RecordWithLead::dispatch($setting, $webhook, $data)
+                        ->onQueue('alfacrm.record');
+                } else
+                    RecordWithoutLead::dispatch($setting, $webhook, $data);
             }
+        } catch (ModelNotFoundException $exception) {
+
+            dd($exception->getMessage());
+        }
 
 //            if ()
 
@@ -153,17 +153,29 @@ class AlfaCRMController extends Controller
 //                "https://podvodoinn.s20.online/company/{$model->alfa_branch_id}/customer/view?id={$model->alfa_client_id}"
 //            );
 //            $contact->save();
-
-        } catch (\Exception $exception) {
-
-            dd($exception->getMessage());
-//            Log::error(__METHOD__.' : '.$exception->getMessage());
-        }
     }
 
-    public function came(Webhook $webhook)
+    public function came(Webhook $webhook, CameRequest $request)
     {
+        try {
+            $setting = $webhook
+                ->settings(Setting::class)
+                ->firstOrFail();
 
+            //TODO как узнать что это came1,2,3?
+//            $setting->
+//
+//                if ($setting->work_lead === true) {
+//
+//                    RecordWithLead::dispatch($setting, $webhook, $data)
+//                        ->onQueue('alfacrm.record');
+//                } else
+//                    RecordWithoutLead::dispatch($setting, $webhook, $data);
+//            }
+        } catch (ModelNotFoundException $exception) {
+
+            dd($exception->getMessage());
+        }
     }
 
     public function omission(Webhook $webhook)

@@ -93,6 +93,8 @@ class SettingsScreen extends Screen
                     ->pluck('name', 'id')
                     ->unique(),
 
+            'fields' => json_decode($setting->fields),
+
             'fieldsAlfaCRM' => $account->fields(\App\Models\AlfaCRM\Field::class)->get(),
             'fieldsAmoCRM'  => $amoAccount->fields(Field::class)->get(),
         ];

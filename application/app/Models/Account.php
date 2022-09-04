@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AlfaCRM\Branch;
 use App\Models\AlfaCRM\Setting;
 use App\Models\amoCRM\Field;
 use App\Models\amoCRM\Pipeline;
@@ -79,5 +80,10 @@ class Account extends Model
     public function webhooks()
     {
         return $this->hasMany(Webhook::class);
+    }
+
+    public function branches()
+    {
+        return $this->hasMany(Branch::class);
     }
 }
