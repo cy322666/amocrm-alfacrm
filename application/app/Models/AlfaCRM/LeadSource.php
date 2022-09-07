@@ -4,19 +4,18 @@ namespace App\Models\AlfaCRM;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Orchid\Screen\AsSource;
 
-class Field extends Model
+class LeadSource extends Model
 {
-    use HasFactory, AsSource;
+    use HasFactory;
 
-    protected $table = 'alfacrm_fields';
+    protected $table = 'alfacrm_lead_sources';
 
     protected $fillable = [
         'account_id',
-        'entity',
-        'name',
         'code',
-        'required',
+        'name',
+        'is_enabled',
+        'source_id',
     ];
 }

@@ -3,6 +3,7 @@
 namespace App\Services\AlfaCRM;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Client
 {
@@ -49,7 +50,7 @@ class Client
 
     public function headers(): array
     {
-        $headers = ['Accept: application/json', 'Content-Type: application/json'];
+        $headers = ['Accept' => 'application/json', 'Content-Type' => 'application/json'];
 
         if ($this->token) {
 

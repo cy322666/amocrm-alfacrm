@@ -25,6 +25,6 @@ class AlfaCRMManager
 
         $this->alfaAccount = $user->account('alfacrm')->first();
 
-        $this->alfaApi = (new alfaApi($this->alfaAccount));
+        $this->alfaApi = (new alfaApi($this->alfaAccount))->init();
     }
 }

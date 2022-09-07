@@ -2,6 +2,7 @@
 
 namespace App\Models\AlfaCRM;
 
+use App\Services\AlfaCRM\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -28,6 +29,8 @@ class Customer extends Model
         'balance_bonus',
         'balance_base',
         'paid_count',
+        'balance',
+        'paid_lesson_count',
         'next_lesson_date',
         'paid_till',
         'paid_lesson_date',
@@ -35,6 +38,13 @@ class Customer extends Model
         'company_id',
         'e_date',
         'b_date',
+        'assigned_id',
+    ];
+
+    public static array $required = [
+        'name',
+        'legal_name',
+        'phone',
     ];
 
     public static function matchField(string $fieldName)
@@ -42,7 +52,7 @@ class Customer extends Model
         return match ($fieldName) {
             'name' => 'Полное имя',
             'lead_source_id' => 'Источник',
-            'assigned_id' => 'Ответственный',
+//            'assigned_id' => 'Ответственный',
             'legal_name'  => 'Имя заказчика',
             'dob'     => 'Дата рождения',
 //            'balance' => 'Текущий остаток, деньги',
@@ -56,10 +66,8 @@ class Customer extends Model
         };
     }
 
-//study_status_id
-
-//статус обучения (StudyStatus)
-
-//этап воронки продаж (LeadStatus)
-
+    public static function buildLink(Client $alfaApi, int $customerId) : string
+    {
+        return 'https://'.$alfaApi->domain.'.s20.online/company/'.$alfaApi->branchId.'/customer/view?id='.$customerId;
+    }
 }

@@ -45,10 +45,6 @@ class Info extends \Orchid\Screen\Layouts\Rows
                 ->title('Работа с лидами')
                 ->sendTrueOrFalse()
                 ->help('Если не выбрано, то создаются только клиенты'),
-
-            Button::make('Сохранить')
-                ->method('save')
-                ->type(Color::INFO()),
         ];
     }
 }

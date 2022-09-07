@@ -7,15 +7,17 @@ use App\Http\Requests\Api\AlfaCRM\RecordRequest;
 use App\Jobs\AlfaCRM\RecordWithLead;
 use App\Jobs\AlfaCRM\RecordWithoutLead;
 use App\Models\AlfaCRM\Setting;
+use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
 
 class AlfaCRMController extends Controller
 {
-    public function record(Webhook $webhook, RecordRequest $request)
+    public function record(Webhook $webhook, RecordRequest $request, Transaction $transaction)
     {
         $data = $request->leads['status'][0] ?? $request->leads['add'][0];
+
+        $transaction->setRecordData($data, $webhook);
 
         try {
             $setting = $webhook
@@ -24,34 +26,21 @@ class AlfaCRMController extends Controller
 
             if($setting->checkStatus('record', $data['status_id'])) {
 
-                if ($setting->work_lead === true) {
+                if ($setting->work_lead == true) {
 
-                    RecordWithLead::dispatch($setting, $webhook, $data)
-                        ->onQueue('alfacrm.record');
+                    RecordWithLead::dispatch($setting, $webhook, $transaction, $data);
                 } else
-                    RecordWithoutLead::dispatch($setting, $webhook, $data);
+                    RecordWithoutLead::dispatch($setting, $webhook, $transaction, $data);
             }
         } catch (ModelNotFoundException $exception) {
 
-            dd($exception->getMessage());
+            //TODO баг нет настроек
+        } catch (\Throwable $exception) {
+
+            $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $transaction->save();
         }
 
-//            if ()
-
-
-
-//            $lead = 1;
-//            $contact = $lead->contact;
-//
-//            $branch = $lead->cf('Адрес клуба')->getValue();
-//            $source = $lead->cf('Откуда узнали')->getValue();
-//
-//            $branchId = match ($branch) {
-//                'Октябрьской революции, 62' => Client::BRANCH_4_ID,
-//                'Полтавская, 39'  => Client::BRANCH_3_ID,
-//                'Коминтерна, 182' => Client::BRANCH_2_ID,
-//            };
-//
 //            $sourceId = match ($source) {
 //                'Реклама в ВК'         => Client::SOURCE_4_ID,
 //                'Реклама в интернете'  => Client::SOURCE_8_ID,
@@ -62,24 +51,6 @@ class AlfaCRMController extends Controller
 //                'Реклама в парке им. 1 Мая' => Client::SOURCE_12_ID,
 //                default => 0,
 //            };
-//
-//            $model = Lead::query()
-//                ->create([
-//                    'amo_contact_id'      => $contact->id ?? null,
-//                    'amo_contact_phone'   => Contacts::clearPhone($contact->cf('Телефон')->getValue()),
-//                    'amo_contact_email'   => $contact->cf('Email')->getValue(),
-//                    'alfa_branch_id'      => $branchId,
-//                    'amo_children_1_name' => $contact->cf('ФИО ребенка 1')->getValue(),
-//                    'amo_children_2_name' => $contact->cf('ФИО ребенка 2')->getValue(),
-//                    'amo_children_1_bd'   => $contact->cf('День рождения ребенка 1')->getValue(),
-//                    'amo_children_2_bd'   => $contact->cf('День рождения ребенка 2')->getValue(),
-//                    'amo_lead_instagram'  => $contact->cf('Instagram')->getValue(),
-//                    'amo_lead_source'     => $lead->cf('Откуда узнали')->getValue(),
-//                    'amo_lead_notes'   => $contact->cf('Примечание')->getValue(),
-//                    'amo_lead_id'      => $lead->id,
-//                    'amo_contact_name' => $contact->name ?? null,
-//                    'type' => $request->type,
-//                ]);
 //
 //            $customers = (new Customer($this->alfaApi, $branchId))
 //                ->get(0, [

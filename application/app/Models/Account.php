@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Models\AlfaCRM\Branch;
+use App\Models\AlfaCRM\LeadSource;
+use App\Models\AlfaCRM\LeadStatus;
 use App\Models\AlfaCRM\Setting;
 use App\Models\amoCRM\Field;
 use App\Models\amoCRM\Pipeline;
@@ -67,7 +69,12 @@ class Account extends Model
         return $this->hasMany($class);//,  'account_id', 'id'
     }
 
-    public function statuses()
+    public function alfaSources()
+    {
+        return $this->hasMany(LeadSource::class);
+    }
+
+    public function amoStatuses()
     {
         return $this->hasMany(Status::class);
     }
@@ -82,8 +89,13 @@ class Account extends Model
         return $this->hasMany(Webhook::class);
     }
 
-    public function branches()
+    public function alfaBranches()
     {
         return $this->hasMany(Branch::class);
+    }
+
+    public function alfaStatuses()
+    {
+        return $this->hasMany(LeadStatus::class, 'account_id', 'id' );
     }
 }

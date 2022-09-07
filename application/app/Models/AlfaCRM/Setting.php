@@ -4,9 +4,13 @@ namespace App\Models\AlfaCRM;
 
 use App\Models\Account;
 use App\Models\amoCRM\Field;
+use App\Models\Webhook;
 use App\Services\AlfaCRM\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+use Ramsey\Uuid\Uuid;
 use Ufee\Amo\Models\Contact;
 use Ufee\Amo\Models\Lead;
 use App\Services\AlfaCRM\Client as alfaApi;
@@ -28,6 +32,10 @@ class Setting extends Model
         'status_omission_2',
         'status_omission_3',
 
+        'stage_record_1',
+        'stage_came_1',
+        'stage_omission_1',
+
         'active',
         'work_lead',
 
@@ -43,10 +51,10 @@ class Setting extends Model
         'branch_id',
     ];
 
-//    public function branches()
-//    {
-//        return $this->morphMany('');
-//    }
+    public function webhooks()
+    {
+        return $this->hasMany(Webhook::class);
+    }
 
     public function checkStatus(string $action, int $statusId): bool
     {
@@ -54,19 +62,19 @@ class Setting extends Model
 
         return match ($statusId) {
 
-            $this->{$action_1},
-            $this->{$action_3},
-            $this->{$action_2} => true,
+            $this->{$action.'_1'},
+            $this->{$action.'_3'},
+            $this->{$action.'_2'} => true,
 
             default => false,
         };
     }
 
-    public static function getFieldBranch(Lead $lead, ?Contact $contact, Setting $setting): bool|\App\Models\amoCRM\Field
+    public static function getFieldBranch(Lead $lead, ?Contact $contact, Setting $setting): string
     {
-
         if ($setting->branch_id) {
 
+            //TODO может и не найти тут эксепшен и уведомление
             $fieldBranch = \App\Models\amoCRM\Field::find($setting->branch_id);
         }
 
@@ -76,10 +84,11 @@ class Setting extends Model
 
                 $entity = $fieldBranch->entity == 1 ? $contact : $lead;
 
-                $branch = $entity->cf($fieldBranch->name)->getValue();
+                $branchName = $entity->cf($fieldBranch->name)->getValue();
             }
         }
-        return $branch ?? false;
+
+        return $branchName ?? false;
     }
 
     /*
@@ -88,7 +97,7 @@ class Setting extends Model
         $fieldName - название поля амо в бд (в сущности)
         $fieldValues - массив со значениями для клиента в АльфаСРМ
     */
-    public function getFieldValues(Lead $lead, ?Contact $contact, Account $account): array
+    public function getFieldValues(Lead $lead, ?Contact $contact, Account $account, Account $alfaAccount): array
     {
         foreach (json_decode($this->fields) as $code => $fieldName) {
 
@@ -106,6 +115,16 @@ class Setting extends Model
                 } else
                     $fieldValue = $entity->{$amoField->code};
 
+                //исключительные поля
+                if ($code == 'lead_source_id' && $fieldValue) {
+
+                    $fieldValue = $alfaAccount->alfaSources()
+//                        ->where('name', 'like', '%'.$fieldValue.'%')
+                        ->where('name', $fieldValue)
+                        ->first()
+                            ?->source_id;
+                }
+
                 $fieldValues[$code] = $fieldValue;
             }
         }
@@ -115,16 +134,18 @@ class Setting extends Model
 
     public static function getBranchId(Lead $lead, Contact $contact, Account $account, Setting $setting)
     {
-        $branchId = $account->branches()
+        $branchId = $account->alfaBranches()
             ->orderBy('branch_id')
             ->first()
             ->branch_id;
 
         $branchValue = self::getFieldBranch($lead, $contact, $setting);
-
+        Log::info(__METHOD__. ' name 2 '.$branchValue);
         if ($branchValue) {
 
-            foreach ($account->branches as $branch) {
+            foreach ($account->alfaBranches as $branch) {
+
+            Log::info(__METHOD__.' '.$branchValue.' - '.$branch->name);
 
                 if (trim(mb_strtolower($branch->name)) == trim(mb_strtolower($branchValue))) {
 
@@ -139,19 +160,37 @@ class Setting extends Model
 
     public static function customerUpdateOrCreate(array $fieldValues, alfaApi $alfaApi)
     {
-        //TODO email?
-        if ($fieldValues['phone']) {
+        $customers = (new Customer($alfaApi))->search($fieldValues['phone']);
 
-            $customer = (new Customer($alfaApi))->search($fieldValues['phone']);
+        $customer = $customers->total == 0 ? (new Customer($alfaApi))->create($fieldValues) : $customers->items[0];
 
-            if (!$customer) {
+        (new Customer($alfaApi))->update($customer->id, $fieldValues);
 
-                $customer = (new Customer($alfaApi))->create($fieldValues);
-            }
+        return $customer;
+    }
 
-            $customer = (new Customer($alfaApi))->update($customer['id'], $fieldValues);
-        }
-        //TODO лучше отдавать сущность
-        return $customer['id'];
+    public function createWebhooks()
+    {
+        $this->webhooks()->create([
+            'user_id'  => Auth::user()->id,
+            'app_name' => 'alfacrm',
+            'app_id'   => 1,
+            'active'   => true,
+            'path'     => 'alfacrm.came',
+            'type'     => 'status_came',
+            'platform' => 'alfacrm',
+            'uuid'     => Uuid::uuid4(),
+        ]);
+
+        $this->webhooks()->create([
+            'user_id'  => Auth::user()->id,
+            'app_name' => 'alfacrm',
+            'app_id'   => 1,
+            'active'   => true,
+            'path'     => 'alfacrm.omission',
+            'type'     => 'status_omission',
+            'platform' => 'alfacrm',
+            'uuid'     => Uuid::uuid4(),
+        ]);
     }
 }

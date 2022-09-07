@@ -119,6 +119,12 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/myclabs/php-enum" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/event-dispatcher" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/scout" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/dbal" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/telescope" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -20,6 +20,7 @@ class Fields extends \Orchid\Screen\Layouts\Rows
      */
     protected function fields(): iterable
     {
+        //TODO снести?
         return [
             Input::make('fields.name')
                 ->title('Полное имя')
@@ -34,26 +35,26 @@ class Fields extends \Orchid\Screen\Layouts\Rows
 //                ->title('Ответственный')
 //                ->empty('Не выбрано'),
 
-            Input::make('legal_name')
-                ->required()
-                ->title('Имя заказчика'),
-
-            Input::make('dob')
-                ->title('Дата рождения'),
-
-            Input::make('note')
-                ->title('Примечание'),
-
-            Input::make('email')
-                ->title('Почта')
-                ->required(),
-
-            Input::make('phone')
-                ->required()
-                ->title('Телефон'),
-
-            Input::make('web')
-                ->title('Сайт'),
+//            Input::make('legal_name')
+//                ->required()
+//                ->title('Имя заказчика'),
+//
+//            Input::make('dob')
+//                ->title('Дата рождения'),
+//
+//            Input::make('note')
+//                ->title('Примечание'),
+//
+//            Input::make('email')
+//                ->title('Почта')
+//                ->required(),
+//
+//            Input::make('phone')
+//                ->required()
+//                ->title('Телефон'),
+//
+//            Input::make('web')
+//                ->title('Сайт'),
         ];
     }
 }

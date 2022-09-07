@@ -2,22 +2,18 @@
 
 namespace App\Jobs\AlfaCRM;
 
+use App\Models\AlfaCRM\Customer;
 use App\Models\AlfaCRM\Setting;
-use App\Models\amoCRM\Field;
+use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
-use App\Services\AlfaCRM\Models\Customer;
-use App\Services\amoCRM\Client as amoApi;
-use App\Services\AlfaCRM\Client as alfaApi;
-use App\Services\amoCRM\Helpers\Notes;
+use App\Services\amoCRM\Models\Contacts;
+use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\AlfaCRMManager;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-
-
 
 /**
  * Отправляет клиента после записи в АльфаСРМ
@@ -38,6 +34,7 @@ class RecordWithoutLead implements ShouldQueue
     public function __construct(
         public Setting $setting,
         public Webhook $webhook,
+        public Transaction $transaction,
         public array $data,
     )
     {
@@ -61,21 +58,29 @@ class RecordWithoutLead implements ShouldQueue
                 ->leads()
                 ->find($this->data['id']);
 
-            $contact = $lead->contact;
+            $contact = $lead->contact;//TODO если нет контакта
 
             $alfaApi->branchId = $this->setting::getBranchId($lead, $contact, $manager->alfaAccount, $this->setting);
 
-            $fieldValues = $this->setting->getFieldValues($lead, $contact, $manager->amoAccount);
+            $fieldValues = $this->setting->getFieldValues($lead, $contact, $manager->amoAccount, $manager->alfaAccount);
 
-var_dump($fieldValues);
-//        Notes::addOne($lead, 'Синхронизировано с АльфаСРМ, ссылка на клиента >>>');
+            $fieldValues['web'][] = Contacts::buildLink($amoApi, $contact->id);
+            $fieldValues['branch_ids'][] = $alfaApi->branchId;//TODO бренчи затирает
+            $fieldValues['is_study']   = 1;
+            $fieldValues['legal_type'] = 1;
 
-//        $customerId = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);
+            $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);
 
-            //TODO сейвим транзакцию
+            $this->transaction->alfa_client_id = $customer->id;
+            $this->transaction->fields = $fieldValues;
+            $this->transaction->alfa_branch_id = $alfaApi->branchId;
+
+            Notes::addOne($lead, 'Синхронизировано с АльфаСРМ, ссылка на клиента '.Customer::buildLink($alfaApi, $customer->id));
+
         } catch (\Throwable $exception) {
 
-            dd($exception->getMessage(), $exception->getFile(), $exception->getLine());
+            $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
         }
+        $this->transaction->save();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\amoCRM\Helpers;
+namespace App\Services\amoCRM\Models;
 
 use App\Services\amoCRM\Client;
 
@@ -89,5 +89,10 @@ abstract class Contacts extends Client
     public static function get($client, $id)
     {
         return $client->service->contacts()->find($id);
+    }
+
+    public static function buildLink($amoApi, int $contactId) : string
+    {
+        return 'https://'.$amoApi->storage->model->subdomain.'.amocrm.ru/contacts/detail/'.$contactId;
     }
 }

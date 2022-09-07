@@ -6,17 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
 
-class Field extends Model
+class LeadStatus extends Model
 {
     use HasFactory, AsSource;
 
-    protected $table = 'alfacrm_fields';
+    protected $table = 'alfacrm_lead_statuses';
 
     protected $fillable = [
         'account_id',
-        'entity',
+        'is_enabled',
+        'status_id',
         'name',
-        'code',
-        'required',
     ];
 }

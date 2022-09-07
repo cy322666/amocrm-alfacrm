@@ -33,53 +33,44 @@ class PlatformProvider extends OrchidServiceProvider
                 ->title('Аккаунт')
                 ->icon('note')
                 ->route('account'),
+//                ->badge(function () {
+//                    return 6;
+//                }),
 
-            Menu::make('alfacrm.settings')
-                ->title('Настройки')
-                ->icon('note')
-                ->route('alfacrm.settings'),
-
-            Menu::make('Example screen')
-                ->icon('monitor')
-                ->route('platform.example')
-                ->title('Navigation')
-                ->badge(function () {
-                    return 6;
-                }),
-
-            Menu::make('Dropdown menu')
+            Menu::make('АльфаСРМ')
                 ->icon('code')
                 ->list([
-                    Menu::make('Sub element item 1')->icon('bag'),
-                    Menu::make('Sub element item 2')->icon('heart'),
+                    Menu::make('Настройки')
+                        ->icon('note')
+                        ->route('alfacrm.settings'),
                 ]),
 
-            Menu::make('Basic Elements')
-                ->title('Form controls')
-                ->icon('note')
-                ->route('platform.example.fields'),
-
-            Menu::make('Advanced Elements')
-                ->icon('briefcase')
-                ->route('platform.example.advanced'),
-
-            Menu::make('Text Editors')
-                ->icon('list')
-                ->route('platform.example.editors'),
-
-            Menu::make('Overview layouts')
-                ->title('Layouts')
-                ->icon('layers')
-                ->route('platform.example.layouts'),
-
-            Menu::make('Chart tools')
-                ->icon('bar-chart')
-                ->route('platform.example.charts'),
-
-            Menu::make('Cards')
-                ->icon('grid')
-                ->route('platform.example.cards')
-                ->divider(),
+//            Menu::make('Basic Elements')
+//                ->title('Form controls')
+//                ->icon('note')
+//                ->route('platform.example.fields'),
+//
+//            Menu::make('Advanced Elements')
+//                ->icon('briefcase')
+//                ->route('platform.example.advanced'),
+//
+//            Menu::make('Text Editors')
+//                ->icon('list')
+//                ->route('platform.example.editors'),
+//
+//            Menu::make('Overview layouts')
+//                ->title('Layouts')
+//                ->icon('layers')
+//                ->route('platform.example.layouts'),
+//
+//            Menu::make('Chart tools')
+//                ->icon('bar-chart')
+//                ->route('platform.example.charts'),
+//
+//            Menu::make('Cards')
+//                ->icon('grid')
+//                ->route('platform.example.cards')
+//                ->divider(),
 
             Menu::make('Documentation')
                 ->title('Docs')

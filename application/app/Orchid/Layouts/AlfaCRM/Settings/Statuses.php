@@ -18,45 +18,12 @@ class Statuses extends \Orchid\Screen\Layouts\Table
 
     protected $target = 'statuses';
 
-    /**
-     * @inheritDoc
-     */
-//    protected function fields(): iterable
-//    {
-//        Layout::table('statuses', [
-
-
-//        ]);
-//        $pipelines = Auth::user()->account->pipelines;
-//
-//        foreach ($pipelines as $pipeline) {
-//
-//
-//        }
-
-//        return [
-//
-//        ];
-//    }
-
-//    private function prepare($pipeline)
-//    {
-//        Label::make('static')
-//            ->title('Static:')
-//            ->value('email@example.com');
-//
-//        foreach ($pipeline->statuses as $status) {
-//
-//
-//        }
-//    }
-
     protected function columns(): iterable
     {
         return [
             TD::make('id', 'ID')
                 ->align('center')
-                ->width('220')
+                ->width('270')
                 ->render(function (Status $model) {
 
                     return '<div class="filled-circle" style="background-color: '.$model->color.'; border-radius: 20px">'.$model->status_id.'</div>';
@@ -78,7 +45,7 @@ class Statuses extends \Orchid\Screen\Layouts\Table
             TD::make('name', 'Воронка')
                 ->width('450')
                 ->render(function (Status $model) {
-                    return $model->pipeline->name;
+                    return $model->pipeline?->name;
                 }),
             ];
     }

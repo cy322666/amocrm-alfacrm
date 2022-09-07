@@ -119,6 +119,12 @@
       <path value="$PROJECT_DIR$/application/vendor/myclabs/php-enum" />
       <path value="$PROJECT_DIR$/application/vendor/symfony/event-dispatcher" />
       <path value="$PROJECT_DIR$/application/vendor/laravel/scout" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/deprecations" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/event-manager" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/dbal" />
+      <path value="$PROJECT_DIR$/application/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/application/vendor/psr/cache" />
+      <path value="$PROJECT_DIR$/application/vendor/laravel/telescope" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
