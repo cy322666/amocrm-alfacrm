@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Api\AlfaCRM\CameRequest;
 use App\Http\Requests\Api\AlfaCRM\RecordRequest;
+use App\Jobs\AlfaCRM\CameWithLead;
+use App\Jobs\AlfaCRM\CameWithoutLead;
 use App\Jobs\AlfaCRM\RecordWithLead;
 use App\Jobs\AlfaCRM\RecordWithoutLead;
 use App\Models\AlfaCRM\Setting;
 use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
+use App\Services\AlfaCRM\Mapper;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AlfaCRMController extends Controller
@@ -133,19 +136,38 @@ class AlfaCRMController extends Controller
                 ->settings(Setting::class)
                 ->firstOrFail();
 
-            //TODO как узнать что это came1,2,3?
-//            $setting->
-//
-//                if ($setting->work_lead === true) {
-//
-//                    RecordWithLead::dispatch($setting, $webhook, $data)
-//                        ->onQueue('alfacrm.record');
-//                } else
-//                    RecordWithoutLead::dispatch($setting, $webhook, $data);
-//            }
+            $transaction = $setting->webhooks()
+                ->where('alfa_branch_id', $request->branch_id)
+                ->where('alfa_client_id', $request->entity_id)
+                ->where('user_id', $webhook->user->id)
+                ->where('status', Mapper::RECORD)
+                ->first();
+
+            if (!$transaction) {
+
+                $transaction = $setting->webhooks()
+                    ->create([
+                        'alfa_branch_id' => $request->branch_id,
+                        'alfa_client_id' => $request->entity_id,
+                        'user_id' => $webhook->user->id,
+                    ]);
+            }
+
+            $transaction->setCameData($request->toArray(), $webhook);
+
+//            if ($setting->work_lead == true) {
+
+//                CameWithLead::dispatch($setting, $webhook, $transaction);
+//            } else
+                CameWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
+
         } catch (ModelNotFoundException $exception) {
 
-            dd($exception->getMessage());
+            //TODO баг нет настроек
+        } catch (\Throwable $exception) {
+
+            $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $transaction->save();
         }
     }
 

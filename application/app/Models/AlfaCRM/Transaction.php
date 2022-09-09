@@ -24,6 +24,7 @@ class Transaction extends Model
         'status',
         'status_id',
         'error',
+        'user_id',
     ];
 
     public function setRecordData(array $data, Webhook $webhook)
@@ -34,6 +35,19 @@ class Transaction extends Model
             'status_id'   => $data['status_id'],
             'comment' => 'created',
             'status'  => Mapper::RECORD,
+            'user_id' => $webhook->user->id,
+        ]);
+        $this->save();
+    }
+
+    public function setCameData(array $data, Webhook $webhook)
+    {
+        $this->fill([
+            'webhook_id'  => $webhook->id,
+            'amo_lead_id' => $data['id'],
+            'status_id'   => $data['status_id'],
+            'comment' => 'came',
+            'status'  => Mapper::CAME,
         ]);
         $this->save();
     }
