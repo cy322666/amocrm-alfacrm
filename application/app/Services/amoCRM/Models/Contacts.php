@@ -95,4 +95,13 @@ abstract class Contacts extends Client
     {
         return 'https://'.$amoApi->storage->model->subdomain.'.amocrm.ru/contacts/detail/'.$contactId;
     }
+
+    public static function clearPhone(?string $phone): ?string
+    {
+        if ($phone) {
+
+            return str_replace([',', '(', ')', '-', '+'],'', $phone);
+        } else
+            return null;
+    }
 }

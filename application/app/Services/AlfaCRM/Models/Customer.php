@@ -28,11 +28,14 @@ class Customer
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/index?id='.$id, [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/index', [
                 'headers' => $this->client->headers(),
+                'json' => [
+                    "id" => $id
+                ]
             ]);
-dd($response);
-        return json_decode($response->getBody()->getContents());
+
+        return json_decode($response->getBody()->getContents())?->items[0];
     }
 
     public function first()

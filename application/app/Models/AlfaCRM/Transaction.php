@@ -36,6 +36,7 @@ class Transaction extends Model
             'comment' => 'created',
             'status'  => Mapper::RECORD,
             'user_id' => $webhook->user->id,
+            'error'   => null,
         ]);
         $this->save();
     }
@@ -44,10 +45,9 @@ class Transaction extends Model
     {
         $this->fill([
             'webhook_id'  => $webhook->id,
-            'amo_lead_id' => $data['id'],
-            'status_id'   => $data['status_id'],
             'comment' => 'came',
             'status'  => Mapper::CAME,
+            'error'   => null,
         ]);
         $this->save();
     }

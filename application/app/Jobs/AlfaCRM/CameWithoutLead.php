@@ -7,6 +7,8 @@ use App\Models\AlfaCRM\Setting;
 use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
 use App\Services\AlfaCRM\Models\Customer;
+use App\Services\amoCRM\Models\Contacts;
+use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\AlfaCRMManager;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -27,14 +29,8 @@ class CameWithoutLead implements ShouldQueue
         public array $data,
     )
     {
-
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
     public function handle()
     {
         $manager = new AlfaCRMManager($this->webhook);
@@ -57,18 +53,18 @@ class CameWithoutLead implements ShouldQueue
 
                 $contact = $amoApi->service
                     ->contacts()
-                    ->search($customer->phone)?->first();
+                    ->search(Contacts::clearPhone($customer->phone[0] ?? null))
+                    ?->first();
 
-                $pipelineId = Auth::user()
-                    ->account('amocrm')
-                    ->statuses()
+                $pipelineId = $manager->amoAccount
+                    ->amoStatuses()
                         ->where('status_id', $this->setting->status_came_1)
                         ->first()
                             ->pipeline
                             ->pipeline_id;
 
                 if ($contact) {
-                    $lead = $contact->leads->each(function ($lead) use ($pipelineId) {
+                    $lead = $contact->leads->filter(function ($lead) use ($pipelineId) {
 
                         if ($lead->pipeline_id == $pipelineId &&
                             $lead->status_id !== 142 &&
@@ -76,22 +72,30 @@ class CameWithoutLead implements ShouldQueue
 
                             return $lead;
                         }
-                    });
-
-                    if (!$lead) {
-                        $this->transaction->error = 'Not found active lead in need pipeline amoCRM';
-                    }
-                } else {
+                    })?->first();
+                } else
                     $this->transaction->error = 'Not found contact in amoCRM';
-                }
             }
 
-            $lead->status_id = $this->setting->status_came_1;
-            $lead->save();
+            if (empty($lead)) {
+                $this->transaction->error = 'Not found lead in need pipeline amoCRM or by id';
+                $this->transaction->save();
 
-            $this->transaction->amo_lead_id = $lead->id;
+                return false;
 
+            } else {
+
+                $lead->status_id = $this->setting->status_came_1;
+                $lead->save();
+
+                $this->transaction->amo_lead_id = $lead->id;
+                $this->transaction->status_id = $lead->status_id;
+
+                Notes::addOne($lead, 'Клиент посетил пробное в AlfaCRM');
+            }
         } catch (\Throwable $exception) {
+
+            dd($exception->getMessage(). ' '.$exception->getLine());
 
             $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
         }

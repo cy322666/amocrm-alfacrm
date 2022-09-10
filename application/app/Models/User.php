@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AlfaCRM\Transaction;
 use Orchid\Platform\Models\User as Authenticatable;
 
 class User extends Authenticatable
@@ -67,5 +68,10 @@ class User extends Authenticatable
     public function account(string $name = 'amocrm')
     {
         return $this->hasOne(Account::class)->where('name', $name)->first();
+    }
+
+    public function alfaTransactions()
+    {
+        return $this->hasMany(Transaction::class);
     }
 }

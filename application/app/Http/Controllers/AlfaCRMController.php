@@ -136,11 +136,12 @@ class AlfaCRMController extends Controller
                 ->settings(Setting::class)
                 ->firstOrFail();
 
-            $transaction = $setting->webhooks()
+            $transaction = $webhook->user
+                ->alfaTransactions()
                 ->where('alfa_branch_id', $request->branch_id)
                 ->where('alfa_client_id', $request->entity_id)
                 ->where('user_id', $webhook->user->id)
-                ->where('status', Mapper::RECORD)
+//                ->where('status', Mapper::RECORD)
                 ->first();
 
             if (!$transaction) {
@@ -161,13 +162,14 @@ class AlfaCRMController extends Controller
 //            } else
                 CameWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
 
-        } catch (ModelNotFoundException $exception) {
-
             //TODO баг нет настроек
         } catch (\Throwable $exception) {
 
-            $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
-            $transaction->save();
+//            if (!empty($transaction)) {
+//                $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+//                $transaction->save();
+//            } else
+                dd($exception->getMessage(). ' '.$exception->getLine());
         }
     }
 
