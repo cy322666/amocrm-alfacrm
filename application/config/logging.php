@@ -70,6 +70,8 @@ return [
             'days' => 14,
         ],
 
+        //TODO requests log channel
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

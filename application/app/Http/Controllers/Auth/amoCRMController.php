@@ -10,6 +10,7 @@ use App\Services\AlfaCRM\Models\Branch;
 use App\Services\AlfaCRM\Models\Customer;
 use App\Services\amoCRM\Client;
 use App\Services\amoCRM\EloquentStorage;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -19,9 +20,30 @@ use App\Services\amoCRM\Client as amoApi;
 
 class amoCRMController extends Controller
 {
-    public function redirect(Request $request, amoApi $amocrm, alfaApi $alfaApi)
+    /**
+     * @throws Exception
+     */
+    public function redirect(Request $request)
     {
         Log::info(__METHOD__, $request->toArray());
+
+        $account = Auth::user()->amoAccount();
+
+        $account->code = $request->code;
+        $account->client_id = $request->client_id;
+        $account->save();
+
+        try {
+            (new amoApi($account))->init();
+
+
+
+        } catch (\Throwable $exception) {
+
+            Log::error(__METHOD__.' : '.$exception->getMessage());
+
+
+        }
     }
 
     public function secrets(Request $request)

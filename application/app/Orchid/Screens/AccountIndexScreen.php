@@ -28,6 +28,10 @@ class AccountIndexScreen extends Screen
      */
     public string $name = 'Аккаунт';
 
+    public bool $authActive;
+
+    public ?bool $auth;
+
     /**
      * Display header description.
      *
@@ -44,8 +48,9 @@ class AccountIndexScreen extends Screen
     public function query(Request $request): array
     {
         return [
-            'user' => User::query()->first(),
-           // 'account' => Auth::user()->account,
+            'user' => Auth::user(),
+            'auth' => $request->auth,
+            'authActive' => Auth::user()->amoAccount()->active,
         ];
     }
 
@@ -71,45 +76,24 @@ class AccountIndexScreen extends Screen
             Layout::legend('user', [
                 Sight::make('name', 'Имя'),
                 Sight::make('email', 'Почта'),
-//                Sight::make('email_verified_at', 'Почта подтверждена')->render(function (User $user) {
-//                    return $user->email_verified_at === null
-//                        ? '<i class="text-danger">●</i> Нет'
-//                        : '<i class="text-success">●</i> Да';
-//                }),
                 Sight::make('created_at', 'Создан')
                     ->render(function ($user) {
                         return Carbon::parse($user->created_at)
                             ->format('Y-m-d H:i:s');
-                    })
+                    }),
+                Sight::make('authActive', 'Подключение amoCRM')->render(function () {
+                    return $this->authActive == false
+                        ? '<i class="text-danger">●</i> Не подключено'
+                        : '<i class="text-success">●</i> Подключено';
+                }),
             ]),
             Layout::block([
-//                'Поля' => Layout::columns([
-
                     Layout::rows([
-
-                        amoCRMButton::make('name'),//->title('Подключите amoCRM'),
-
-//                        Button::make('Сохранить')
-//                            ->method('save')
-//                            ->type(Color::DEFAULT()),
-//                    ])),
+                        amoCRMButton::make('button.auth'),//->title('Подключите amoCRM'),
                 ]),
             ])
             ->title('Статус интеграции')
             ->description('Проверьте все настройки'),
         ];
     }
-//            Layout::legend('account', [
-//                Sight::make('endpoint', 'Ключ для интеграциий'),
-//                Sight::make('referer', 'Полный адрес amoCRM'),
-////                Sight::make('status', 'Тариф')->render(function (Account $account) {
-//
-////                    $account->getTarrif();
-////                }),
-////                Sight::make('token_bizon', 'Токен в Бизон 365'),
-//            ]),
-
-//            Layout::rows([
-//
-
 }
