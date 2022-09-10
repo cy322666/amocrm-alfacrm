@@ -70,6 +70,21 @@ class User extends Authenticatable
         return $this->hasOne(Account::class)->where('name', $name)->first();
     }
 
+    public function alfaAccount()
+    {
+        return Account::query()->where('name', 'alfacrm')->first();
+    }
+
+    public function amoAccount()
+    {
+        return Account::query()->where('name', 'amocrm')->first();
+    }
+
+    public function webhooks()
+    {
+        return $this->hasMany(Webhook::class);
+    }
+
     public function alfaTransactions()
     {
         return $this->hasMany(Transaction::class);

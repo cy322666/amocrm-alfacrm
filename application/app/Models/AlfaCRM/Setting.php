@@ -162,7 +162,13 @@ class Setting extends Model
     {
         $customers = (new Customer($alfaApi))->search($fieldValues['phone']);
 
-        $customer = $customers->total == 0 ? (new Customer($alfaApi))->create($fieldValues) : $customers->items[0];
+        if ($customers->total == 0) {
+            $customer = (new Customer($alfaApi))->create($fieldValues);
+        } else {
+            $customer = $customers->items[0];
+
+            $fieldValues['branch_ids'] = array_merge($customer->branch_ids, [$fieldValues['branch_id']]);
+        }
 
         (new Customer($alfaApi))->update($customer->id, $fieldValues);
 

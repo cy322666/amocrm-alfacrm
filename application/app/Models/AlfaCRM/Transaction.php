@@ -6,10 +6,11 @@ use App\Models\Webhook;
 use App\Services\AlfaCRM\Mapper;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Screen\AsSource;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    use HasFactory, AsSource;
 
     protected $table = 'alfacrm_transactions';
 
@@ -47,6 +48,17 @@ class Transaction extends Model
             'webhook_id'  => $webhook->id,
             'comment' => 'came',
             'status'  => Mapper::CAME,
+            'error'   => null,
+        ]);
+        $this->save();
+    }
+
+    public function setOmissionData(array $data, Webhook $webhook)
+    {
+        $this->fill([
+            'webhook_id'  => $webhook->id,
+            'comment' => 'omission',
+            'status'  => Mapper::OMISSION,
             'error'   => null,
         ]);
         $this->save();

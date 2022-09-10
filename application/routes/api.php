@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlfaCRMController;
 use App\Http\Controllers\Auth\amoCRMController;
 
+use Illuminate\Support\Facades\Log;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,7 +24,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/amocrm/secrets', [amoCRMController::class, 'secrets']);
-
 
 Route::prefix('alfacrm')->group(function () {
 

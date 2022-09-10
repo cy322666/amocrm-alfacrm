@@ -37,6 +37,7 @@ Route::screen('/main', PlatformScreen::class)->name('platform.main');
 Route::screen('/account', AccountIndexScreen::class)->name('account');
 
 Route::screen('/alfacrm/settings', \App\Orchid\Screens\AlfaCRM\SettingsScreen::class)->name('alfacrm.settings');
+Route::screen('/alfacrm/transactions', \App\Orchid\Screens\AlfaCRM\LogScreen::class)->name('alfacrm.transactions');
 
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)

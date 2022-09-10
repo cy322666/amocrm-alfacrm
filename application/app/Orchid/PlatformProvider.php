@@ -43,6 +43,10 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('Настройки')
                         ->icon('note')
                         ->route('alfacrm.settings'),
+
+                    Menu::make('События')
+                        ->icon('note')
+                        ->route('alfacrm.transactions'),
                 ]),
 
 //            Menu::make('Basic Elements')

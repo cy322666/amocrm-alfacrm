@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\AlfaCRM;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CameRequest extends FormRequest
+class OmissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

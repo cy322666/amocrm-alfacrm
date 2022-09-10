@@ -78,25 +78,24 @@ class SettingsScreen extends Screen
 
             'stages' => $account
                 ->alfaStatuses()
-//                ->where('is_enabled', true)
                 ->get(),
 
-            'whStatusCame' => Webhook::query()
+            'whStatusCame' => Auth::user()
+                ->webhooks()
                 ->where('app_id', 1)
                 ->where('type', 'status_came')
-                ->where('user_id', Auth::user()->id)
                 ->first(),
 
-            'whStatusOmission' => Webhook::query()
-                ->where('app_id', 1)
+            'whStatusOmission' => Auth::user()
+                ->webhooks()
                 ->where('type', 'status_omission')
                 ->where('user_id', Auth::user()->id)
                 ->first(),
 
-            'whStatusRecord' => Webhook::query()
+            'whStatusRecord' => Auth::user()
+                ->webhooks()
                 ->where('app_id', 1)
-                ->where('type', 'record')
-                ->where('user_id', Auth::user()->id)
+                ->where('type', 'status_record')
                 ->first(),
 
             'account'    => $account,

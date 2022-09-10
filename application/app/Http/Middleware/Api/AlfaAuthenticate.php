@@ -4,6 +4,7 @@ namespace App\Http\Middleware\Api;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Laravel\Octane\Exceptions\DdException;
 
 class AlfaAuthenticate
@@ -18,6 +19,8 @@ class AlfaAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
+        Log::info($request->path(), $request->toArray());
+
         if ($request->webhook->active === true) {
 
             return $next($request);

@@ -10,6 +10,7 @@ use App\Services\AlfaCRM\Models\Customer;
 use App\Services\amoCRM\Models\Contacts;
 use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\AlfaCRMManager;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -17,6 +18,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Octane\Exceptions\DdException;
 
 class CameWithoutLead implements ShouldQueue
 {
@@ -27,10 +29,12 @@ class CameWithoutLead implements ShouldQueue
         public Webhook $webhook,
         public Transaction $transaction,
         public array $data,
-    )
-    {
-    }
+    ) {}
 
+    /**
+     * @throws DdException
+     * @throws Exception
+     */
     public function handle()
     {
         $manager = new AlfaCRMManager($this->webhook);

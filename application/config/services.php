@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'amocrm' => [
+        'client_id' => env('AMOCRM_CLIENT_ID'),
+        'app_name'  => 'CLEVER PLATFORM',
+        'description'  => 'Подключите платформу к вашему аккаунту для подключения интеграций',
+        'redirect_uri' => env('AMOCRM_REDIRECT'),
+        'secrets_uri'  => env('AMOCRM_SECRETS_URI'),
+    ],
 ];

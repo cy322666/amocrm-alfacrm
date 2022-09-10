@@ -4,8 +4,12 @@ namespace App\Services\ManagerClients;
 
 use App\Models\Account;
 use App\Models\Webhook;
+use App\Notifications\Api\AlfaCRMAuthException;
+use App\Notifications\Api\amoCRMAuthException;
 use App\Services\AlfaCRM\Client as alfaApi;
 use App\Services\amoCRM\Client as amoApi;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class AlfaCRMManager
 {
@@ -15,16 +19,37 @@ class AlfaCRMManager
     public Account $alfaAccount;
 
     //TODO exception auth
+
+    /**
+     * @throws Exception
+     */
     public function __construct(Webhook $webhook)
     {
         $user = $webhook->user;
 
-        $this->amoAccount = $user->account('amocrm');
+        $this->amoAccount = $user->amoAccount();
 
-        $this->amoApi = (new amoApi($this->amoAccount))->init();
+        try {
 
-        $this->alfaAccount = $user->account('alfacrm')->first();
+            $this->amoApi = (new amoApi($this->amoAccount))->init();
 
-        $this->alfaApi = (new alfaApi($this->alfaAccount))->init();
+        } catch (\Throwable $exception) {
+
+            Log::error(__METHOD__.' : '.$exception->getMessage());
+
+            $user->notify(new amoCRMAuthException());
+        }
+
+        $this->alfaAccount = $user->alfaAccount();
+
+        try {
+            $this->alfaApi = (new alfaApi($this->alfaAccount))->init();
+
+        } catch (\Throwable $exception) {
+
+            Log::error(__METHOD__.' : '.$exception->getMessage());
+
+            $user->notify(new AlfaCRMAuthException());
+        }
     }
 }

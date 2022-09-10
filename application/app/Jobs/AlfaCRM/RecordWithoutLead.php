@@ -9,6 +9,7 @@ use App\Models\Webhook;
 use App\Services\amoCRM\Models\Contacts;
 use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\AlfaCRMManager;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -22,9 +23,9 @@ class RecordWithoutLead implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $tries = 3;
+    public int $tries = 3;
 
-    public $maxExceptions = 3;
+    public int $maxExceptions = 3;
 
     /**
      * Create a new job instance.
@@ -44,7 +45,8 @@ class RecordWithoutLead implements ShouldQueue
     /**
      * Execute the job.
      *
-     * @return void
+     * @return false
+     * @throws Exception
      */
     public function handle()
     {
@@ -58,14 +60,22 @@ class RecordWithoutLead implements ShouldQueue
                 ->leads()
                 ->find($this->data['id']);
 
-            $contact = $lead->contact;//TODO если нет контакта
+            $contact = $lead->contact;
+
+            if (!$contact) {
+
+                $this->transaction->error = 'Lead without contact';
+                $this->transaction->save();
+
+                return false;
+            }
 
             $alfaApi->branchId = $this->setting::getBranchId($lead, $contact, $manager->alfaAccount, $this->setting);
 
             $fieldValues = $this->setting->getFieldValues($lead, $contact, $manager->amoAccount, $manager->alfaAccount);
 
             $fieldValues['web'][] = Contacts::buildLink($amoApi, $contact->id);
-            $fieldValues['branch_ids'][] = $alfaApi->branchId;//TODO бренчи затирает
+            $fieldValues['branch_id']  = $alfaApi->branchId;//TODO бренчи затирает UDP проверить поправил
             $fieldValues['is_study']   = 1;
             $fieldValues['legal_type'] = 1;
 
