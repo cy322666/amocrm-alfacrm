@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->integer('user_id')->nullable();
-            $table->integer('account_id')->nullable();
+//            $table->integer('account_id')->nullable();
             $table->string('app_name')->nullable();
             $table->integer('app_id')->nullable();
             $table->boolean('active')->nullable();

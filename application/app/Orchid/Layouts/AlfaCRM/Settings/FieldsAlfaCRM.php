@@ -13,7 +13,7 @@ use Orchid\Screen\TD;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
 
-class FieldsHelp extends \Orchid\Screen\Layouts\Table
+class FieldsAlfaCRM extends \Orchid\Screen\Layouts\Table
 {
     protected $target = 'fieldsAmoCRM';
 
@@ -24,5 +24,18 @@ class FieldsHelp extends \Orchid\Screen\Layouts\Table
             TD::make('code', 'Код'),
             TD::make('field_id', 'ID'),
         ];
+    }
+
+    protected function textNotFound(): string
+    {
+        return 'Информации нет, обновите поля';
+    }
+
+    /**
+     * @return string
+     */
+    protected function subNotFound(): string
+    {
+        return 'Нажмите на кнопку выше \'Поля amoCRM\'';
     }
 }

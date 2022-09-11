@@ -34,7 +34,7 @@ class StatusFields extends \Orchid\Screen\Layouts\Rows
             Input::make('setting.status_omission_1')
                 ->title('Этап пропуска')
                 ->required()
-                ->help('Этап на который сделка передвигается при отмене/пропуске пробного'),
+                ->help('Этап на который сделка передвигается при отмене пробного'),
         ];
     }
 }

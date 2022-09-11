@@ -49,6 +49,7 @@ class Setting extends Model
         'web',
 
         'branch_id',
+        'account_id',
     ];
 
     public function webhooks()

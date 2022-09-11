@@ -9,7 +9,7 @@ use App\Orchid\Screens\Examples\ExampleFieldsScreen;
 use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
 use App\Orchid\Screens\Examples\ExampleScreen;
 use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
-use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\StartScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -31,13 +31,12 @@ use App\Orchid\Screens\AccountIndexScreen;
 |
 */
 
-// Main
-Route::screen('/main', PlatformScreen::class)->name('platform.main');
+Route::screen('start', StartScreen::class)->name('platform.start');
 
-Route::screen('/account', AccountIndexScreen::class)->name('account');
+Route::screen('account', AccountIndexScreen::class)->name('account');
 
-Route::screen('/alfacrm/settings', \App\Orchid\Screens\AlfaCRM\SettingsScreen::class)->name('alfacrm.settings');
-Route::screen('/alfacrm/transactions', \App\Orchid\Screens\AlfaCRM\LogScreen::class)->name('alfacrm.transactions');
+Route::screen('alfacrm/settings', \App\Orchid\Screens\AlfaCRM\SettingsScreen::class)->name('alfacrm.settings');
+Route::screen('alfacrm/transactions', \App\Orchid\Screens\AlfaCRM\LogScreen::class)->name('alfacrm.transactions');
 
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)

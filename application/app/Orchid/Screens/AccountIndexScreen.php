@@ -6,7 +6,7 @@ namespace App\Orchid\Screens;
 //use App\Orchid\Layouts\ConnectAmoCRM;
 use App\Models\User;
 use App\Orchid\Buttons\amoCRMButton;
-use App\Orchid\Layouts\AlfaCRM\Settings\FieldsHelp;
+use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

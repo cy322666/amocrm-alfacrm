@@ -125,6 +125,7 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/telescope" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/ui" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

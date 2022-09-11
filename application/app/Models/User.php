@@ -72,12 +72,18 @@ class User extends Authenticatable
 
     public function alfaAccount()
     {
-        return Account::query()->where('name', 'alfacrm')->first();
+        return Account::query()
+            ->where('user_id', $this->id)
+            ->where('name', 'alfacrm')
+            ->first();
     }
 
     public function amoAccount()
     {
-        return Account::query()->where('name', 'amocrm')->first();
+        return Account::query()
+            ->where('user_id', $this->id)
+            ->where('name', 'amocrm')
+            ->first();
     }
 
     public function webhooks()

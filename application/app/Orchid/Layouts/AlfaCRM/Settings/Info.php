@@ -44,7 +44,7 @@ class Info extends \Orchid\Screen\Layouts\Rows
             CheckBox::make('setting.work_lead')
                 ->title('Работа с лидами')
                 ->sendTrueOrFalse()
-                ->help('Если не выбрано, то создаются только клиенты'),
+                ->help('Если не выбрано, то создаются/обновляются только клиенты'),
         ];
     }
 }

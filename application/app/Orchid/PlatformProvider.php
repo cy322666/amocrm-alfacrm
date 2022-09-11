@@ -29,23 +29,20 @@ class PlatformProvider extends OrchidServiceProvider
     {
         return [
 
-            Menu::make('account')
-                ->title('Аккаунт')
+            Menu::make('Аккаунт')
                 ->icon('note')
                 ->route('account'),
-//                ->badge(function () {
-//                    return 6;
-//                }),
 
             Menu::make('АльфаСРМ')
-                ->icon('code')
+                ->icon('grid')
+                ->title('Интеграции')
                 ->list([
                     Menu::make('Настройки')
-                        ->icon('note')
+                        ->icon('settings')
                         ->route('alfacrm.settings'),
 
                     Menu::make('События')
-                        ->icon('note')
+                        ->icon('clock')
                         ->route('alfacrm.transactions'),
                 ]),
 
@@ -76,17 +73,17 @@ class PlatformProvider extends OrchidServiceProvider
 //                ->route('platform.example.cards')
 //                ->divider(),
 
-            Menu::make('Documentation')
-                ->title('Docs')
+            Menu::make('Документация')
+                ->title('Дополнительно')
                 ->icon('docs')
-                ->url('https://orchid.software/en/docs'),
+                ->url(''),//TODO
 
-            Menu::make('Changelog')
+            Menu::make('Лог изменений')
                 ->icon('shuffle')
-                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
+//                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
                 ->target('_blank')
                 ->badge(function () {
-                    return Dashboard::version();
+                    return env('APP_VERSION');
                 }, Color::DARK()),
 
             Menu::make(__('Users'))
@@ -108,7 +105,7 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerProfileMenu(): array
     {
         return [
-            Menu::make('Profile')
+            Menu::make('Профиль')
                 ->route('platform.profile')
                 ->icon('user'),
         ];

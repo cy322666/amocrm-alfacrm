@@ -27,6 +27,11 @@ class amoCRMController extends Controller
     {
         Log::info(__METHOD__, $request->toArray());
 
+        if ($request->state !== 'hello') {
+
+            redirect(route('account'), ['auth' => false]);
+        }
+
         $account = Auth::user()->amoAccount();
 
         $account->code = $request->code;
@@ -36,13 +41,13 @@ class amoCRMController extends Controller
         try {
             (new amoApi($account))->init();
 
-
+            redirect(route('account'), ['auth' => true]);
 
         } catch (\Throwable $exception) {
 
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
-
+            redirect(route('account'), ['auth' => false]);
         }
     }
 
@@ -67,5 +72,10 @@ class amoCRMController extends Controller
 //        $access->subdomain = explode($request->referer, '.amocrm.')[0];
 //        //$access->state = $request->post('state');
 //        $access->save();
+    }
+
+    public function off(Request $request)
+    {
+        Log::info(__METHOD__, $request->toArray());
     }
 }

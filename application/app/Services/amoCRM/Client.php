@@ -11,6 +11,8 @@ class Client
     public Oauthapi $service;
     public EloquentStorage $storage;
 
+    public bool $auth = false;
+
     public function __construct(Account $account) {
 
         $this->storage = new EloquentStorage([
@@ -28,6 +30,11 @@ class Client
      */
     public function init(): Client
     {
+        if (!$this->storage->model->subdomain) {
+
+            return $this;
+        }
+
         $this->service = Oauthapi::setInstance([
             'domain'        => $this->storage->model->subdomain,
             'client_id'     => $this->storage->model->client_id,
@@ -37,6 +44,8 @@ class Client
 
         try {
             $this->service->account;
+
+            $this->auth = true;
 
         } catch (Exception $exception) {
 
@@ -54,6 +63,8 @@ class Client
                     'refresh_token' => $oauth['refresh_token'],
                     'created_at'    => $oauth['created_at'] ?? time(),
                 ]);
+
+                $this->auth = true;
             }
         }
         return $this;

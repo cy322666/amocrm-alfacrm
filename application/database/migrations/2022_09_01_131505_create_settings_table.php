@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->integer('account_id')->nullable();
+//            $table->integer('account_id')->nullable();
 
-            $table->boolean('work_lead')->nullable();
+            $table->boolean('work_lead')->default(false);
             $table->boolean('active')->default(false);
 
             $table->integer('status_came_1')->nullable();

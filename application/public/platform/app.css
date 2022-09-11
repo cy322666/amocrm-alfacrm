@@ -1,0 +1,5 @@
+.bg-dark, .graph-svg-tip {
+    border-radius: 20px;
+    margin: 10px;
+}
+/*.bg-dark .nav > li > a, .graph-svg-tip .nav > li > a { color цвет букв панели*/

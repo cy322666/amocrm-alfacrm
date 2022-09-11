@@ -2,6 +2,7 @@
 
 namespace App\Orchid\Screens\AlfaCRM;
 
+use App\Orchid\Layouts\AlfaCRM\Logs;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Action;
@@ -20,7 +21,10 @@ class LogScreen extends Screen
     public function query(): iterable
     {
         return [
-            'transactions' => Auth::user()->alfaTransactions,
+            'transactions' => Auth::user()
+                ->alfaTransactions()
+                ->orderByDesc('created_at')
+                ->get(),
         ];
     }
 
@@ -31,7 +35,12 @@ class LogScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'События вашей интеграции';
+        return 'События интеграции';
+    }
+
+    public function description(): ?string
+    {
+        return 'Вывод транзакций от систем и их итог';
     }
 
     /**
@@ -52,29 +61,7 @@ class LogScreen extends Screen
     public function layout(): iterable
     {
         return [
-            \Orchid\Support\Facades\Layout::table('transactions', [
-
-                TD::make('created_at', 'Создано')
-                    ->render(function ($transaction) {
-                        return Carbon::parse($transaction->created_at)
-                            ->format('Y-m-d H:i:s');
-                    })
-                    ->sort(),
-                TD::make('amo_lead_id', 'ID сделки'),
-                TD::make('alfa_branch_id', 'ID филиала'),
-                TD::make('alfa_client_id', 'ID клиента'),
-                TD::make('status', 'Событие')
-                    ->render(function ($transaction) {
-                        return match ($transaction->status) {
-                            '1' => 'Записан',
-                            '2' => 'Пришел',
-                            '3' => 'Отменил',
-                            default => 'Другое',
-                        };
-                    }),
-                TD::make('comment', 'Комментарий'),
-                TD::make('error', 'Текст ошибки'),
-            ]),
+            Logs::class,
         ];
     }
 }

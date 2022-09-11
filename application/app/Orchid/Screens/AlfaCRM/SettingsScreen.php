@@ -8,7 +8,7 @@ use App\Models\AlfaCRM\Setting;
 use App\Models\amoCRM\Field;
 use App\Models\Webhook;
 use App\Orchid\Layouts\AlfaCRM\Settings\Fields;
-use App\Orchid\Layouts\AlfaCRM\Settings\FieldsHelp;
+use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
 use App\Orchid\Layouts\AlfaCRM\Settings\Help;
 use App\Orchid\Layouts\AlfaCRM\Settings\Info;
 use App\Orchid\Layouts\AlfaCRM\Settings\Stages;
@@ -59,11 +59,11 @@ class SettingsScreen extends Screen
 
     public function query(): iterable
     {
-        $account = Auth::user()->account('alfacrm');
+        $account = Auth::user()->alfaAccount();
 
         $setting = $account->setting(Setting::class);
 
-        $amoAccount = Auth::user()->account();
+        $amoAccount = Auth::user()->amoAccount();
 
         if ($setting->webhooks->count() == 0) {
 
@@ -205,7 +205,7 @@ class SettingsScreen extends Screen
             Layout::tabs([
                 'Поля' => Layout::columns([
                     $this->prepareFields(),
-                    FieldsHelp::class,
+                    FieldsAlfaCRM::class,
                 ]),
                 'Статусы' => Layout::columns([
                     Layout::rows([
@@ -217,23 +217,26 @@ class SettingsScreen extends Screen
 
                         Input::make('setting.status_record_1')
                             ->title('Этап записи')
-                            ->required()
+//                            ->required()
                             ->help('Этап на котором клиента записывают на пробное'),
 
                         Input::make('setting.status_came_1')
                             ->title('Этап посещения')
-                            ->required()
+//                            ->required()
                             ->help('Этап на который сделка передвигается при посещении пробного'),
 
                         Input::make('setting.status_omission_1')
                             ->title('Этап пропуска')
-                            ->required()
-                            ->help('Этап на который сделка передвигается при отмене/пропуске пробного'),
+//                            ->required()
+                            ->help('Этап на который сделка передвигается при отмене пробного'),
                     ]),
                     StatusListener::class,
                 ]),
                 'Этапы' => Layout::columns([
                     Layout::rows([
+
+                        Label::make('setting.stage_info')
+                            ->title('Этот раздел используется, если нужно работать с лидами'),
 
                         Input::make('setting.stage_record_1')
                             ->title('Этап записи')
@@ -245,7 +248,7 @@ class SettingsScreen extends Screen
 
                         Input::make('setting.stage_omission_1')
                             ->title('Этап пропуска')
-                            ->help('Этап на который сделка передвигается при отмене/пропуске пробного'),
+                            ->help('Этап на который сделка передвигается при отмене пробного'),
                     ]),
                     Stages::class,
                 ]),
@@ -333,7 +336,7 @@ class SettingsScreen extends Screen
 
             $fields[] = Input::make('fields.'.$field->code)
                 ->title($field->name)
-                ->required($field->required)
+//                ->required($field->required)
                 ->value($this->fields->{$field->code} ?? null);
         }
 
@@ -409,7 +412,12 @@ class SettingsScreen extends Screen
     public function updateFieldsAmo(AmoApi $amocrm)
     {
         try {
-            $amocrm->init();
+            if ($amocrm->auth == false) {
+
+                Alert::error('Ошибка подключения amoCRM');
+
+                return;
+            }
 
             $account = $this->amoAccount;
 
@@ -481,6 +489,13 @@ class SettingsScreen extends Screen
     {
         try {
             $amocrm->init();
+
+            if ($amocrm->auth == false) {
+
+                Alert::error('Ошибка подключения amoCRM');
+
+                return;
+            }
 
             $account = $this->amoAccount;
 

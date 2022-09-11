@@ -11,11 +11,11 @@ use App\Jobs\AlfaCRM\RecordWithoutLead;
 use App\Models\AlfaCRM\Setting;
 use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
-use App\Services\AlfaCRM\Client;
 use App\Services\AlfaCRM\Client as alfaApi;
 use App\Services\AlfaCRM\Mapper;
 use App\Services\AlfaCRM\Models\Lesson;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Laravel\Octane\Exceptions\DdException;
 
 class AlfaCRMController extends Controller
 {

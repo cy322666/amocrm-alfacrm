@@ -23,4 +23,17 @@ class Stages extends \Orchid\Screen\Layouts\Table
                 }),
             ];
     }
+
+    protected function textNotFound(): string
+    {
+        return 'Информации нет, обновите этапы';
+    }
+
+    /**
+     * @return string
+     */
+    protected function subNotFound(): string
+    {
+        return 'Нажмите на кнопку выше \'Общее AlfaCRM\'';
+    }
 }

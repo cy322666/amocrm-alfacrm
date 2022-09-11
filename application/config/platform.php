@@ -32,7 +32,7 @@ return [
     |
     */
 
-    'prefix' => env('DASHBOARD_PREFIX', '/admin'),
+    'prefix' => env('DASHBOARD_PREFIX', '/platform'),
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'index' => 'platform.main',
+    'index' => 'platform.start',
 
     /*
     |--------------------------------------------------------------------------
@@ -128,8 +128,8 @@ return [
     */
 
     'template' => [
-        'header' => '',
-        'footer' => '',
+        'header' => 'brand.header',
+        'footer' => 'brand.footer',
     ],
 
     /*

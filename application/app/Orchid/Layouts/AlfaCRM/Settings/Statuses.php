@@ -44,9 +44,23 @@ class Statuses extends \Orchid\Screen\Layouts\Table
 
             TD::make('name', 'Воронка')
                 ->width('450')
+                ->alignCenter()
                 ->render(function (Status $model) {
                     return $model->pipeline?->name;
                 }),
             ];
+    }
+
+    protected function textNotFound(): string
+    {
+        return 'Информации нет, обновите статусы';
+    }
+
+    /**
+     * @return string
+     */
+    protected function subNotFound(): string
+    {
+        return 'Нажмите на кнопку выше \'Статусы amoCRM\'';
     }
 }
