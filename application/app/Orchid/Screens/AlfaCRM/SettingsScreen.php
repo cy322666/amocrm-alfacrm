@@ -416,6 +416,9 @@ class SettingsScreen extends Screen
 
         } catch (\Exception $exception) {
 
+            $this->setting->active = false;
+            $this->setting->save();
+
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
             Alert::error($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
