@@ -404,7 +404,7 @@ class SettingsScreen extends Screen
                 }
             }
 
-            if((new Customer($alfaApi))->first()) {
+            if($alfaApi->init()) {
 
                 $this->account->active = true;
                 $this->account->save();
