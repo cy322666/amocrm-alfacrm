@@ -345,9 +345,14 @@ class SettingsScreen extends Screen
 
     public function save(Request $request, AmoApi $amocrm)
     {
-        $amocrm->init();
-
         try {
+            $amocrm->init();
+
+            if ($amocrm->auth == false) {
+
+                Alert::error('Подключите amoCRM к платформе!');
+            }
+
             Log::info(__METHOD__, $request->toArray());
 
             $this->account->code      = $request->account['code'];
@@ -383,19 +388,21 @@ class SettingsScreen extends Screen
                     'uuid'     => Uuid::uuid4(),
                 ]);
 
-                $response = $amocrm->service
-                    ->webhooks()
-                    ->subscribe(URL::route($wh->path, [
-                        'webhook' => $wh->uuid,
-                    ]), [
-                        'status_lead', 'add_lead'
-                    ]);
+                if ($amocrm->auth == true) {
 
-                if ($response !== true) {
+                    $response = $amocrm->service
+                        ->webhooks()
+                        ->subscribe(URL::route($wh->path, [
+                            'webhook' => $wh->uuid,
+                        ]), [
+                            'status_lead', 'add_lead'
+                        ]);
 
-                    throw new \Exception('Не удалось создать вебхук в amoCRM');
+                    if ($response !== true) {
+
+                        throw new \Exception('Не удалось создать вебхук в amoCRM');
+                    }
                 }
-                //TODO true or false или проверять потом создался ли?
             }
 
             Toast::success('Успешно сохранено');

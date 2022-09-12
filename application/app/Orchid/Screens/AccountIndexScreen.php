@@ -91,6 +91,7 @@ class AccountIndexScreen extends Screen
             Layout::block([
                     Layout::rows([
                         Label::make('label')->title('Если кнопка не отображается обновите страницу'),
+
                         amoCRMButton::make('button.auth'),
                 ]),
             ])
