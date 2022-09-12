@@ -66,9 +66,9 @@ class User extends Authenticatable
         'created_at',
     ];
 
-    public function account(string $name = 'amocrm')
+    public function account()
     {
-        return $this->hasOne(Account::class)->where('name', $name)->first();
+        return $this->hasMany(Account::class);
     }
 
     public function alfaAccount()

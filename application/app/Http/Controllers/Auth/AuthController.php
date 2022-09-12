@@ -102,9 +102,9 @@ class AuthController extends LoginController
             'permissions' => ['platform.index' => true],
         ]);
 
-        $user->amoAccount()->create(['name' => 'amocrm']);
+        $user->account()->create(['name' => 'amocrm']);
 
-        $user->alfaAccount()->create(['name' => 'alfacrm']);
+        $user->account()->create(['name' => 'alfacrm']);
 
         $user->alfaSetting()->create();
 
