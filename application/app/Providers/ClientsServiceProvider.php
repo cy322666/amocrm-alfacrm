@@ -33,7 +33,7 @@ class ClientsServiceProvider extends ServiceProvider
 
             if (Auth::user()) {
 
-                $account = Auth::user()->account();
+                $account = Auth::user()->amoAccount();
 
                 $this->app->bind(Client::class, function ($app) use ($account) {
 
@@ -42,7 +42,7 @@ class ClientsServiceProvider extends ServiceProvider
 
                 $this->app->bind( \App\Services\AlfaCRM\Client::class, function ($app) {
 
-                    $alfaAccount = Auth::user()->account('alfacrm');
+                    $alfaAccount = Auth::user()->alfaAccount();
 
                     return (new \App\Services\AlfaCRM\Client($alfaAccount));
                 });
