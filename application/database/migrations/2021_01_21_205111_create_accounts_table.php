@@ -25,7 +25,7 @@ class CreateAccountsTable extends Migration
             $table->text('refresh_token')->nullable();
             $table->string('client_id')->nullable();
             $table->string('client_secret')->nullable();
-            $table->boolean('active')->default(1);
+            $table->boolean('active')->default(false);
 //            $table->string('state')->nullable();
             $table->string('name')->nullable();
             $table->integer('user_id')->nullable();
