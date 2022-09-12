@@ -9,7 +9,6 @@ use App\Models\amoCRM\Field;
 use App\Models\Webhook;
 use App\Orchid\Layouts\AlfaCRM\Settings\Fields;
 use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
-use App\Orchid\Layouts\AlfaCRM\Settings\Help;
 use App\Orchid\Layouts\AlfaCRM\Settings\Info;
 use App\Orchid\Layouts\AlfaCRM\Settings\Stages;
 use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
@@ -343,12 +342,12 @@ class SettingsScreen extends Screen
         return Layout::rows($fields);
     }
 
-    public function save(Request $request, AmoApi $amocrm)
+    public function save(Request $request, AmoApi $AmoApi, AlfaApi $alfaApi)
     {
         try {
-            $amocrm->init();
+            $AmoApi->init();
 
-            if ($amocrm->auth == false) {
+            if ($AmoApi->auth == false) {
 
                 Alert::error('Подключите amoCRM к платформе!');
             }
@@ -388,9 +387,9 @@ class SettingsScreen extends Screen
                     'uuid'     => Uuid::uuid4(),
                 ]);
 
-                if ($amocrm->auth == true) {
+                if ($AmoApi->auth == true) {
 
-                    $response = $amocrm->service
+                    $response = $AmoApi->service
                         ->webhooks()
                         ->subscribe(URL::route($wh->path, [
                             'webhook' => $wh->uuid,
@@ -405,6 +404,14 @@ class SettingsScreen extends Screen
                 }
             }
 
+            if((new Customer($alfaApi))->first()) {
+
+                $this->account->active = true;
+                $this->account->save();
+            } else {
+                Alert::error('Ошибка авторизации AlfaCRM!');
+            }
+
             Toast::success('Успешно сохранено');
 
         } catch (\Exception $exception) {
@@ -413,7 +420,6 @@ class SettingsScreen extends Screen
 
             Alert::error($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
-        //TODO check auth
     }
 
     public function updateFieldsAmo(AmoApi $amocrm)
