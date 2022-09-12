@@ -61,7 +61,7 @@ class SettingsScreen extends Screen
     {
         $account = Auth::user()->alfaAccount();
 
-        $setting = $account->setting(Setting::class);
+        $setting = Auth::user()->alfaSetting;
 
         $amoAccount = Auth::user()->amoAccount();
 

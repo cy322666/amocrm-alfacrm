@@ -60,11 +60,6 @@ class Account extends Model
         return $this->hasOne(User::class);
     }
 
-    public function setting(string $class)
-    {
-        return $this->hasOne($class)->first();
-    }
-
     public function fields(string $class)
     {
         return $this->hasMany($class);//,  'account_id', 'id'
