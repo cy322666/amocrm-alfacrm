@@ -102,20 +102,11 @@ class AuthController extends LoginController
             'permissions' => ['platform.index' => true],
         ]);
 
-        Account::query()->create([
-            'name'    => 'amocrm',
-            'user_id' => $user->id,
-        ]);
+        $user->amoAccount()->create(['name' => 'amocrm']);
 
-        $account = Account::query()->create([
-            'name'    => 'alfacrm',
-            'user_id' => $user->id,
-        ]);
+        $user->alfaAccount()->create(['name' => 'alfacrm']);
 
-        Setting::query()->create([
-            'account_id' => $account->id,
-
-        ]);
+        $user->alfaSetting()->create();
 
         $user->notify(new HelloMessage());
 
