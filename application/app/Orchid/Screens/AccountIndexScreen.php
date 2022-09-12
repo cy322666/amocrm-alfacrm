@@ -17,6 +17,7 @@ use Orchid\Screen\Screen;
 use Orchid\Screen\Sight;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
+use Orchid\Screen\Fields\Label;
 use Throwable;
 
 class AccountIndexScreen extends Screen
@@ -89,11 +90,11 @@ class AccountIndexScreen extends Screen
             ]),
             Layout::block([
                     Layout::rows([
-                        amoCRMButton::make('button.auth'),//->title('Подключите amoCRM'),
+                        Label::make('Если кнопка не отображается обновите страницу'),
+                        amoCRMButton::make('button.auth'),
                 ]),
             ])
-            ->title('Статус интеграции')
-            ->description('Проверьте все настройки'),
+            ->title('Подключите amoCRM к платформе'),
         ];
     }
 }
