@@ -495,6 +495,9 @@ class SettingsScreen extends Screen
 
         } catch (\Exception $exception) {
 
+            $this->setting->active = false;
+            $this->setting->save();
+
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
             Alert::error($exception->getMessage());
@@ -550,6 +553,9 @@ class SettingsScreen extends Screen
 
         } catch (\Exception $exception) {
 
+            $this->setting->active = false;
+            $this->setting->save();
+
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
             Alert::error($exception->getMessage());
@@ -581,6 +587,9 @@ class SettingsScreen extends Screen
             Toast::success('Успешно обновлено');
 
         } catch (\Exception $exception) {
+
+            $this->setting->active = false;
+            $this->setting->save();
 
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
@@ -638,6 +647,9 @@ class SettingsScreen extends Screen
             Toast::success('Успешно обновлено');
 
         } catch (\Exception $exception) {
+
+            $this->setting->active = false;
+            $this->setting->save();
 
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
