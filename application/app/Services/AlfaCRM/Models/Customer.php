@@ -106,7 +106,7 @@ class Customer
 
         if ($response->success === false) {
 
-            Log::error(__METHOD__.' : client '.$this->client->domain, $response->errors);
+            Log::error(__METHOD__.' : client '.$this->client->domain, [$response->errors]);
         }
 
         return $response->model;

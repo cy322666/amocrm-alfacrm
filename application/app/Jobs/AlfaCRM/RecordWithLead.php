@@ -47,6 +47,7 @@ class RecordWithLead implements ShouldQueue
         $alfaApi = $manager->alfaApi;
 
         try {
+
             $lead = $amoApi->service
                 ->leads()
                 ->find($this->data['id']);
@@ -77,11 +78,11 @@ class RecordWithLead implements ShouldQueue
 
             $fieldValues['lead_status_id'] = $stageId;
             $fieldValues['web'][] = Contacts::buildLink($amoApi, $contact->id);
-            $fieldValues['branch_ids'][] = $alfaApi->branchId;//TODO бренчи затирает все еще?
+            $fieldValues['branch_id']  = $alfaApi->branchId;//TODO бренчи затирает все еще?
             $fieldValues['is_study']   = 0;
             $fieldValues['legal_type'] = 1;
 
-            $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);//TODO если уже есть?
+            $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi, true);
 
             $this->transaction->alfa_client_id = $customer->id;
             $this->transaction->fields = $fieldValues;
@@ -91,7 +92,10 @@ class RecordWithLead implements ShouldQueue
 
         } catch (\Throwable $exception) {
 
-            $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+//            $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            dd($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+
+            return false;
         }
         $this->transaction->save();
 

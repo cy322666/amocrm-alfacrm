@@ -146,7 +146,7 @@ class AlfaCRMController extends Controller
 //                $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
 //                $transaction->save();
 //            } else
-            dd($exception->getMessage(). ' '.$exception->getLine());
+            dd(__METHOD__.$exception->getMessage(). ' '.$exception->getLine());
         }
     }
 }

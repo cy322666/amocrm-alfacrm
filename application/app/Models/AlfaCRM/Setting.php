@@ -141,12 +141,10 @@ class Setting extends Model
             ->branch_id;
 
         $branchValue = self::getFieldBranch($lead, $contact, $setting);
-        Log::info(__METHOD__. ' name 2 '.$branchValue);
+
         if ($branchValue) {
 
             foreach ($account->alfaBranches as $branch) {
-
-            Log::info(__METHOD__.' '.$branchValue.' - '.$branch->name);
 
                 if (trim(mb_strtolower($branch->name)) == trim(mb_strtolower($branchValue))) {
 
@@ -156,6 +154,7 @@ class Setting extends Model
                 }
             }
         }
+
         return $branchId;
     }
 
@@ -170,12 +169,17 @@ class Setting extends Model
             if (count($customers) == 0) {
 
                 $customers = (new Customer($alfaApi))->searchLead($fieldValues['phone']);
+            } else {
+                $fieldValues['is_study'] = 1;
             }
         }
 
         if (count($customers) == 0) {
 
+            $fieldValues['branch_ids'] = [$fieldValues['branch_id']];
+
             $customer = (new Customer($alfaApi))->create($fieldValues);
+
         } else {
             $customer = $customers[0];
 
