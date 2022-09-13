@@ -3,6 +3,7 @@
 namespace App\Jobs\AlfaCRM;
 
 use App\Models\AlfaCRM\Customer;
+use App\Models\AlfaCRM\Field;
 use App\Models\AlfaCRM\Setting;
 use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
@@ -76,13 +77,9 @@ class RecordWithLead implements ShouldQueue
 
             $fieldValues = $this->setting->getFieldValues($lead, $contact, $manager->amoAccount, $manager->alfaAccount);
 
-            $fieldValues['lead_status_id'] = $stageId;
-            $fieldValues['web'][] = Contacts::buildLink($amoApi, $contact->id);
-            $fieldValues['branch_id']  = $alfaApi->branchId;//TODO бренчи затирает все еще?
-            $fieldValues['is_study']   = 0;
-            $fieldValues['legal_type'] = 1;
-
             $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi, true);
+
+            Field::prepareCreateLead($fieldValues, $amoApi, $alfaApi, $contact, $stageId);
 
             $this->transaction->alfa_client_id = $customer->id;
             $this->transaction->fields = $fieldValues;
@@ -93,6 +90,7 @@ class RecordWithLead implements ShouldQueue
         } catch (\Throwable $exception) {
 
             $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $this->transaction->save();
 
             return false;
         }

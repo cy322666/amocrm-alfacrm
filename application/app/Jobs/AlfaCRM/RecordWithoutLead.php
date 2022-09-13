@@ -3,12 +3,14 @@
 namespace App\Jobs\AlfaCRM;
 
 use App\Models\AlfaCRM\Customer;
+use App\Models\AlfaCRM\Field;
 use App\Models\AlfaCRM\Setting;
 use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
 use App\Services\amoCRM\Models\Contacts;
 use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\AlfaCRMManager;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -72,10 +74,7 @@ class RecordWithoutLead implements ShouldQueue
 
             $fieldValues = $this->setting->getFieldValues($lead, $contact, $manager->amoAccount, $manager->alfaAccount);
 
-            $fieldValues['web'][] = Contacts::buildLink($amoApi, $contact->id);
-            $fieldValues['branch_id']  = $alfaApi->branchId;//TODO бренчи затирает UDP проверить поправил
-            $fieldValues['is_study']   = 1;
-            $fieldValues['legal_type'] = 1;
+            Field::prepareCreateCustomer($fieldValues, $amoApi, $alfaApi, $contact);
 
             $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);
 
