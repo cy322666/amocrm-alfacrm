@@ -31,7 +31,7 @@ class Field extends Model
 
         if (!empty($fieldValues['dob'])) {
 
-            $fieldValues['dob'] = Carbon::parse($fieldValues['dob'])->format('d-m-Y');
+            $fieldValues['dob'] = Carbon::parse($fieldValues['dob'])->format('d.m.Y');
         }
     }
 
@@ -45,7 +45,7 @@ class Field extends Model
 
         if (!empty($fieldValues['dob'])) {
 
-            $fieldValues['dob'] = Carbon::parse($fieldValues['dob'])->format('d-m-Y');
+            $fieldValues['dob'] = Carbon::parse($fieldValues['dob'])->format('d.m.Y');
         }
     }
 }
