@@ -27,6 +27,7 @@ class AlfaCRMController extends Controller
 
         try {
             $setting = $webhook
+                ->user
                 ->alfaSetting()
                 ->firstOrFail();
 

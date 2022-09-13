@@ -27,16 +27,6 @@ class Webhook extends Model
         return $this->belongsTo(Account::class);
     }
 
-    public function settings(string $class)
-    {
-        return $this->belongsTo($class, 'setting_id', 'id');
-    }
-
-    public function alfaSetting()
-    {
-        return $this->hasOne(Setting::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
