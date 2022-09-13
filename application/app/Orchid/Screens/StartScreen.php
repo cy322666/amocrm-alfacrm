@@ -2,6 +2,7 @@
 
 namespace App\Orchid\Screens;
 
+use App\Models\Feedback;
 use App\Services\Telegram\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -159,6 +160,12 @@ class StartScreen extends Screen
     {
         (new Client())->send('Запрос на разработку из кабинета '.Auth::user()->email.' | сообщение : '.$request->message);
 
+        Feedback::query()->create([
+            'user'    => Auth::user()->email,
+            'message' => $request->message,
+            'type'    => 'dev',
+        ]);
+
         Toast::success('Сообщение отправлено');
     }
 
@@ -166,12 +173,24 @@ class StartScreen extends Screen
     {
         (new Client())->send('Запрос на внедрение из кабинета '.Auth::user()->email.' | сообщение : '.$request->message);
 
+        Feedback::query()->create([
+            'user'    => Auth::user()->email,
+            'message' => $request->message,
+            'type'    => 'crm',
+        ]);
+
         Toast::success('Сообщение отправлено');
     }
 
     public function requestLicenseSend(Request $request)
     {
         (new Client())->send('Запрос на лицензии из кабинета '.Auth::user()->email.' | сообщение : '.$request->message);
+
+        Feedback::query()->create([
+            'user'    => Auth::user()->email,
+            'message' => $request->message,
+            'type'    => 'license',
+        ]);
 
         Toast::success('Сообщение отправлено');
     }

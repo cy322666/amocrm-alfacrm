@@ -92,8 +92,7 @@ class RecordWithLead implements ShouldQueue
 
         } catch (\Throwable $exception) {
 
-//            $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
-            dd($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+            $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
 
             return false;
         }

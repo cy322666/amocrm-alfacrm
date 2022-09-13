@@ -6,6 +6,7 @@ use App\Models\AlfaCRM\LeadSource;
 use App\Models\AlfaCRM\LeadStatus;
 use App\Models\AlfaCRM\Setting;
 use App\Models\amoCRM\Field;
+use App\Models\Feedback;
 use App\Models\Webhook;
 use App\Orchid\Layouts\AlfaCRM\Settings\Fields;
 use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
@@ -124,12 +125,25 @@ class SettingsScreen extends Screen
     {
         (new Client())->send('Фидбек из кабинета '.Auth::user()->email.' | сообщение : '.$request->message);
 
+        Feedback::query()->create([
+            'user' => Auth::user()->email,
+            'message' => $request->message,
+            'type' => 'feedback',
+        ]);
+
         Toast::success('Сообщение отправлено');
     }
 
     public function questionSave(Request $request)
     {
         (new Client())->send('Вопрос из кабинета '.Auth::user()->email.' | контакты '.$request->contacts.' сообщение : '.$request->message);
+
+        Feedback::query()->create([
+            'user' => Auth::user()->email,
+            'message'  => $request->message,
+            'contacts' => $request->contacts,
+            'type' => 'question',
+        ]);
 
         Toast::success('Сообщение отправлено');
     }
@@ -297,10 +311,6 @@ class SettingsScreen extends Screen
     public function reset()
     {
         try {
-            $this->account->status_came_1 = null;
-            $this->account->status_record_1 = null;
-            $this->account->status_omission_1 = null;
-
             $fieldsRaw = json_decode($this->account->fields);
 
             $fields = [];
@@ -310,10 +320,15 @@ class SettingsScreen extends Screen
                 $fields[$code] = null;
             }
 
-            $this->account->fields = json_encode($fields);
-            $this->account->branch_id = null;
-            $this->account->active = false;
-            $this->account->save();
+            $this->setting->fields = json_encode($fields);
+
+            $this->setting->status_came_1 = null;
+            $this->setting->status_record_1 = null;
+            $this->setting->status_omission_1 = null;
+
+            $this->setting->branch_id = null;
+            $this->setting->active = false;
+            $this->setting->save();
 
             Toast::info('Настройки успешно сброшены');
 
