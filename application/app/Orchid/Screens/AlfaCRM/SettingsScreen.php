@@ -445,6 +445,8 @@ class SettingsScreen extends Screen
     public function updateFieldsAmo(AmoApi $amocrm)
     {
         try {
+            $amocrm->init();
+
             if ($amocrm->auth == false) {
 
                 Alert::error('Ошибка подключения amoCRM');
