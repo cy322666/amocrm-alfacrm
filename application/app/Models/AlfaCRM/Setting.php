@@ -120,7 +120,6 @@ class Setting extends Model
                 if ($code == 'lead_source_id' && $fieldValue) {
 
                     $fieldValue = $alfaAccount->alfaSources()
-//                        ->where('name', 'like', '%'.$fieldValue.'%')
                         ->where('name', $fieldValue)
                         ->first()
                             ?->source_id;

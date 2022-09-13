@@ -110,7 +110,9 @@ return [
 
     'resource' => [
         'stylesheets' => [],
-        'scripts'     => [],
+        'scripts'     => [
+            'https://www.amocrm.ru/auth/button.min.js',
+        ],
     ],
 
     /*
