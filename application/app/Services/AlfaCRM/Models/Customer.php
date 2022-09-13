@@ -64,7 +64,23 @@ class Customer
                 ],
             ]);
 
-        return json_decode($response->getBody()->getContents());
+        return json_decode($response->getBody()->getContents())->items;
+    }
+
+    public function searchLead(string $value)
+    {
+        $response = $this->client
+            ->http
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/index', [
+                'headers' => $this->client->headers(),
+                'json' => [
+                    "page"  => 0,
+                    'phone' => $value,
+                    'is_study' => 0,
+                ],
+            ]);
+
+        return json_decode($response->getBody()->getContents())->items;
     }
 
     public function update(int $id, array $params)

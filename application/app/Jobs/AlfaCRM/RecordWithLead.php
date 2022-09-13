@@ -94,5 +94,7 @@ class RecordWithLead implements ShouldQueue
             $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
         }
         $this->transaction->save();
+
+        return true;
     }
 }

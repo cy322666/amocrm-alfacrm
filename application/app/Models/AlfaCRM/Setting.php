@@ -159,14 +159,25 @@ class Setting extends Model
         return $branchId;
     }
 
-    public static function customerUpdateOrCreate(array $fieldValues, alfaApi $alfaApi)
+    public static function customerUpdateOrCreate(array $fieldValues, alfaApi $alfaApi, ?bool $workLead = false)
     {
         $customers = (new Customer($alfaApi))->search($fieldValues['phone']);
 
-        if ($customers->total == 0) {
+        if ($workLead == true) {
+
+            $customers = (new Customer($alfaApi))->search($fieldValues['phone']);
+
+            if (count($customers) == 0) {
+
+                $customers = (new Customer($alfaApi))->searchLead($fieldValues['phone']);
+            }
+        }
+
+        if (count($customers) == 0) {
+
             $customer = (new Customer($alfaApi))->create($fieldValues);
         } else {
-            $customer = $customers->items[0];
+            $customer = $customers[0];
 
             $fieldValues['branch_ids'] = array_merge($customer->branch_ids, [$fieldValues['branch_id']]);
         }
