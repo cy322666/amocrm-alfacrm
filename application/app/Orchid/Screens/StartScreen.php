@@ -60,12 +60,24 @@ class StartScreen extends Screen
     {
         (new Client())->send('Фидбек из кабинета '.Auth::user()->email.' | сообщение : '.$request->message);
 
+        Feedback::query()->create([
+            'user'    => Auth::user()->email,
+            'message' => $request->message,
+            'type'    => 'feedback',
+        ]);
+
         Toast::success('Сообщение отправлено');
     }
 
     public function questionSave(Request $request)
     {
         (new Client())->send('Вопрос из кабинета '.Auth::user()->email.' | контакты '.$request->contacts.' сообщение : '.$request->message);
+
+        Feedback::query()->create([
+            'user'    => Auth::user()->email,
+            'message' => $request->message,
+            'type'    => 'question',
+        ]);
 
         Toast::success('Сообщение отправлено');
     }
