@@ -25,14 +25,14 @@ class AlfaCRMController extends Controller
     {
         $data = $request->leads['status'][0] ?? $request->leads['add'][0];
 
-        $transaction->setRecordData($data, $webhook);
-
         try {
             $setting = $webhook
                 ->settings(Setting::class)
                 ->firstOrFail();
 
             if($setting->checkStatus('record', $data['status_id'])) {
+
+                $transaction->setRecordData($data, $webhook);
 
                 if ($setting->work_lead == true) {
 
