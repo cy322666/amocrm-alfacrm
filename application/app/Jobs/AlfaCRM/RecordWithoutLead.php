@@ -90,7 +90,12 @@ class RecordWithoutLead implements ShouldQueue
         } catch (\Throwable $exception) {
 
             $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $this->transaction->save();
+
+            return  false;
         }
         $this->transaction->save();
+
+        return true;
     }
 }
