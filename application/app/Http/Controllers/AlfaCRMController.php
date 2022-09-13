@@ -27,7 +27,7 @@ class AlfaCRMController extends Controller
 
         try {
             $setting = $webhook
-                ->settings(Setting::class)
+                ->alfaSetting()
                 ->firstOrFail();
 
             if($setting->checkStatus('record', $data['status_id'])) {

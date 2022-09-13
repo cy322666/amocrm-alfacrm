@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\AlfaCRM\Setting;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Psy\Util\Str;
@@ -29,6 +30,11 @@ class Webhook extends Model
     public function settings(string $class)
     {
         return $this->belongsTo($class, 'setting_id', 'id');
+    }
+
+    public function alfaSetting()
+    {
+        return $this->hasOne(Setting::class);
     }
 
     public function user()
