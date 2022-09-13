@@ -419,7 +419,7 @@ class SettingsScreen extends Screen
                 }
             }
 
-            if($alfaApi->init()) {
+            if((new AlfaApi($this->account->refresh()))->init()) {
 
                 $this->account->active = true;
                 $this->account->save();
@@ -432,11 +432,13 @@ class SettingsScreen extends Screen
         } catch (\Exception $exception) {
 
             $this->setting->active = false;
-            $this->setting->save();
-
-            Log::error(__METHOD__.' : '.$exception->getMessage());
 
             Alert::error($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+
+        } finally {
+
+            $this->setting->save();
+            $this->account->save();
         }
     }
 
