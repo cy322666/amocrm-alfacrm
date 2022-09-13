@@ -56,9 +56,7 @@ class RecordWithoutLead implements ShouldQueue
         $alfaApi = $manager->alfaApi;
 
         try {
-            $lead = $amoApi->service
-                ->leads()
-                ->find($this->data['id']);
+            $lead = $amoApi->service->leads()->find($this->data['id']);
 
             $contact = $lead->contact;
 
@@ -80,6 +78,14 @@ class RecordWithoutLead implements ShouldQueue
             $fieldValues['legal_type'] = 1;
 
             $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);
+
+            if (is_string($customer) === true) {
+
+                $this->transaction->error = $customer;
+                $this->transaction->save();
+
+                return false;
+            }
 
             $this->transaction->alfa_client_id = $customer->id;
             $this->transaction->fields = $fieldValues;
