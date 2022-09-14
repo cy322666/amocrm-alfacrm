@@ -108,7 +108,6 @@ class AlfaCRMController extends Controller
     public function omission(Webhook $webhook, OmissionRequest $request)
     {
         try {
-
             $this->alfaApi = (new alfaApi($webhook->user->alfaAccount()))->init();
             $this->alfaApi->branchId = $request->branch_id;
 
@@ -124,8 +123,8 @@ class AlfaCRMController extends Controller
 
             if ($lesson) {
 
-                if ($lesson->status == Lesson::LESSON_TYPE_ID &&
-                    $lesson->lesson_type_id == Lesson::LESSON_OMISSION_TYPE_ID) {
+                if ($lesson->status == Lesson::LESSON_OMISSION_TYPE_ID &&
+                    $lesson->lesson_type_id == Lesson::LESSON_TYPE_ID) {
 
                     $transaction = $webhook->user
                         ->alfaTransactions()
