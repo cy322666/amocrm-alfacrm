@@ -104,9 +104,9 @@ class AuthController extends LoginController
 
         $user->account()->create(['name' => 'amocrm']);
 
-        $account = $user->account()->create(['name' => 'alfacrm']);
+        $user->account()->create(['name' => 'alfacrm']);
 
-        $account->alfaSetting()->create();
+        $user->alfaSetting()->create();
 
         $user->notify(new HelloMessage());
 
