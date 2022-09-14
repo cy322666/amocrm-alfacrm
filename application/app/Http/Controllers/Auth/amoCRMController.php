@@ -39,9 +39,6 @@ class amoCRMController extends Controller
         $account->save();
 
         try {
-
-            sleep(2);
-
             (new amoApi($account))->init();
 
             return redirect()->route('account', ['auth' => 1]);
@@ -58,12 +55,11 @@ class amoCRMController extends Controller
     {
         Log::info(__METHOD__, $request->toArray());
 
-        sleep(2);
-
-        $account = Account::query()
-            ->where('client_id', $request->client_id)
+        $user = User::query()
+            ->where('email', $request->account)
             ->first();
 
+        $account = $user->amoAccount;
         $account->client_secret = $request->client_secret;
         $account->save();
     }
