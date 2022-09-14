@@ -92,14 +92,12 @@ class AlfaCRMController extends Controller
                     CameWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
                 }
             }
-            //TODO баг нет настроек
         } catch (\Throwable $exception) {
 
-//            if (!empty($transaction)) {
-//                $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
-//                $transaction->save();
-//            } else
-                dd($exception->getMessage(). ' '.$exception->getLine());
+            if (!empty($transaction)) {
+                $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+                $transaction->save();
+            }
         }
     }
 
@@ -146,11 +144,10 @@ class AlfaCRMController extends Controller
             }
         } catch (\Throwable $exception) {
 
-//            if (!empty($transaction)) {
-//                $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
-//                $transaction->save();
-//            } else
-            dd(__METHOD__.$exception->getMessage(). ' '.$exception->getLine());
+            if (!empty($transaction)) {
+                $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+                $transaction->save();
+            }
         }
     }
 }
