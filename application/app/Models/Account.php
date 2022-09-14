@@ -94,4 +94,9 @@ class Account extends Model
     {
         return $this->hasMany(LeadStatus::class, 'account_id', 'id' );
     }
+
+    public function alfaSetting()
+    {
+        return $this->hasOne(Setting::class);
+    }
 }
