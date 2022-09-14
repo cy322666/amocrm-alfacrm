@@ -40,7 +40,15 @@ class amoCRMController extends Controller
         $account->save();
 
         try {
-            (new amoApi($account))->init();
+            $amoApi = (new amoApi($account))->init();
+
+            if ($amoApi->auth == true) {
+
+                $account->active = true;
+                $account->save();
+            } else {
+                return redirect()->route('account', ['auth' => 0]);
+            }
 
             return redirect()->route('account', ['auth' => 1]);
 
