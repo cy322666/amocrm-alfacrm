@@ -47,7 +47,7 @@ class amoCRMController extends Controller
 
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
-            redirect(route('account'), ['auth' => false]);
+            return back()->withInput(['auth' => false]);
         }
     }
 
