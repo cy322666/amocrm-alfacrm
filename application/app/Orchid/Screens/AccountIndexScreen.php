@@ -16,6 +16,7 @@ use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Screen;
 use Orchid\Screen\Sight;
 use Orchid\Support\Color;
+use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Fields\Label;
 use Throwable;
@@ -31,7 +32,7 @@ class AccountIndexScreen extends Screen
 
     public bool $authActive;
 
-    public ?bool $auth;
+    public ?string $auth;
 
     /**
      * Display header description.
@@ -73,6 +74,15 @@ class AccountIndexScreen extends Screen
      */
     public function layout(): array
     {
+        if ($this->auth === '0') {
+
+            Alert::error('Возникла ошибка с подключением');
+        }
+        if ($this->auth === '1') {
+
+            Alert::success('Успешно подключено');
+        }
+
         return [
             Layout::legend('user', [
                 Sight::make('name', 'Имя'),

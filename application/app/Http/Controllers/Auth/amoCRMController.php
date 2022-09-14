@@ -41,13 +41,13 @@ class amoCRMController extends Controller
         try {
             (new amoApi($account))->init();
 
-            return redirect()->route('account', ['auth' => true]);
+            return redirect()->route('account', ['auth' => 1]);
 
         } catch (\Throwable $exception) {
 
             Log::error(__METHOD__.' : '.$exception->getMessage());
 
-            return redirect()->route('account', ['auth' => false]);
+            return redirect()->route('account', ['auth' => 0]);
         }
     }
 
