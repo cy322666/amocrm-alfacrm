@@ -99,8 +99,6 @@ class CameWithoutLead implements ShouldQueue
             }
         } catch (\Throwable $exception) {
 
-            dd($exception->getMessage(). ' '.$exception->getLine());
-
             $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
         }
         $this->transaction->save();
