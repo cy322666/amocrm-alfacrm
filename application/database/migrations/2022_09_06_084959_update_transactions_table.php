@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::table('alfacrm_transactions', function (Blueprint $table) {
 
-            $table->integer('webhook_id')->nullable();
             $table->dropColumn('user_id');
             $table->dropColumn('amo_contact_id');
         });
@@ -31,7 +30,6 @@ return new class extends Migration
         Schema::table('alfacrm_transactions', function (Blueprint $table) {
 
             $table->dropColumn('webhook_id');
-            $table->integer('webhook_id')->nullable();
             $table->integer('amo_contact_id')->nullable();
         });
     }
