@@ -110,12 +110,11 @@ class AlfaCRMController extends Controller
         try {
 
             $this->alfaApi = (new alfaApi($webhook->user->alfaAccount()))->init();
-
-            $setting = $webhook
-                ->settings(Setting::class)
-                ->firstOrFail();
-
             $this->alfaApi->branchId = $request->branch_id;
+
+            $setting = $webhook->user
+                ->alfaSetting()
+                ->firstOrFail();
 
             $lesson = (new Lesson($this->alfaApi))
                 ->get(
@@ -130,10 +129,7 @@ class AlfaCRMController extends Controller
 
                     $transaction = $webhook->user
                         ->alfaTransactions()
-                        ->where('alfa_branch_id', $request->branch_id)
-                        ->where('alfa_client_id', $lesson->details[0]['customer_id'])
-                        ->where('status', Mapper::RECORD)
-                        ->firstOrCreate([
+                        ->create([
                             'alfa_branch_id' => $request->branch_id,
                             'alfa_client_id' => $request->entity_id,
                             'user_id' => $webhook->user->id,
