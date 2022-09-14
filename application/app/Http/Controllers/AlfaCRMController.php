@@ -91,6 +91,8 @@ class AlfaCRMController extends Controller
 
                     CameWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
                 }
+            } else {
+                Log::error('Lesson dont get by id : ', $request->toArray());
             }
         } catch (\Throwable $exception) {
 
