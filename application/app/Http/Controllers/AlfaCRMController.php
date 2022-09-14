@@ -6,6 +6,7 @@ use App\Http\Requests\Api\AlfaCRM\CameRequest;
 use App\Http\Requests\Api\AlfaCRM\OmissionRequest;
 use App\Http\Requests\Api\AlfaCRM\RecordRequest;
 use App\Jobs\AlfaCRM\CameWithoutLead;
+use App\Jobs\AlfaCRM\OmissionWithoutLead;
 use App\Jobs\AlfaCRM\RecordWithLead;
 use App\Jobs\AlfaCRM\RecordWithoutLead;
 use App\Models\AlfaCRM\Setting;
@@ -136,7 +137,7 @@ class AlfaCRMController extends Controller
 
                     $transaction->setOmissionData($request->toArray(), $webhook);
 
-                    CameWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
+                    OmissionWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
                 }
             }
         } catch (\Throwable $exception) {
