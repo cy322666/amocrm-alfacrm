@@ -39,6 +39,9 @@ class amoCRMController extends Controller
         $account->save();
 
         try {
+
+            sleep(2);
+
             (new amoApi($account))->init();
 
             return redirect()->route('account', ['auth' => 1]);
@@ -55,23 +58,14 @@ class amoCRMController extends Controller
     {
         Log::info(__METHOD__, $request->toArray());
 
-//        $user = User::where('uuid', $request->input('user'))->first();
-//
-//        $access = $user->access()->where('service_name', 'amocrm')->first();
-//
-//        if(!$access) {
-//
-//            $access = new Access();
-//            $access->user_id = $user->id;
-//            $access->account_id = $user->account->id;
-//        }
-//
-//        $access->service_name = 'amocrm';
-//        $access->client_secret = $request->client_secret;
-//        $access->client_id = $request->client_id;
-//        $access->subdomain = explode($request->referer, '.amocrm.')[0];
-//        //$access->state = $request->post('state');
-//        $access->save();
+        sleep(2);
+
+        $account = Account::query()
+            ->where('client_id', $request->client_id)
+            ->first();
+
+        $account->client_secret = $request->client_secret;
+        $account->save();
     }
 
     public function off(Request $request)
