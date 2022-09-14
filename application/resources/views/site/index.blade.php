@@ -15,11 +15,7 @@
         'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-
-    <link rel="apple-touch-icon" sizes="76x76" href={{ asset("site/img/apple-icon.png") }}>
-    <link rel="icon" type="image/png" href={{ asset("site/img/favicon.png") }}>
-
-    <title>BLACK CLEVER</title>
+    <title>Black Clever</title>
 </head>
 
 <body class="index-page bg-gray-200">
