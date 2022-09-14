@@ -17,7 +17,7 @@ class Lesson
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'lesson/index', [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.$this->client->branchId.'/lesson/index', [
                 'headers' => $this->client->headers(),
                 'json' => [
                     "id" => $id,
