@@ -6,7 +6,7 @@ services:
         volumes:
             - ./application:/app
         ports:
-            - "69:8000"
+            - "6969:8000"
         links:
             - postgresql
         networks:
