@@ -45,7 +45,7 @@ class Logs extends Table
                         };
                     }),
                 TD::make('comment', 'Комментарий'),
-                TD::make('error', 'Текст ошибки'),
+                TD::make('error', 'Текст ошибки')->defaultHidden(),
         ];
     }
 
