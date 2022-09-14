@@ -51,7 +51,7 @@ class CameWithoutLead implements ShouldQueue
                     ->find($this->transaction->amo_lead_id);
             } else {
 
-                $alfaApi->branchId = $this->transaction->alfa_client_id;
+                $alfaApi->branchId = $this->transaction->alfa_branch_id;
 
                 $customer = (new Customer($alfaApi))->get($this->transaction->alfa_client_id);
 
