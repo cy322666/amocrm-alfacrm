@@ -59,12 +59,11 @@ class AlfaCRMController extends Controller
     {
         try {
             $this->alfaApi = (new alfaApi($webhook->user->alfaAccount()))->init();
+            $this->alfaApi->branchId = $request->branch_id;
 
             $setting = $webhook->user
                 ->alfaSetting()
                 ->firstOrFail();
-
-            $this->alfaApi->branchId = $request->branch_id;
 
             $lesson = (new Lesson($this->alfaApi))
                 ->get(

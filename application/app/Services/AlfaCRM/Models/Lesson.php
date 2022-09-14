@@ -25,6 +25,6 @@ class Lesson
                 ],
             ]);
 
-        return json_decode($response->getBody()->getContents())?->items[0];
+        return json_decode($response->getBody()->getContents())->items[0] ?? false;
     }
 }
