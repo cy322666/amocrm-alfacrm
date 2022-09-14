@@ -136,23 +136,23 @@
                 <div>
                     <h6 class="text-sm">Legal</h6>
                     <ul class="flex-column ms-n3 nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/terms-of-service" target="_blank">
-                                Terms & Conditions
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/terms-of-service" target="_blank">--}}
+{{--                                Terms & Conditions--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/privacy-policy" target="_blank">
-                                Privacy Policy
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link" href="https://www.creative-tim.com/knowledge-center/privacy-policy" target="_blank">--}}
+{{--                                Privacy Policy--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
-                                Licenses (EULA)
-                            </a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">--}}
+{{--                                Licenses (EULA)--}}
+{{--                            </a>--}}
+{{--                        </li>--}}
                     </ul>
                 </div>
             </div>
@@ -166,5 +166,4 @@
             </div>
         </div>
     </div>
-    <script>(function(a,m,o,c,r,m){a[m]={id:"288369",hash:"55c47ab8293eccbb80651c09b4012ca2c5bf3902811f84b3ac967e26cd756728",locale:"ru",inline:true,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js?1663018633';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));</script>
 </footer>
