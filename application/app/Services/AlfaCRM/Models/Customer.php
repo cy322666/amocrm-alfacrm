@@ -28,7 +28,7 @@ class Customer
     {
         $response = $this->client
             ->http
-            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.'customer/index', [
+            ->post("https://{$this->client->domain}.".$this->client::$baseUrl.$this->client->branchId.'/customer/index', [
                 'headers' => $this->client->headers(),
                 'json' => [
                     "id" => $id
