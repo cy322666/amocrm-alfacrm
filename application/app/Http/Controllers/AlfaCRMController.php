@@ -131,7 +131,7 @@ class AlfaCRMController extends Controller
                         ->alfaTransactions()
                         ->create([
                             'alfa_branch_id' => $request->branch_id,
-                            'alfa_client_id' => $request->entity_id,
+                            'alfa_client_id' => $lesson->customer_ids[0],
                             'user_id' => $webhook->user->id,
                         ]);
 
