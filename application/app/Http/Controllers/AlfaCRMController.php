@@ -78,10 +78,7 @@ class AlfaCRMController extends Controller
 
                     $transaction = $webhook->user
                         ->alfaTransactions()
-                        ->where('alfa_branch_id', $request->branch_id)
-                        ->where('alfa_client_id', $lesson->details[0]->customer_id)
-                        ->where('status', Mapper::RECORD)
-                        ->firstOrCreate([
+                        ->create([
                             'alfa_branch_id' => $request->branch_id,
                             'alfa_client_id' => $lesson->customer_ids[0],
                             'user_id' => $webhook->user->id,
