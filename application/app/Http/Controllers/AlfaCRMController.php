@@ -15,6 +15,7 @@ use App\Services\AlfaCRM\Client as alfaApi;
 use App\Services\AlfaCRM\Mapper;
 use App\Services\AlfaCRM\Models\Lesson;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 use Laravel\Octane\Exceptions\DdException;
 
 class AlfaCRMController extends Controller
@@ -97,7 +98,8 @@ class AlfaCRMController extends Controller
             if (!empty($transaction)) {
                 $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
                 $transaction->save();
-            }
+            } else
+                Log::error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
     }
 
@@ -138,8 +140,6 @@ class AlfaCRMController extends Controller
                     $transaction->setOmissionData($request->toArray(), $webhook);
 
                     CameWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
-
-                    //TODO баг нет настроек
                 }
             }
         } catch (\Throwable $exception) {
@@ -147,7 +147,8 @@ class AlfaCRMController extends Controller
             if (!empty($transaction)) {
                 $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
                 $transaction->save();
-            }
+            } else
+                 Log::error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
     }
 }
