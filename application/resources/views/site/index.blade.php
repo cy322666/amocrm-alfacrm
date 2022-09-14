@@ -177,7 +177,7 @@
                             <div class="info">
                                 <i class="material-icons text-gradient text-primary text-3xl">content_copy</i>
                                 <h5 class="font-weight-bolder mt-3">Сопровождение</h5>
-                                <p class="pe-5">Поможем </p>
+                                <p class="pe-5">Поможем сопроводить уже работающую систему. Если часто появляются вопросы, предложения, замечания, то это Ваш случай</p>
                             </div>
                         </div>
                         <div class="col-md-6">
