@@ -25,6 +25,7 @@ class Account extends Model
         'name',
         'code',
         'state',
+        'subdomain',
         'client_id',
         'work',
         'client_secret',
