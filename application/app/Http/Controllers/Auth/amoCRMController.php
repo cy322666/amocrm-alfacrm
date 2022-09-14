@@ -59,7 +59,7 @@ class amoCRMController extends Controller
             ->where('email', $request->account)
             ->first();
 
-        $account = $user->amoAccount;
+        $account = $user->amoAccount();
         $account->client_secret = $request->client_secret;
         $account->save();
     }
