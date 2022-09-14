@@ -34,6 +34,7 @@ class amoCRMController extends Controller
 
         $account = Auth::user()->amoAccount();
 
+        $account->referer = explode('.', $request->referer)[0];
         $account->code = $request->code;
         $account->client_id = $request->client_id;
         $account->save();
