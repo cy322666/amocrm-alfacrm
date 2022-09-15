@@ -15,7 +15,7 @@
         'csrfToken' => csrf_token(),
         ]) !!};
     </script>
-    <title>Black Clever</title>
+    <title>Внедрение AmoCRM и разработка</title>
 </head>
 
 <body class="index-page bg-gray-200">
