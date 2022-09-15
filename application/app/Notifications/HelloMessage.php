@@ -39,7 +39,7 @@ class HelloMessage extends Notification
     {
         return (new DashboardMessage())
             ->title('Добро пожаловать!')
-            ->message('Это раздел уведомлений, в нем вы будете видеть важные оповещения системы. А если возникнут вопросы: пишите в телеграм @blackclever')
+            ->message('Это раздел уведомлений, в нем вы будете видеть важные оповещения системы. Если появятся вопросы - напишите нам любым удобным способом')
             ->type(Color::SUCCESS())
             ->action(route('platform.start'));
     }
