@@ -20,7 +20,7 @@
 {{--<script src={{ asset("site/js/material-kit.js") }} type="text/javascript"></script>--}}
 
 <!-- Font Awesome Icons -->
-{{--<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>--}}
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
 <link rel="icon" type="image/png" href={{ asset("favicon.png") }}>
 {{--<link rel="icon" type="image/png" href={{ asset("favicon.png") }}>--}}
