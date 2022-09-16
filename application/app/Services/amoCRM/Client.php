@@ -56,6 +56,13 @@ class Client
             } else {
                 $oauth = $this->service->fetchAccessToken($this->storage->model->code);
 
+                $this->storage->model->fill([
+                    'expires_in'    => null,
+                    'access_token'  => null,
+                    'refresh_token' => null,
+                    'created_at'    => null,
+                ]);
+
                 $this->storage->setOauthData($this->service, [
                     'token_type'    => 'Bearer',
                     'expires_in'    => $oauth['expires_in'],
