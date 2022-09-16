@@ -46,12 +46,11 @@ class AlfaCRMController extends Controller
         } catch (ModelNotFoundException $exception) {
 
             $transaction->error = 'Not found settings';
+            $transaction->save();
 
         } catch (\Throwable $exception) {
 
             $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
-
-        } finally {
             $transaction->save();
         }
     }
