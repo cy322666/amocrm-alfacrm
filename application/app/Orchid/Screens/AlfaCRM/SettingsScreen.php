@@ -183,7 +183,7 @@ class SettingsScreen extends Screen
 
                     Button::make('Сбросить')
                         ->confirm('Настройки интеграции будут сброшены')
-                        ->action('reset')
+                        ->method('reset')
                         ->type(Color::WARNING())->horizontal()
                 ])->autoWidth(),
             ])),
@@ -360,6 +360,8 @@ class SettingsScreen extends Screen
             $this->amoApi->init();
 
             if ($this->amoApi->auth == false) {
+
+                Log::error(__METHOD__.' '.Auth::user()->email, [$this->amoApi]);
 
                 Alert::error('Подключите amoCRM к платформе!');
 
