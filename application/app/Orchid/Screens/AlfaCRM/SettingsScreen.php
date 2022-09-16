@@ -417,17 +417,24 @@ class SettingsScreen extends Screen
                 }
             }
 
-            $this->alfaApi->init();
+            try {
+                $this->alfaApi->init();
 
-            if($this->alfaApi->auth == true) {
+                if($this->alfaApi->auth == true) {
 
-                $this->account->active = true;
-                $this->account->save();
-            } else {
-                Alert::error('Ошибка авторизации AlfaCRM!');
+                    $this->account->active = true;
+                    $this->account->save();
+
+                    Toast::success('Успешно сохранено');
+                } else
+                    Alert::error('Ошибка авторизации AlfaCRM!');
+
+            } catch (\Throwable $exception) {
+
+                Log::error(__METHOD__ . ' ' . Auth::user()->email . ' auth AlfaCRM error ', [$this->alfaApi]);
+
+                return;
             }
-
-            Toast::success('Успешно сохранено');
 
         } catch (\Exception $exception) {
 
