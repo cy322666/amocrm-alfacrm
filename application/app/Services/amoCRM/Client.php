@@ -22,6 +22,8 @@ class Client
             'redirect_uri'  => env('AMOCRM_REDIRECT'),
         ], $account);
 
+        \Ufee\Amo\Services\Account::setCacheTime(1);
+
         \Ufee\Amo\Oauthapi::setOauthStorage($this->storage);
     }
 
