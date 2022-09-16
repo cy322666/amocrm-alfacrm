@@ -357,6 +357,7 @@ class SettingsScreen extends Screen
     {
         try {
             $this->amoApi = (new \App\Services\amoCRM\Client($this->amoAccount->refresh()));
+            $this->amoApi->init();
 
             if ($this->amoApi->auth == false) {
 
