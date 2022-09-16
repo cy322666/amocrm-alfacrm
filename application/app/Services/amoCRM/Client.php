@@ -57,7 +57,7 @@ class Client
                 $oauth = $this->service->fetchAccessToken($this->storage->model->code);
             }
             $this->storage->setOauthData($this->service, [
-                'token_type'    => 'Bearer',
+//                'token_type'    => 'Bearer',
                 'expires_in'    => $oauth['expires_in'],
                 'access_token'  => $oauth['access_token'],
                 'refresh_token' => $oauth['refresh_token'],
