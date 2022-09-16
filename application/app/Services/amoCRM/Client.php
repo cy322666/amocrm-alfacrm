@@ -62,17 +62,16 @@ class Client
                     'refresh_token' => null,
                     'created_at'    => null,
                 ]);
-
-                $this->storage->setOauthData($this->service, [
-                    'token_type'    => 'Bearer',
-                    'expires_in'    => $oauth['expires_in'],
-                    'access_token'  => $oauth['access_token'],
-                    'refresh_token' => $oauth['refresh_token'],
-                    'created_at'    => $oauth['created_at'] ?? time(),
-                ]);
-
-                $this->auth = true;
             }
+            $this->storage->setOauthData($this->service, [
+                'token_type'    => 'Bearer',
+                'expires_in'    => $oauth['expires_in'],
+                'access_token'  => $oauth['access_token'],
+                'refresh_token' => $oauth['refresh_token'],
+                'created_at'    => $oauth['created_at'] ?? time(),
+            ]);
+
+            $this->auth = true;
         }
         return $this;
     }
