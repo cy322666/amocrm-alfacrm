@@ -356,7 +356,7 @@ class SettingsScreen extends Screen
     public function save(Request $request)
     {
         try {
-            $this->amoApi->init();
+            $this->amoApi = (new \App\Services\amoCRM\Client($this->amoAccount));
 
             if ($this->amoApi->auth == false) {
 
