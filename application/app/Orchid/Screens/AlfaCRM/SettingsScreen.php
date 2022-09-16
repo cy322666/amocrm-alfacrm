@@ -347,12 +347,10 @@ class SettingsScreen extends Screen
         return Layout::rows($fields);
     }
 
-    public function save(Request $request, AmoApi $amoApi, AlfaApi $alfaApi)
+    public function save(Request $request)
     {
         try {
-            $amoApi->init();
-
-            Log::info(__METHOD__, [$amoApi]);
+            $amoApi = (new \App\Services\amoCRM\Client($this->amoAccount))->init();
 
             if ($amoApi->auth == false) {
 
@@ -413,7 +411,9 @@ class SettingsScreen extends Screen
                 }
             }
 
-            if((new AlfaApi($this->account->refresh()))->init()) {
+            $alfaApi = (new AlfaApi($this->account->refresh()))->init();
+
+            if($alfaApi->auth == true) {
 
                 $this->account->active = true;
                 $this->account->save();

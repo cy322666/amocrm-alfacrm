@@ -18,6 +18,8 @@ class Client
     public \GuzzleHttp\Client $http;
     public Model $storage;
 
+    public bool $auth = false;
+
     public static string $baseUrl = 's20.online/v2api/';
 
     public function __construct(Model $storage)
@@ -43,8 +45,15 @@ class Client
                 ]),
             ]);
 
-        $this->token = json_decode($response->getBody()->getContents())->token;
+        try {
 
+            $this->token = json_decode($response->getBody()->getContents())->token;
+
+            $this->auth = true;
+
+        } catch (\Throwable $exception) {
+
+        }
         return $this;
     }
 
