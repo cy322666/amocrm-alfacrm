@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Orchid\Platform\Notifications\DashboardChannel;
 use Orchid\Platform\Notifications\DashboardMessage;
+use Orchid\Support\Color;
 
 class AlfaCRMAuthException extends Notification
 {
@@ -38,6 +39,7 @@ class AlfaCRMAuthException extends Notification
     {
         return (new DashboardMessage())
             ->title('Ошибка авторизации AlfaCRM')
+            ->type(Color::ERROR())
             ->message('При запросе к API AlfaCRM возникла ошибка. Проверьте подключение')
             ->action(route('alfacrm.settings'));
     }

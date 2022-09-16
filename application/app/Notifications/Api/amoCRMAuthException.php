@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Orchid\Platform\Notifications\DashboardChannel;
 use Orchid\Platform\Notifications\DashboardMessage;
+use Orchid\Support\Color;
 
 class amoCRMAuthException extends Notification
 {
@@ -38,6 +39,7 @@ class amoCRMAuthException extends Notification
     {
         return (new DashboardMessage())
             ->title('Ошибка авторизации amoCRM')
+            ->type(Color::ERROR())
             ->message('При запросе к API amoCRM возникла ошибка. Проверьте подключение')
             ->action(route('account'));
     }
