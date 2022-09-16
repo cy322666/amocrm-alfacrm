@@ -524,9 +524,9 @@ class SettingsScreen extends Screen
             $this->setting->active = false;
             $this->setting->save();
 
-            Log::error(__METHOD__.' : '.$exception->getMessage());
+            Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
 
-            Alert::error($exception->getMessage());
+            Alert::error('Ошибка обновления');
         }
     }
 
@@ -582,9 +582,9 @@ class SettingsScreen extends Screen
             $this->setting->active = false;
             $this->setting->save();
 
-            Log::error(__METHOD__.' : '.$exception->getMessage());
+            Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
 
-            Alert::error($exception->getMessage());
+            Alert::error('Ошибка обновления');
         }
     }
 
@@ -617,9 +617,9 @@ class SettingsScreen extends Screen
             $this->setting->active = false;
             $this->setting->save();
 
-            Log::error(__METHOD__.' : '.$exception->getMessage());
+            Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
 
-            Alert::error($exception->getMessage());
+            Alert::error('Ошибка обновления');
         }
     }
 
@@ -675,9 +675,9 @@ class SettingsScreen extends Screen
             $this->setting->active = false;
             $this->setting->save();
 
-            Log::error(__METHOD__.' : '.$exception->getMessage());
+            Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
 
-            Alert::error($exception->getMessage());
+            Alert::error('Ошибка обновления');
         }
     }
 }
