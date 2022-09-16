@@ -23,6 +23,6 @@ class Status extends Model
 
     public function pipeline(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Pipeline::class, 'pipeline_id', 'id');
+        return $this->belongsTo(Pipeline::class);
     }
 }

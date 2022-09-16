@@ -322,6 +322,10 @@ class SettingsScreen extends Screen
             $this->setting->status_record_1 = null;
             $this->setting->status_omission_1 = null;
 
+            $this->setting->stage_came_1 = null;
+            $this->setting->stage_record_1 = null;
+            $this->setting->stage_omission_1 = null;
+
             $this->setting->branch_id = null;
             $this->setting->active = false;
             $this->setting->save();
