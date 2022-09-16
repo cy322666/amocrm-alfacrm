@@ -440,6 +440,7 @@ class SettingsScreen extends Screen
             $this->setting->active = false;
 
             Log::error(__METHOD__.' '.Auth::user()->email.' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+            Log::error(__METHOD__.' '.Auth::user()->email, [$this->amoApi]);
 
             Alert::error('Произошла ошибка сохранения');
 
