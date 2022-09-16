@@ -34,7 +34,16 @@ class amoCRMController extends Controller
 
         $account = Auth::user()->amoAccount();
 
-        $account->subdomain = explode('.', $request->referer)[0];
+        $subdomain = explode('.', $request->referer)[0];
+
+        if (Account::query()
+            ->where('subdomain', $subdomain)
+            ->first()) {
+
+            return redirect()->route('account', ['auth' => 2]);
+        }
+
+        $account->subdomain =
         $account->code = $request->code;
         $account->client_id = $request->client_id;
         $account->save();

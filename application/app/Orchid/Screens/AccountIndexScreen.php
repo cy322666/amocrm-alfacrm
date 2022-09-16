@@ -2,8 +2,6 @@
 
 namespace App\Orchid\Screens;
 
-//use App\Models\Orchid\amoCRMButton;
-//use App\Orchid\Layouts\ConnectAmoCRM;
 use App\Models\User;
 use App\Orchid\Buttons\amoCRMButton;
 use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
@@ -82,6 +80,11 @@ class AccountIndexScreen extends Screen
         if ($this->auth === '1') {
 
             Toast::success('Успешно подключено');
+        }
+
+        if ($this->auth === '2') {
+
+            Toast::error('Такой аккаунт amoCRM уже был подключен к Платформе');
         }
 
         return [
