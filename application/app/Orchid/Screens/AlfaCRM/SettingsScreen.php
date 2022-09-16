@@ -352,12 +352,14 @@ class SettingsScreen extends Screen
         try {
             $AmoApi->init();
 
+            Log::info(__METHOD__.' '.Auth::user()->email, $request->toArray());
+
             if ($AmoApi->auth == false) {
 
                 Alert::error('Подключите amoCRM к платформе!');
-            }
 
-            Log::info(__METHOD__, $request->toArray());
+                return;
+            }
 
             $this->account->code      = $request->account['code'];
             $this->account->client_id = $request->account['client_id'];
@@ -392,7 +394,7 @@ class SettingsScreen extends Screen
                     'uuid'     => Uuid::uuid4(),
                 ]);
 
-                if ($AmoApi->auth == true) {
+                if ($AmoApi->auth === true) {
 
                     $response = $AmoApi->service
                         ->webhooks()
@@ -404,7 +406,9 @@ class SettingsScreen extends Screen
 
                     if ($response !== true) {
 
-                        throw new \Exception('Не удалось создать вебхук в amoCRM');
+                        Log::error(__METHOD__.' '.Auth::user()->email.' Не удалось создать вебхук в amoCRM');
+
+                        Alert::error('Не удалось создать вебхук в amoCRM');
                     }
                 }
             }
@@ -423,7 +427,9 @@ class SettingsScreen extends Screen
 
             $this->setting->active = false;
 
-            Alert::error($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+            Log::error(__METHOD__.' '.Auth::user()->email.' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+
+            Alert::error('Произошла ошибка сохранения');
 
         } finally {
 
