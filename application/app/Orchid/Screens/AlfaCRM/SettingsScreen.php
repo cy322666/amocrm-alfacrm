@@ -183,7 +183,7 @@ class SettingsScreen extends Screen
 
                     Button::make('Сбросить')
                         ->confirm('Настройки интеграции будут сброшены')
-                        ->method('reset')
+                        ->method('resetSetting')
                         ->type(Color::WARNING())->horizontal()
                 ])->autoWidth(),
             ])),
@@ -304,7 +304,7 @@ class SettingsScreen extends Screen
         ];
     }
 
-    public function reset()
+    public function resetSetting()
     {
         try {
             $fieldsRaw = json_decode($this->account->fields);
