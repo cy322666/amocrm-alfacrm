@@ -326,9 +326,11 @@ class SettingsScreen extends Screen
             $this->setting->active = false;
             $this->setting->save();
 
+            $this->amoAccount->fields(Field::class)->delete();
             $this->amoAccount->amoStatuses()->delete();
             $this->amoAccount->amoPipelines()->delete();
 
+            $this->account->fields(\App\Models\AlfaCRM\Field::class)->delete();
             $this->account->alfaBranches()->delete();
             $this->account->alfaStatuses()->delete();
             $this->account->alfaSources()->delete();
