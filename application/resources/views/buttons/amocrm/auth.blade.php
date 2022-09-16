@@ -3,9 +3,9 @@
         class="amocrm_oauth"
         charset="utf-8"
         data-client-id="{{ config('services.amocrm.client_id') }}"
-        data-name="{{ config('services.amocrm.app_name') }}"
-        data-description="{{ config('services.amocrm.description') }}"
-        data-redirect_uri="{{ config('services.amocrm.redirect_uri') }}"
+{{--        data-name="{{ config('services.amocrm.app_name') }}"--}}
+{{--        data-description="{{ config('services.amocrm.description') }}"--}}
+{{--        data-redirect_uri="{{ config('services.amocrm.redirect_uri') }}"--}}
         data-secrets_uri="{{ config('services.amocrm.secrets_uri') }}?account={{ \Illuminate\Support\Facades\Auth::user()->email }}"
         data-logo=""
         data-scopes="crm"
