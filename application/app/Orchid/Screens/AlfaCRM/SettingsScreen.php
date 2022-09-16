@@ -39,6 +39,9 @@ class SettingsScreen extends Screen
     public $account;
     public $amoAccount;
 
+    public $amoApi;
+    public $alfaApi;
+
     public $whStatusCame;
     public $whStatusOmission;
     public $whStatusRecord;
@@ -54,6 +57,9 @@ class SettingsScreen extends Screen
         $setting = Auth::user()->alfaSetting;
 
         $amoAccount = Auth::user()->amoAccount();
+
+        $this->alfaApi = (new \App\Services\AlfaCRM\Client($account));
+        $this->amoApi  = (new \App\Services\amoCRM\Client($amoAccount));
 
         if ($setting->webhooks->count() == 0) {
 
@@ -350,9 +356,9 @@ class SettingsScreen extends Screen
     public function save(Request $request)
     {
         try {
-            $amoApi = (new \App\Services\amoCRM\Client($this->amoAccount))->init();
+            $this->amoApi->init();
 
-            if ($amoApi->auth == false) {
+            if ($this->amoApi->auth == false) {
 
                 Alert::error('Подключите amoCRM к платформе!');
 
@@ -392,9 +398,9 @@ class SettingsScreen extends Screen
                     'uuid'     => Uuid::uuid4(),
                 ]);
 
-                if ($amoApi->auth === true) {
+                if ($this->amoApi->auth === true) {
 
-                    $response = $amoApi->service
+                    $response = $this->amoApi->service
                         ->webhooks()
                         ->subscribe(URL::route($wh->path, [
                             'webhook' => $wh->uuid,
@@ -411,9 +417,9 @@ class SettingsScreen extends Screen
                 }
             }
 
-            $alfaApi = (new AlfaApi($this->account->refresh()))->init();
+            $this->alfaApi->init();
 
-            if($alfaApi->auth == true) {
+            if($this->alfaApi->auth == true) {
 
                 $this->account->active = true;
                 $this->account->save();
@@ -438,30 +444,30 @@ class SettingsScreen extends Screen
         }
     }
 
-    public function updateFieldsAmo(AmoApi $amocrm)
+    public function updateFieldsAmo()
     {
         try {
-            $amocrm->init();
+            $this->amoApi->init();
 
-            if ($amocrm->auth == false) {
+            if ($this->amoApi->auth == false) {
 
                 Alert::error('Ошибка подключения amoCRM');
 
                 return;
             }
 
-            $account = $this->amoAccount;
-
-            $account->fields(Field::class)
+            $this->amoAccount->fields(Field::class)
                 ->where('entity', 2)
                 ->delete();
 
-            $amocrm->service
+            $account = $this->amoAccount;
+
+            $this->amoApi->service
                 ->account
                 ->customFields
                 ->leads->each(function ($field) use ($account) {
 
-                    $account->fields(Field::class)->create([
+                    $this->amoAccount->fields(Field::class)->create([
                         'account_id' => $account->id,
                         "field_id"   => $field->id,
                         "name" => $field->name,
@@ -479,11 +485,11 @@ class SettingsScreen extends Screen
 
             Field::addDefaultForLead($account);
 
-            $account->fields(Field::class)
+            $this->amoAccount->fields(Field::class)
                 ->where('entity', 1)
                 ->delete();
 
-            $amocrm->service
+            $this->amoApi->service
                 ->account
                 ->customFields
                 ->contacts->each(function ($field) use ($account) {
@@ -519,12 +525,12 @@ class SettingsScreen extends Screen
         }
     }
 
-    public function updateStatusesAmo(AmoApi $amocrm)
+    public function updateStatusesAmo()
     {
         try {
-            $amocrm->init();
+            $this->amoApi->init();
 
-            if ($amocrm->auth == false) {
+            if ($this->amoApi->auth == false) {
 
                 Alert::error('Ошибка подключения amoCRM');
 
@@ -536,7 +542,7 @@ class SettingsScreen extends Screen
             $account->pipelines()->delete();
             $account->amoStatuses()->delete();
 
-            $amocrm
+            $this->amoApi
                 ->service
                 ->account
                 ->pipelines
@@ -577,14 +583,14 @@ class SettingsScreen extends Screen
         }
     }
 
-    public function updateFieldsAlfa(AlfaApi $alfaApi)
+    public function updateFieldsAlfa()
     {
         try {
-            $alfaApi->init();
+            $this->alfaApi->init();
 
             $this->account->fields(\App\Models\AlfaCRM\Field::class)->delete();
 
-            foreach((new Customer($alfaApi))->first() as $fieldName => $fieldValue) {
+            foreach((new Customer($this->alfaApi))->first() as $fieldName => $fieldValue) {
 
                 if (!in_array($fieldName, \App\Models\AlfaCRM\Customer::$ignoreFields)) {
 
@@ -612,18 +618,16 @@ class SettingsScreen extends Screen
         }
     }
 
-    public function updateSystemAlfa(AlfaApi $alfaApi)
+    public function updateSystemAlfa()
     {
         try {
-            $alfaApi->init();
-
-            Log::info(__METHOD__, [$alfaApi]);
+            $this->alfaApi->init();
 
             $this->account->alfaBranches()->delete();
             $this->account->alfaSources()->delete();
             $this->account->alfaStatuses()->delete();
 
-            foreach((new Branch($alfaApi))->all() as $branch) {
+            foreach((new Branch($this->alfaApi))->all() as $branch) {
 
                 $this->account
                     ->alfaBranches()
@@ -636,7 +640,7 @@ class SettingsScreen extends Screen
                     ]);
             }
 
-            foreach((new Status($alfaApi))->all() as $status) {
+            foreach((new Status($this->alfaApi))->all() as $status) {
 
                 $this->account
                     ->alfaStatuses()
@@ -647,7 +651,7 @@ class SettingsScreen extends Screen
                     ]);
             }
 
-            foreach((new Source($alfaApi))->all() as $source) {
+            foreach((new Source($this->alfaApi))->all() as $source) {
 
                 $this->account
                     ->alfaSources()
