@@ -36,5 +36,6 @@ return [
         'app_name'  => 'CLEVER PLATFORM',
         'description'  => 'Подключите платформу к вашему аккаунту для подключения интеграций',
         'redirect_uri' => env('AMOCRM_REDIRECT'),
+        'secrets_uri' => env('AMOCRM_SECRETS_URI'),
     ],
 ];
