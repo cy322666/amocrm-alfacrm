@@ -76,7 +76,7 @@ class Account extends Model
         return $this->hasMany(Status::class);
     }
 
-    public function pipelines()
+    public function amoPipelines()
     {
         return $this->hasMany(Pipeline::class);
     }

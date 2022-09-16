@@ -326,6 +326,13 @@ class SettingsScreen extends Screen
             $this->setting->active = false;
             $this->setting->save();
 
+            $this->amoAccount->amoStatuses()->delete();
+            $this->amoAccount->amoPipelines()->delete();
+
+            $this->account->alfaBranches()->delete();
+            $this->account->alfaStatuses()->delete();
+            $this->account->alfaSources()->delete();
+
             Toast::info('Настройки успешно сброшены');
 
         } catch (\Exception $exception) {
@@ -548,7 +555,7 @@ class SettingsScreen extends Screen
 
             $account = $this->amoAccount;
 
-            $account->pipelines()->delete();
+            $account->amoPipelines()->delete();
             $account->amoStatuses()->delete();
 
             $this->amoApi
@@ -560,7 +567,7 @@ class SettingsScreen extends Screen
                     Log::info(__METHOD__, [$pipeline]);
 
                     $model = $account
-                        ->pipelines()
+                        ->amoPipelines()
                         ->create([
                             'pipeline_id' => $pipeline->id,
                             'name'        => $pipeline->name,
