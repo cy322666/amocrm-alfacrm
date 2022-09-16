@@ -22,14 +22,14 @@
                             <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="material-icons opacity-6 me-2 text-md">dashboard</i>
                                 amoCRM
-                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
+{{--                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">--}}
                             </a>
 
                         <li class="nav-item dropdown dropdown-hover mx-2">
                             <a href="#platform" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="material-icons opacity-6 me-2 text-md">view_day</i>
                                 Разработка
-                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">
+{{--                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">--}}
                             </a>
                         </li>
 
