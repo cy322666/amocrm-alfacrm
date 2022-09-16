@@ -307,7 +307,7 @@ class SettingsScreen extends Screen
     public function resetSetting()
     {
         try {
-            $fieldsRaw = json_decode($this->account->fields(Field::class));
+            $fieldsRaw = json_decode($this->account->fields(Field::class)->get());
 
             $fields = [];
 
