@@ -38,6 +38,7 @@ class amoCRMController extends Controller
 
         if (Account::query()
             ->where('subdomain', $subdomain)
+            ->where('user_id', '!=', Auth::user()->id)
             ->first()) {
 
             return redirect()->route('account', ['auth' => 2]);
