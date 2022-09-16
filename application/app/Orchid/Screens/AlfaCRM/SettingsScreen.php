@@ -420,16 +420,14 @@ class SettingsScreen extends Screen
             try {
                 $this->alfaApi->init();
 
-                if($this->alfaApi->auth == true) {
+                $this->account->active = true;
+                $this->account->save();
 
-                    $this->account->active = true;
-                    $this->account->save();
-
-                    Toast::success('Успешно сохранено');
-                } else
-                    Alert::error('Ошибка авторизации AlfaCRM!');
+                Toast::success('Успешно сохранено');
 
             } catch (\Throwable $exception) {
+
+                Alert::error('Ошибка авторизации AlfaCRM!');
 
                 Log::error(__METHOD__ . ' ' . Auth::user()->email . ' auth AlfaCRM error ', [$this->alfaApi]);
 
