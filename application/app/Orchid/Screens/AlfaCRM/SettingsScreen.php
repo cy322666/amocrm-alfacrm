@@ -347,14 +347,14 @@ class SettingsScreen extends Screen
         return Layout::rows($fields);
     }
 
-    public function save(Request $request, AmoApi $AmoApi, AlfaApi $alfaApi)
+    public function save(Request $request, AmoApi $amoApi, AlfaApi $alfaApi)
     {
         try {
-            $AmoApi->init();
+            $amoApi->init();
 
-            Log::info(__METHOD__.' '.Auth::user()->email, $request->toArray());
+            Log::info(__METHOD__, [$amoApi]);
 
-            if ($AmoApi->auth == false) {
+            if ($amoApi->auth == false) {
 
                 Alert::error('Подключите amoCRM к платформе!');
 
@@ -394,9 +394,9 @@ class SettingsScreen extends Screen
                     'uuid'     => Uuid::uuid4(),
                 ]);
 
-                if ($AmoApi->auth === true) {
+                if ($amoApi->auth === true) {
 
-                    $response = $AmoApi->service
+                    $response = $amoApi->service
                         ->webhooks()
                         ->subscribe(URL::route($wh->path, [
                             'webhook' => $wh->uuid,
