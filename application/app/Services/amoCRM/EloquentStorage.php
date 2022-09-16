@@ -31,7 +31,7 @@ class EloquentStorage extends AbstractStorage
 
     public function setOauthData(Oauthapi $client, array $oauth): bool
     {
-//        parent::setOauthData($client, $oauth);
+        parent::setOauthData($client, $oauth);
 
         return (bool)$this->setOauth($client->getAuth('client_id'), $oauth);
     }
@@ -49,7 +49,7 @@ class EloquentStorage extends AbstractStorage
 
     private function setOauth(string $client_id, array $oauth) : array
     {
-//        $this->model->token_type    = $oauth['token_type'];
+        $this->model->token_type    = 'Bearer';
         $this->model->access_token  = $oauth['access_token'];
         $this->model->refresh_token = $oauth['refresh_token'];
         $this->model->expires_in    = $oauth['expires_in'];
