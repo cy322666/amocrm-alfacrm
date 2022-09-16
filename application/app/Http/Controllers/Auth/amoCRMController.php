@@ -44,7 +44,7 @@ class amoCRMController extends Controller
             return redirect()->route('account', ['auth' => 2]);
         }
 
-        $account->subdomain =
+        $account->subdomain = $subdomain;
         $account->code = $request->code;
         $account->client_id = $request->client_id;
         $account->save();
