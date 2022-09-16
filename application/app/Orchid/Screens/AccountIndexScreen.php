@@ -19,6 +19,7 @@ use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Fields\Label;
+use Orchid\Support\Facades\Toast;
 use Throwable;
 
 class AccountIndexScreen extends Screen
@@ -76,11 +77,11 @@ class AccountIndexScreen extends Screen
     {
         if ($this->auth === '0') {
 
-            Alert::error('Возникла ошибка с подключением');
+            Toast::error('Возникла ошибка с подключением');
         }
         if ($this->auth === '1') {
 
-            Alert::success('Успешно подключено');
+            Toast::success('Успешно подключено');
         }
 
         return [
