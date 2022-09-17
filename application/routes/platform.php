@@ -38,6 +38,13 @@ Route::screen('account', AccountIndexScreen::class)->name('account');
 Route::screen('alfacrm/settings', \App\Orchid\Screens\AlfaCRM\SettingsScreen::class)->name('alfacrm.settings');
 Route::screen('alfacrm/transactions', \App\Orchid\Screens\AlfaCRM\LogScreen::class)->name('alfacrm.transactions');
 
+Route::screen('bizon/webinars', \App\Orchid\Screens\Bizon\WebinarIndexScreen::class)->name('bizon.webinars');
+
+Route::screen('bizon/{webinar}/viewers', \App\Orchid\Screens\Bizon\ViewerIndexScreen::class)->name('bizon.viewers')
+    ->middleware('viewers');
+
+Route::screen('bizon/settings', \App\Orchid\Screens\Bizon\BizonSettingScreen::class)->name('bizon.settings');
+
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)
     ->name('platform.profile')

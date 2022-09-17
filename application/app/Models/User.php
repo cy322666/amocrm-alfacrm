@@ -79,6 +79,14 @@ class User extends Authenticatable
             ->first();
     }
 
+    public function bizonAccount()
+    {
+        return Account::query()
+            ->where('user_id', $this->id)
+            ->where('name', 'bizon')
+            ->first();
+    }
+
     public function amoAccount()
     {
         return Account::query()

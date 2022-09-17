@@ -29,18 +29,7 @@ class Statuses extends \Orchid\Screen\Layouts\Table
                     return '<div class="filled-circle" style="background-color: '.$model->color.'; border-radius: 20px">'.$model->status_id.'</div>';
                 }),
 
-            TD::make('name', 'Статус')
-//                ->width('250')
-                ->render(function (Status $model) {
-
-                    return $model->name;
-                }),
-
-//            TD::make('id', 'ID воронки')
-//                ->width('150')
-//                ->render(function (Status $model) {
-//                    return $model->pipeline->pipeline_id;
-//                }),
+            TD::make('name', 'Статус'),
 
             TD::make('name', 'Воронка')
                 ->width('450')

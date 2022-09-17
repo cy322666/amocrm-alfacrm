@@ -7,7 +7,7 @@ use App\Models\Feedback;
 use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
 use App\Orchid\Layouts\AlfaCRM\Settings\Info;
 use App\Orchid\Layouts\AlfaCRM\Settings\Stages;
-use App\Orchid\Layouts\AlfaCRM\Listeners\StatusListener;
+use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
 use App\Services\AlfaCRM\Models\Branch;
 use App\Services\AlfaCRM\Models\Customer;
 use App\Services\AlfaCRM\Models\Source;
@@ -173,23 +173,6 @@ class SettingsScreen extends Screen
 
             Layout::block(Layout::rows([
                 Group::make([
-                    Button::make('Сохранить')
-                        ->method('save')
-                        ->type(Color::INFO())->horizontal(),
-
-//                    Button::make('Диагностика')
-//                        ->method('diagnostic')
-//                        ->type(Color::DARK())->horizontal(),//TODO проверка авторизаций и настроек
-
-                    Button::make('Сбросить')
-                        ->confirm('Настройки интеграции будут сброшены')
-                        ->method('resetSetting')
-                        ->type(Color::WARNING())->horizontal()
-                ])->autoWidth(),
-            ])),
-
-            Layout::block(Layout::rows([
-                Group::make([
                     Button::make('Поля amoCRM')
                         ->method('updateFieldsAmo')
                         ->type(Color::DEFAULT()),
@@ -210,6 +193,23 @@ class SettingsScreen extends Screen
             ]))
                 ->title('Обновить данные')
                 ->description('Если нужно обновить данные систем, то нажмите нужную кнопку'),
+
+            Layout::block(Layout::rows([
+                Group::make([
+                    Button::make('Сохранить')
+                        ->method('save')
+                        ->type(Color::INFO())->horizontal(),
+
+//                    Button::make('Диагностика')
+//                        ->method('diagnostic')
+//                        ->type(Color::DARK())->horizontal(),//TODO проверка авторизаций и настроек
+
+                    Button::make('Сбросить')
+                        ->confirm('Настройки интеграции будут сброшены')
+                        ->method('resetSetting')
+                        ->type(Color::WARNING())->horizontal()
+                ])->autoWidth(),
+            ])),
 
             Layout::tabs([
                 'Поля' => Layout::columns([
@@ -239,7 +239,7 @@ class SettingsScreen extends Screen
 //                            ->required()
                             ->help('Этап на который сделка передвигается при отмене пробного'),
                     ]),
-                    StatusListener::class,
+                    Statuses::class,
                 ]),
                 'Этапы' => Layout::columns([
                     Layout::rows([
