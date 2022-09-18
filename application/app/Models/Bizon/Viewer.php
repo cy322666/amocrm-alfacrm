@@ -117,9 +117,9 @@ class Viewer extends Model
             return 0;
     }
 
-    public function convertToDate(string $microtime): int
+    public function convertToDate(string $microtime): string
     {
-        return (int)round(((int)$microtime / 1000) / 60);
+        return explode('.', date('Y-m-d H:i:s.u', $microtime/1000))[0] ?? '-';
     }
 
     public function convertToString($value): string
@@ -138,7 +138,7 @@ class Viewer extends Model
             ' - Телефон : ' . $this->phone,
             ' - Почта : ' . $this->email,
             ' - Город : ' . $this->city,
-            ' - Присутствовал : ' .$this->getTime($this->viewTill, $this->view). ' мин',
+            ' - Присутствовал : ' .$this->time. ' мин',
             ' - Когда зашел : ' . $this->convertToDate($this->view),
             ' - Когда вышел : ' . $this->convertToDate($this->viewTill),
             ' - Присутствовал до конца : ' .$this->convertToString($this->userFinished),

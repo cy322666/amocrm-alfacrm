@@ -141,7 +141,7 @@ class BizonSettingScreen extends Screen
                         ->method('updateStatuses')
                         ->type(Color::DEFAULT()),
 
-                    Button::make('Сотрудники amoCRM')
+                    Button::make('Пользователи amoCRM')
                         ->method('updateStaffs')
                         ->type(Color::DEFAULT()),
 

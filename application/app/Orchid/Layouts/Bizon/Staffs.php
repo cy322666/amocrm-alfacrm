@@ -37,6 +37,6 @@ class Staffs extends \Orchid\Screen\Layouts\Table
      */
     protected function subNotFound(): string
     {
-        return 'Нажмите на кнопку выше \'Сотрудники amoCRM\'';
+        return 'Нажмите на кнопку выше \'Пользователи amoCRM\'';
     }
 }

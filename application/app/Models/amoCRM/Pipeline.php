@@ -20,8 +20,6 @@ class Pipeline extends Model
 
     protected $table = 'amocrm_pipelines';
 
-    public $timestamps = false;
-
     public static function updateStatuses($amoApi, $account)
     {
         $account->amoPipelines()->delete();

@@ -84,7 +84,7 @@ class ViewerSend implements ShouldQueue
 
     /**
      * Execute the job.
-     * @return void
+     * @return bool
      * @var Client $amoApi
      */
     // artisan queue:listen database --queue=bizon_export --sleep=2
@@ -150,6 +150,8 @@ class ViewerSend implements ShouldQueue
         $this->viewer->contact_id = $contact->id;
         $this->viewer->status = 1;
         $this->viewer->save();
+
+        return true;
 
 
 //        Log::info(__METHOD__.' > результат отправки viewer id : '.$this->viewer->id.' '.$result);
