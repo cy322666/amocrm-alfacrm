@@ -3,6 +3,8 @@
 namespace App\Orchid\Layouts\Bizon;
 
 use App\Models\Bizon\Viewer;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
@@ -21,10 +23,10 @@ class ViewerIndexLayout extends Table
         return 'Данных нет :(';
     }
 
-    protected function striped(): bool
-    {
-        return false;
-    }
+//    protected function striped(): bool
+//    {
+//        return false;
+//    }
     /**
      * @return string
      */
@@ -38,76 +40,60 @@ class ViewerIndexLayout extends Table
      */
     public function columns(): array
     {
+        $subdomain = Auth::user()->amoAccount()->subdomain;
+
         return [
             TD::make('created_at', 'Добавлен')
-                //->sort()
-//                ->defaultHidden()
+                ->sort()
+                ->defaultHidden()
                 ->render(function (Viewer $viewer) {
-                    return $viewer->created_at;
+                    return Carbon::parse($viewer->created_at)->format('Y-m-d H:i:s');
                 }),
-            TD::make('username', 'Имя')
-                ->render(function (Viewer $viewer) {
-                    return $viewer->username;
-                }),
-            TD::make('email', 'Почта')
-                //->filter(TD::FILTER_TEXT)
-                ->render(function (Viewer $viewer) {
-                    return $viewer->email;
-                }),
-            TD::make('phone', 'Телефон')
-                //->filter(TD::FILTER_TEXT)
-                ->render(function (Viewer $viewer) {
-                    return $viewer->phone;
-                }),
+            TD::make('username', 'Имя'),
+            TD::make('email', 'Почта')->defaultHidden(),
+            TD::make('phone', 'Телефон'),
             TD::make('time', 'Присутствовал')
-//                ->filter(TD::FILTER_TEXT)
-//                ->sort()
+                ->sort()
                 ->render(function (Viewer $viewer) {
                     return $viewer->time.' мин';
                 }),
             TD::make('type', 'Сегмент')
-//                ->sort()
-//                ->filter(TD::FILTER_TEXT)
+                ->sort()
                 ->render(function (Viewer $viewer) {
 
-                    return $viewer->type;
-//                    switch ($viewer->type) {
-//                        case 'hot' :
-//                            return 'Горячий';
-//                        case 'cold' :
-//                            return 'Холодный';
-//                        case 'soft' :
-//                            return 'Теплый';
-//                    }
+                    return match ($viewer->type) {
+                        'hot'  => 'Горячий',
+                        'cold' => 'Холодный',
+                        'soft' => 'Теплый',
+                    };
                 }),
             TD::make('contact_id', 'ID контакта')
-                //->filter(TD::FILTER_TEXT)
-                ->render(function (Viewer $viewer) {
-                    //dd($viewer->webinar->user);
-                    return Link::make($viewer->contact_id)
-                        ->href('https://'.$viewer->webinar->account->subdomain.'/contacts/detail/'.$viewer->contact_id);
+                ->render(function (Viewer $viewer) use ($subdomain) {
+
+                    if ($viewer->contact_id) {
+
+                        return Link::make($viewer->contact_id)
+                            ->href('https://'.$subdomain.'/contacts/detail/'.$viewer->contact_id);
+                    } else
+                        return '-';
                 }),
             TD::make('lead_id', 'ID сделки')
-                //->filter(TD::FILTER_TEXT)
-                ->render(function (Viewer $viewer) {
+                ->render(function (Viewer $viewer) use ($subdomain) {
 
-                    return Link::make($viewer->lead_id)
-                        ->href('https://'.$viewer->webinar->account->subdomain.'/leads/detail/'.$viewer->lead_id);
+                    if ($viewer->lead_id) {
+
+                        return Link::make($viewer->contact_id)
+                            ->href('https://'.$subdomain.'/leads/detail/'.$viewer->lead_id);
+                    } else
+                        return '-';
                 }),
             TD::make('status', 'Статус')
-//                ->sort()
-//                ->filter(TD::FILTER_TEXT)
+                ->sort()
                 ->render(function (Viewer $viewer) {
 
-                    return $viewer->status;
-//                    if($viewer->status == 'send') return 'ОК';
-//                    if($viewer->status == 'wait') return 'В очереди';
+                    if($viewer->status == 1) return 'Отправлен';
+                    if($viewer->status == 0) return 'В очереди';
                 }),
-//            TD::make('detail', 'Детали')
-//                ->render(function (Viewer $viewer) {
-//                    return Link::make('Детали')
-//                    ->route('bizon.orders.viewers.detail', $viewer);
-//                }),
         ];
     }
 }

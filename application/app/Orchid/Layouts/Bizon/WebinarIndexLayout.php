@@ -3,9 +3,11 @@
 namespace App\Orchid\Layouts\Bizon;
 
 use App\Models\Bizon\Webinar;
+use Carbon\Carbon;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
+use Orchid\Support\Color;
 
 class WebinarIndexLayout extends Table
 {
@@ -56,12 +58,12 @@ class WebinarIndexLayout extends Table
             TD::make('start', 'Создан')
                 ->render(function (Webinar $webinar) {
 
-                    return $webinar->created;
+                    return Carbon::parse($webinar->created)->format('Y-m-d H:i:s');
                 }),
-            TD::make('created_at', 'Закончился')
+            TD::make('end', 'Закончился')
                 ->render(function (Webinar $webinar) {
 
-                    return $webinar->created_at;
+                    return Carbon::parse($webinar->created)->addMinutes($webinar->len)->format('Y-m-d H:i:s');
                 }),
             TD::make('room_title', 'Название комнаты')
                 ->align('left')
@@ -81,13 +83,14 @@ class WebinarIndexLayout extends Table
                 //->filter(TD::FILTER_TEXT)
                 ->render(function (Webinar $webinar) {
 
-                    if($webinar->status == 'ok') return 'Выгружен';
-                    if($webinar->status == 'wait') return 'Выгружается';
+                    if($webinar->status == 1) return 'Выгружен';
+                    if($webinar->status == 0) return 'Выгружается';
                 }),
-            TD::make('viewers', 'Посетители')
+            TD::make('detail', 'Посетители')
                 ->render(function (Webinar $webinar) {
                     return Link::make('Посетители')
-                        ->route('bizon.orders.viewers', $webinar);
+                        ->type(Color::INFO())
+                        ->route('bizon.viewers', $webinar);
                 }),
         ];
     }

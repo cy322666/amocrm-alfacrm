@@ -32,7 +32,9 @@ class WebinarIndexScreen extends Screen
     public function query(): array
     {
         return [
-            'webinars' => Webinar::where('account_id', Auth::user()->account->id)
+            'webinars' => Auth::user()
+                ->bizonAccount()
+                ->bizonSetting->webinars()
                 ->orderBy('created_at', 'desc')
                 ->paginate(),
         ];

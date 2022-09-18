@@ -77,6 +77,6 @@ class CreateViewersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('viewers');
+        Schema::dropIfExists('bizon_viewers');
     }
 }

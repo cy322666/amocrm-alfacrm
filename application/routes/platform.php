@@ -40,8 +40,9 @@ Route::screen('alfacrm/transactions', \App\Orchid\Screens\AlfaCRM\LogScreen::cla
 
 Route::screen('bizon/webinars', \App\Orchid\Screens\Bizon\WebinarIndexScreen::class)->name('bizon.webinars');
 
-Route::screen('bizon/{webinar}/viewers', \App\Orchid\Screens\Bizon\ViewerIndexScreen::class)->name('bizon.viewers')
-    ->middleware('viewers');
+Route::screen('bizon/{webinar}/viewers', \App\Orchid\Screens\Bizon\ViewerIndexScreen::class)
+    ->name('bizon.viewers');
+//    ->middleware('viewers');
 
 Route::screen('bizon/settings', \App\Orchid\Screens\Bizon\BizonSettingScreen::class)->name('bizon.settings');
 
