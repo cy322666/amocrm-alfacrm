@@ -25,7 +25,7 @@ class Webinar extends Model
         'webinarId',
         'stat',  //число зрителей
         'len',   //длительность вебинара
-        'account_id'
+        'setting_id'
     ];
 
     //возможность сортировки по полям
@@ -74,19 +74,19 @@ class Webinar extends Model
                 'username'   => $user_array['username'],
                 'roomid'     => $user_array['roomid'],
                 'type'       => Viewer::getType($setting, $time),
-                'url'        => mb_strimwidth($user_array['url'], 0, 100, "..."),
+                'url'        => !empty($user_array['url']) ? mb_strimwidth($user_array['url'], 0, 100, "...") : null,
                 'ip'         => $user_array['ip'],
-                'useragent'  => $user_array['useragent'],
+                'useragent'  => $user_array['useragent'] ?? null,
                 'created'    => $user_array['created'],
                 'playVideo'  => $user_array['playVideo'] == 1 ? 'Да' : 'Нет',
                 'finished'   => !empty($user_array['finished']) ? 'Да' : 'Нет',
                 'messages_num' => $user_array['messages_num'],
-                'cv'         => $user_array['cv'],
-                'cu1'        => $user_array['cu1'],
-                'p1'         => $user_array['p1'],
-                'p2'         => $user_array['p2'],
-                'p3'         => $user_array['p3'],
-                'referer'    => $user_array['referer'],
+                'cv'         => $user_array['cv'] ?? null,
+                'cu1'        => $user_array['cu1'] ?? null,
+                'p1'         => $user_array['p1'] ?? null,
+                'p2'         => $user_array['p2'] ?? null,
+                'p3'         => $user_array['p3'] ?? null,
+                'referer'    => $user_array['referer'] ?? null,
                 'city'       => $user_array['city'] ?? null,
                 'region'     => $user_array['region'] ?? null,
                 'country'    => $user_array['country'] ?? null,

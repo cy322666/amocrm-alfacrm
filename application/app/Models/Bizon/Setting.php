@@ -31,6 +31,11 @@ class Setting extends Model
 
     public function account(): \Illuminate\Database\Eloquent\Relations\HasOne
     {
-        return $this->hasOne(Account::class);
+        return $this->hasOne(Account::class, 'id', 'account_id')->where('name', 'bizon');
+    }
+
+    public function webinars()
+    {
+        return $this->hasMany(Webinar::class);
     }
 }

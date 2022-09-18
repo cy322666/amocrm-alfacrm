@@ -2,54 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Jobs\BizonViewerSend;
-use App\Models\Account;
-use App\Models\Bizon\Setting;
-use App\Models\Bizon\Viewer;
-use App\Models\Bizon\Webinar;
-use App\Services\Bizon365\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use App\Jobs\Bizon\ViewerSend;
+use App\Models\Webhook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Laravel\Octane\Exceptions\DdException;
 
 class BizonController extends Controller
 {
-    /**
-     * @throws GuzzleException|DdException
-     */
-    public function webinar(Account $account, Request $request)
+    public function webinar(Webhook $webhook, Request $request)
     {
-        //TODO webhook
-        $webinar = $account->bizonWebinar()->create($request->toArray());
+        try {
+            Log::info(__METHOD__, $request->toArray());
 
-        $setting = $account->bizonSetting;
+            $setting = $webhook->bizonSetting()->firstOrFail();
+            $account = $setting->account()->firstOrFail();
+            $webinar = $setting->webinars()->create($request->toArray());
 
-        //TODO facade
-        $bizon = (new Client())->setToken($account->token_bizon);
+            $bizonApi = (new \App\Services\Bizon\Client())->setToken($account->access_token);
 
-        $info = $bizon->webinar($webinar->webinarId);
+            $info = $bizonApi->webinar($webinar->webinarId);
 
-        $webinar_title   = $info->room_title;
-        $webinar_created = $info->report->created;
-        $webinar_group   = $info->report->group;
-        $webinar->room_title = $webinar_title;
-        $webinar->created    = $webinar_created;
-        $webinar->group      = $webinar_group;
+            $webinar_title   = $info->room_title;
+            $webinar_created = $info->report->created;
+            $webinar_group   = $info->report->group;
+            $webinar->room_title = $webinar_title;
+            $webinar->created    = $webinar_created;
+            $webinar->group      = $webinar_group;
 
-        $report = json_decode($info->report->report, true);
+            $report = json_decode($info->report->report, true);
 
-        $commentariesTS = json_decode($info->report->messages, true);
+            $commentariesTS = json_decode($info->report->messages, true);
 
-        $webinar->setViewers($report, $setting, $commentariesTS);
-        $webinar->save();
+            $webinar->setViewers($report, $setting, $commentariesTS);
+            $webinar->save();
 
-        foreach ($webinar->viewers as $viewer) {
+            foreach ($webinar->viewers as $viewer) {
 
-            Log::info(__METHOD__.' > ставим в очередь viewer id : '.$viewer->id);
+                Log::info(__METHOD__.' > ставим в очередь viewer id : '.$viewer->id);
 
-            BizonViewerSend::dispatch($viewer, $setting);
+                ViewerSend::dispatch($webhook, $viewer, $setting, $webhook->user);
+            }
+
+        } catch (\Throwable $exception) {
+
+            dd($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+
+            $webinar->error = $exception->getMessage();
+            $webinar->save();
         }
     }
 }

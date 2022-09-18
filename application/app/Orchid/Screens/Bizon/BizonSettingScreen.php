@@ -35,7 +35,7 @@ use Orchid\Support\Facades\Toast;
 
 class BizonSettingScreen extends Screen
 {
-    public Client $amoApi;
+    public $amoApi;
     public $setting;
     public Account $amoAccount;
     public Account $bizonAccount;
@@ -238,22 +238,22 @@ class BizonSettingScreen extends Screen
                     Layout::rows([
                         Input::make('staffDefault')
                             ->type('text')
-                            ->title('Ответственный по умолчанию')
+                            ->title('По умолчанию')
                             ->value($this->setting->staff_id_default),
 
                         Input::make('staffCold')
                             ->type('text')
-                            ->title('Ответственный для Холодных')
+                            ->title('Для Холодных')
                             ->value($this->setting->staff_id_cold),
 
                         Input::make('staffSoft')
                             ->type('text')
-                            ->title('Ответственный для Теплых')
+                            ->title('Для Теплых')
                             ->value($this->setting->staff_id_soft),
 
                         Input::make('staffHot')
                             ->type('text')
-                            ->title('Ответственный для Горячих')
+                            ->title('Для Горячих')
                             ->value($this->setting->staff_id_hot),
                     ]),
                     Staffs::class,
@@ -290,15 +290,6 @@ class BizonSettingScreen extends Screen
                 Toast::error('Произошла ошибка при сохранении');
             }
 
-            $auth = (new \App\Services\Bizon\Client())
-                ->setToken($request->token)
-                ->auth()
-                    ->auth;
-
-            if ($auth == false) {
-                Alert::error('Произошла ошибка авторизации Бизон365');
-            }
-
         } catch (\Exception $exception) {
 
             Toast::error($request->get('toast', $exception->getMessage()));
@@ -318,42 +309,13 @@ class BizonSettingScreen extends Screen
                 return;
             }
 
-            $account = $this->amoAccount;
-
-            $account->amoPipelines()->delete();
-            $account->amoStatuses()->delete();
-
-            $this->amoApi
-                ->service
-                ->account
-                ->pipelines
-                ->each(function($pipeline) use ($account) {
-
-                    $model = $account
-                        ->amoPipelines()
-                        ->create([
-                            'pipeline_id' => $pipeline->id,
-                            'name'        => $pipeline->name,
-                            'is_main'     => $pipeline->is_main,
-                        ]);
-
-                    $pipeline->statuses->each(function($status) use ($model, $account) {
-
-                        $model->statuses()->create([
-                            'status_id'  => $status->id,
-                            'name'       => $status->name,
-                            'color'      => $status->color,
-                            'sort'       => $status->sort,
-                            'account_id' => $account->id,
-                        ]);
-                    });
-                });
+            Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
 
             Toast::success('Успешно обновлено');
 
         } catch (\Exception $exception) {
 
-            $this->setting->active = false;
+//            $this->setting->active = false;//TODO
             $this->setting->save();
 
             Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());

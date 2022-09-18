@@ -2,16 +2,14 @@
 
 namespace App\Models\Bizon;
 
-use App\Models\Account;
-use App\Models\Bizon\Setting;
-use App\Services\amoCRM\Client;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Filters\Filterable;
+use Orchid\Screen\AsSource;
 
 class Viewer extends Model
 {
-    use HasFactory, Filterable;
+    use HasFactory, Filterable, AsSource;
 
     protected $table = 'bizon_viewers';
 
@@ -65,18 +63,11 @@ class Viewer extends Model
     ];
 
     //возможность фильтрация по полям
-    protected $allowedFilters = [
-
-    ];
+    protected $allowedFilters = [];
 
     public function webinar()
     {
         return $this->belongsTo(Webinar::class);
-    }
-
-    public function getContent()
-    {
-        return $this->content;
     }
 
     public static function getType(Setting $setting, ?int $time) : string
@@ -108,6 +99,15 @@ class Viewer extends Model
         return $setting->$tag_type ?? null;
     }
 
+    public function getResponsibleType(Setting $setting) : ?string
+    {
+        if($this->type) {
+
+            $responsible_type = 'staff_id_'.$this->type;
+        }
+        return $setting->$responsible_type ?? $setting->staff_id_default;
+    }
+
     public static function getTime(mixed $viewTill, mixed $view): int
     {
         if($viewTill && $view) {
@@ -120,5 +120,48 @@ class Viewer extends Model
     public function convertToDate(string $microtime): int
     {
         return (int)round(((int)$microtime / 1000) / 60);
+    }
+
+    public function convertToString($value): string
+    {
+        if ($value === null || $value === false || $value === 0) return 'Нет';
+        else
+            return 'Да';
+    }
+
+    public function createTextForNote(): string
+    {
+        $note = [
+            "Информация о зрителе",
+            '----------------------',
+            ' - Ник : ' . $this->username,
+            ' - Телефон : ' . $this->phone,
+            ' - Почта : ' . $this->email,
+            ' - Город : ' . $this->city,
+            ' - Присутствовал : ' .$this->getTime($this->viewTill, $this->view). ' мин',
+            ' - Когда зашел : ' . $this->convertToDate($this->view),
+            ' - Когда вышел : ' . $this->convertToDate($this->viewTill),
+            ' - Присутствовал до конца : ' .$this->convertToString($this->userFinished),
+            ' - Кликал по банеру : ' . $this->convertToString($this->clickBanner),
+            ' - Кликал по кнопке : ' . $this->convertToString($this->clickFile),
+            ' - Комментарии : ' . "\n    ".implode("\n    ", json_decode($this->commentaries) ?? []),
+        ];
+        $note = implode("\n", $note);
+
+        if($this->newOrder) {
+
+            $noteOrder = [
+                " ",
+                "Информация о заказе",
+                '----------------------',
+                ' - ID заказа : ' . $this->newOrder,
+                ' - Описание заказа : ' . $this->orderDetails
+            ];
+            $noteOrder = implode("\n", $noteOrder);
+
+            $note = $note ."\n". $noteOrder;
+        }
+
+        return $note;
     }
 }

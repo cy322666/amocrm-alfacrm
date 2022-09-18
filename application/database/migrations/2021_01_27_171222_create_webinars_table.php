@@ -24,11 +24,11 @@ class CreateWebinarsTable extends Migration
             $table->string('group')->nullable();
             $table->integer('stat')->nullable();
             $table->integer('len')->nullable();
-            $table->integer('account_id')->nullable();
+            $table->integer('setting_id')->nullable();
             $table->string('error')->nullable();
             $table->integer('status')->default(0);
 
-            $table->index('account_id');
+            $table->index('setting_id');
             $table->index('webinarId');
             $table->index('status');
         });

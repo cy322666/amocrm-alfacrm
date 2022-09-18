@@ -3,6 +3,7 @@
 namespace App\Orchid\Screens\AlfaCRM;
 
 use App\Models\amoCRM\Field;
+use App\Models\amoCRM\Pipeline;
 use App\Models\Feedback;
 use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
 use App\Orchid\Layouts\AlfaCRM\Settings\Info;
@@ -559,38 +560,7 @@ class SettingsScreen extends Screen
                 return;
             }
 
-            $account = $this->amoAccount;
-
-            $account->amoPipelines()->delete();
-            $account->amoStatuses()->delete();
-
-            $this->amoApi
-                ->service
-                ->account
-                ->pipelines
-                ->each(function($pipeline) use ($account) {
-
-                    Log::info(__METHOD__, [$pipeline]);
-
-                    $model = $account
-                        ->amoPipelines()
-                        ->create([
-                            'pipeline_id' => $pipeline->id,
-                            'name'        => $pipeline->name,
-                            'is_main'     => $pipeline->is_main,
-                        ]);
-
-                    $pipeline->statuses->each(function($status) use ($model, $account) {
-
-                        $model->statuses()->create([
-                            'status_id'  => $status->id,
-                            'name'       => $status->name,
-                            'color'      => $status->color,
-                            'sort'       => $status->sort,
-                            'account_id' => $account->id,
-                        ]);
-                    });
-                });
+            Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
 
             Toast::success('Успешно обновлено');
 
