@@ -32,7 +32,7 @@ class Statuses extends \Orchid\Screen\Layouts\Table
             TD::make('name', 'Статус'),
 
             TD::make('name', 'Воронка')
-                ->width('450')
+//                ->width('450')
                 ->alignCenter()
                 ->render(function (Status $model) {
                     return $model->pipeline?->name;

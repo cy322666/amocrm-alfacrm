@@ -435,6 +435,7 @@ class SettingsScreen extends Screen
             }
 
             try {
+                $this->alfaApi = (new \App\Services\AlfaCRM\Client($this->account->refresh()));
                 $this->alfaApi->init();
 
                 $this->account->active = true;
