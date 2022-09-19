@@ -23,7 +23,7 @@ class Statuses extends \Orchid\Screen\Layouts\Table
         return [
             TD::make('id', 'ID')
                 ->align('center')
-                ->width('270')
+                ->width('150')
                 ->render(function (Status $model) {
 
                     return '<div class="filled-circle" style="background-color: '.$model->color.'; border-radius: 20px">'.$model->status_id.'</div>';
