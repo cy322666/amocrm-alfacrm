@@ -140,7 +140,7 @@ class OmissionWithoutLead implements ShouldQueue
                 $this->transaction->status_id = $lead->status_id;
                 $this->transaction->save();
 
-                Notes::addOne($lead, 'Клиент посетил пробное в AlfaCRM');
+                Notes::addOne($lead, 'Клиент пропустил/отменил пробное в AlfaCRM');
             }
         } catch (\Throwable $exception) {
 
