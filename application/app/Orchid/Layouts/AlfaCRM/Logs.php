@@ -44,8 +44,11 @@ class Logs extends Table
                             default => 'Другое',
                         };
                     }),
-//                TD::make('comment', 'Комментарий'),
-                TD::make('error', 'Текст ошибки')->defaultHidden(),
+                TD::make('error', 'Есть ошибка')
+                    ->render(function ($transaction) {
+                        return !empty($transaction->error);
+                    })
+                    ->defaultHidden(),
         ];
     }
 
