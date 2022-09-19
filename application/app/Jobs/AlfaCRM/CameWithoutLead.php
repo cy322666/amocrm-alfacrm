@@ -55,7 +55,7 @@ class CameWithoutLead implements ShouldQueue
                 ->where('status', 1)
                 ->first();
 
-            if ($parentTransaction->amo_lead_id) {
+            if (!empty($parentTransaction) && $parentTransaction->amo_lead_id) {
 
                 $lead = $amoApi->service
                     ->leads()
@@ -77,15 +77,15 @@ class CameWithoutLead implements ShouldQueue
                 $contact = Contacts::create($amoApi, $customer->name);
 
                 $contact = Contacts::update($contact, [
-                    'Телефон' => $customer->phone,
-                    'Почта'   => $customer->email,
+                    'Телефоны' => $customer->phone,
+                    'Почта'    => $customer->email[0],
                 ]);
 
                 $lead = Leads::create($contact, [
                     'status_id' => $this->setting->status_came_1,
                 ], 'Новая сделка AlfaCRM');
 
-                $link = \App\Models\AlfaCRM\Customer::buildLink($alfaApi, $customer->id);
+                $link = Contacts::buildLink($amoApi, $contact->id);
 
                 (new Customer($alfaApi))->update($this->transaction->alfa_client_id, [
                     'web' => $link,
@@ -96,12 +96,21 @@ class CameWithoutLead implements ShouldQueue
 
             if (empty($lead)) {
 
-                $pipelineId = $manager->amoAccount
-                    ->amoStatuses()
-                    ->where('status_id', $this->setting->status_came_1)
-                    ->first()
-                    ->pipeline
-                    ->pipeline_id;
+                if ($this->setting->status_came_1) {
+
+                    $pipelineId = $manager->amoAccount
+                        ->amoStatuses()
+                        ->where('status_id', $this->setting->status_came_1)
+                        ->first()
+                        ->pipeline
+                        ->pipeline_id;
+                } else {
+                    $pipelineId = $manager->amoAccount
+                        ->amoPipelines()
+                        ->where('is_main', true)
+                        ->first()
+                        ->pipeline_id;
+                }
 
                 $lead = $contact->leads->filter(function ($lead) use ($pipelineId) {
 
@@ -127,13 +136,18 @@ class CameWithoutLead implements ShouldQueue
 
                 $this->transaction->amo_lead_id = $lead->id;
                 $this->transaction->status_id = $lead->status_id;
+                $this->transaction->save();
 
                 Notes::addOne($lead, 'Клиент посетил пробное в AlfaCRM');
             }
         } catch (\Throwable $exception) {
 
             $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $this->transaction->save();
+
+            return false;
         }
-        $this->transaction->save();
+
+        return true;
     }
 }

@@ -7,6 +7,7 @@ use App\Models\AlfaCRM\Transaction;
 use App\Models\Webhook;
 use App\Services\AlfaCRM\Models\Customer;
 use App\Services\amoCRM\Models\Contacts;
+use App\Services\amoCRM\Models\Leads;
 use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\AlfaCRMManager;
 use Illuminate\Bus\Queueable;
@@ -44,47 +45,88 @@ class OmissionWithoutLead implements ShouldQueue
         $amoApi  = $manager->amoApi;
         $alfaApi = $manager->alfaApi;
 
+        $alfaApi->branchId = $this->transaction->alfa_branch_id;
+
+        $customer = (new Customer($alfaApi))->get($this->transaction->alfa_client_id);
+
         try {
 
-            if ($this->transaction->amo_lead_id) {
+            $parentTransaction = $this->webhook
+                ->user
+                ->alfaTransactions()
+                ->where('status', 1)
+                ->first();
+
+            if (!empty($parentTransaction) && $parentTransaction->amo_lead_id) {
 
                 $lead = $amoApi->service
                     ->leads()
                     ->find($this->transaction->amo_lead_id);
-            } else {
 
-                $alfaApi->branchId = $this->transaction->alfa_branch_id;
+                $contact = $lead->contact;
+            }
 
-                $customer = (new Customer($alfaApi))->get($this->transaction->alfa_client_id);
+            if (empty($contact)) {
 
                 $contact = $amoApi->service
                     ->contacts()
                     ->search(Contacts::clearPhone($customer->phone[0] ?? null))
                     ?->first();
+            }
 
-                $pipelineId = $manager->amoAccount
-                    ->amoStatuses()
-                    ->where('status_id', $this->setting->status_omission_1)
-                    ->first()
-                    ->pipeline
-                    ->pipeline_id;
+            if (empty($contact)) {
 
-                if ($contact) {
-                    $lead = $contact->leads->filter(function ($lead) use ($pipelineId) {
+                $contact = Contacts::create($amoApi, $customer->name);
 
-                        if ($lead->pipeline_id == $pipelineId &&
-                            $lead->status_id !== 142 &&
-                            $lead->status_id !== 143) {
+                $contact = Contacts::update($contact, [
+                    'Телефоны' => $customer->phone,
+                    'Почта'    => $customer->email[0],
+                ]);
 
-                            return $lead;
-                        }
-                    })?->first();
-                } else
-                    $this->transaction->error = 'Not found contact in amoCRM';
+                $lead = Leads::create($contact, [
+                    'status_id' => $this->setting->status_omission_1,
+                ], 'Новая сделка AlfaCRM');
+
+                $link = Contacts::buildLink($amoApi, $contact->id);
+
+                (new Customer($alfaApi))->update($this->transaction->alfa_client_id, [
+                    'web' => $link,
+                ]);
+
+                Notes::addOne($lead, 'Синхронизировано с АльфаСРМ, ссылка на клиента '. $link);
             }
 
             if (empty($lead)) {
-                $this->transaction->error = 'Not found lead in need pipeline amoCRM or by id';
+
+                if ($this->setting->status_omission_1) {
+
+                    $pipelineId = $manager->amoAccount
+                        ->amoStatuses()
+                        ->where('status_id', $this->setting->status_omission_1)
+                        ->first()
+                        ->pipeline
+                        ->pipeline_id;
+                } else {
+                    $pipelineId = $manager->amoAccount
+                        ->amoPipelines()
+                        ->where('is_main', true)
+                        ->first()
+                        ->pipeline_id;
+                }
+
+                $lead = $contact->leads->filter(function ($lead) use ($pipelineId) {
+
+                    if ($lead->pipeline_id == $pipelineId &&
+                        $lead->status_id !== 142 &&
+                        $lead->status_id !== 143) {
+
+                        return $lead;
+                    }
+                })?->first();
+            }
+
+            if (empty($lead)) {
+                $this->transaction->error = 'Fail search and create lead';
                 $this->transaction->save();
 
                 return false;
@@ -96,13 +138,18 @@ class OmissionWithoutLead implements ShouldQueue
 
                 $this->transaction->amo_lead_id = $lead->id;
                 $this->transaction->status_id = $lead->status_id;
+                $this->transaction->save();
 
-                Notes::addOne($lead, 'Клиент отменил/пропустил пробное в AlfaCRM');
+                Notes::addOne($lead, 'Клиент посетил пробное в AlfaCRM');
             }
         } catch (\Throwable $exception) {
 
             $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $this->transaction->save();
+
+            return false;
         }
-        $this->transaction->save();
+
+        return true;
     }
 }

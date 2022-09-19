@@ -37,9 +37,7 @@ abstract class Contacts extends Client
     {
         if(key_exists('Телефоны', $arrayFields)) {
 
-            $phones = json_decode($arrayFields['Телефоны']);
-
-            foreach ($phones as $phone) {
+            foreach ($arrayFields['Телефоны'] as $phone) {
 
                 $contact->cf('Телефон')->setValue($phone);
             }
