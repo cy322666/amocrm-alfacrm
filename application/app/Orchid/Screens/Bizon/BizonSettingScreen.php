@@ -50,12 +50,19 @@ class BizonSettingScreen extends Screen
         $this->amoAccount   = Auth::user()->amoAccount();
         $this->bizonAccount = Auth::user()->bizonAccount();
 
+        $setting = Auth::user()->bizonSetting;
+
+        if ($setting->webhooks->count() == 0) {
+
+            $setting->createWebhooks();
+        }
+
         $this->amoApi  = (new \App\Services\amoCRM\Client($this->amoAccount));
 
         return [
             'staffs'    => $this->amoAccount->amoStaffs,
             'pipelines' => $this->amoAccount->amoPipelines,
-            'setting'   => Auth::user()->bizonSetting,
+            'setting'   => $setting,
             'statuses'  => $this->amoAccount
                 ->amoStatuses()
                 ->where('name', '!=', 'Неразобранное')
