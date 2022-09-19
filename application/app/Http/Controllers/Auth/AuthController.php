@@ -107,7 +107,7 @@ class AuthController extends LoginController
 
         $user->account()->create([
             'name' => 'amocrm',
-            'client_secret' => Config::get('services.amocrm.client_secret'),
+            'client_secret' => config('services.amocrm.client_secret'),
         ]);
 
         AlfaCRMManager::register($user);

@@ -32,10 +32,9 @@ return [
     ],
 
     'amocrm' => [
-//        'app_name'  => 'CLEVER PLATFORM',
-        'description'  => 'Подключите платформу к вашему аккаунту для подключения интеграций',
+        'description'   => 'Подключите платформу к вашему аккаунту для подключения интеграций',
         'redirect_uri'  => env('AMOCRM_REDIRECT'),
         'client_secret' => env('AMOCRM_SECRET'),
-        'client_id' => env('AMOCRM_CLIENT_ID'),
+        'client_id'     => env('AMOCRM_CLIENT_ID'),
     ],
 ];
