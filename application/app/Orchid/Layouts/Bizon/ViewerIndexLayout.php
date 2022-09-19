@@ -23,10 +23,10 @@ class ViewerIndexLayout extends Table
         return 'Данных нет :(';
     }
 
-//    protected function striped(): bool
-//    {
-//        return false;
-//    }
+    protected function striped(): bool
+    {
+        return false;
+    }
     /**
      * @return string
      */
