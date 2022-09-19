@@ -71,6 +71,7 @@ class SettingsScreen extends Screen
             'statuses' => $amoAccount
                 ->amoStatuses()
                 ->where('name', '!=', 'Неразобранное')
+                ->orderBy('id')
                 ->get(),
 
             'stages' => $account
