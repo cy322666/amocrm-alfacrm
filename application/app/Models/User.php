@@ -109,4 +109,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Setting::class);
     }
+
+    public function bizonSetting()
+    {
+        return $this->hasOne(\App\Models\Bizon\Setting::class);
+    }
 }

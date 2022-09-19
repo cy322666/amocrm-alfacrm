@@ -110,6 +110,10 @@ class AuthController extends LoginController
 
         $user->account()->create(['name' => 'alfacrm']);
 
+        $user->account()->create(['name' => 'bizon']);
+
+        $user->bizonSetting()->create();
+
         $user->alfaSetting()->create();
 
         $user->notify(new HelloMessage());
