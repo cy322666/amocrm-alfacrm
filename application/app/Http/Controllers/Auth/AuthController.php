@@ -6,6 +6,8 @@ use App\Models\Account;
 use App\Models\AlfaCRM\Setting;
 use App\Models\User;
 use App\Notifications\HelloMessage;
+use App\Services\ManagerClients\AlfaCRMManager;
+use App\Services\ManagerClients\BizonManager;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -108,13 +110,9 @@ class AuthController extends LoginController
             'client_secret' => Config::get('services.amocrm.client_secret'),
         ]);
 
-        $user->account()->create(['name' => 'alfacrm']);
+        AlfaCRMManager::register($user);
 
-        $user->account()->create(['name' => 'bizon']);
-
-        $user->bizonSetting()->create();
-
-        $user->alfaSetting()->create();
+        BizonManager::register($user);
 
         $user->notify(new HelloMessage());
 

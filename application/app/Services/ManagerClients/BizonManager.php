@@ -46,4 +46,13 @@ class BizonManager
             $user->notify(new BizonAuthException());
         }
     }
+
+    public static function register(User $user)
+    {
+        $user->account()->create(['name' => 'bizon']);
+
+        $setting = $user->bizonSetting()->create();
+
+        $setting->createWebhooks();
+    }
 }

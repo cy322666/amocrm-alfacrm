@@ -39,7 +39,7 @@ class BizonSettingScreen extends Screen
     public $setting;
     public Account $amoAccount;
     public Account $bizonAccount;
-    public Webhook $webhook;
+    public ?Webhook $webhook;
 
     public $name = 'Настройки';
 
@@ -57,7 +57,7 @@ class BizonSettingScreen extends Screen
             $setting->createWebhooks();
         }
 
-        $this->amoApi  = (new \App\Services\amoCRM\Client($this->amoAccount));
+        $this->amoApi = (new \App\Services\amoCRM\Client($this->amoAccount));
 
         return [
             'staffs'    => $this->amoAccount->amoStaffs,

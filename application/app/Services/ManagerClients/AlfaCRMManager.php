@@ -3,6 +3,7 @@
 namespace App\Services\ManagerClients;
 
 use App\Models\Account;
+use App\Models\User;
 use App\Models\Webhook;
 use App\Notifications\Api\AlfaCRMAuthException;
 use App\Notifications\Api\amoCRMAuthException;
@@ -51,5 +52,14 @@ class AlfaCRMManager
 
             $user->notify(new AlfaCRMAuthException());
         }
+    }
+
+    public static function register(User $user)
+    {
+        $user->account()->create(['name' => 'alfacrm']);
+
+        $setting = $user->alfaSetting()->create();
+
+        $setting->createWebhooks();
     }
 }

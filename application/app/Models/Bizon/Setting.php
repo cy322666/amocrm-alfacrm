@@ -44,7 +44,7 @@ class Setting extends Model
 
     public function webhooks()
     {
-        return $this->hasMany(Webhook::class);
+        return $this->hasMany(Webhook::class)->where('app_name', 'bizon');
     }
 
     public function createWebhooks()
