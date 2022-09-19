@@ -105,7 +105,7 @@ class AuthController extends LoginController
             'permissions' => ['platform.index' => true],
         ]);
 
-        $user->account()->create([
+        $user->amoAccount()->create([
             'name' => 'amocrm',
             'client_secret' => Config::get('services.amocrm.client_secret'),
         ]);
