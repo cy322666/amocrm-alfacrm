@@ -33,8 +33,8 @@ class WebinarIndexScreen extends Screen
     {
         return [
             'webinars' => Auth::user()
-                ->bizonAccount()
-                ->bizonSetting->webinars()
+                ->bizonSetting
+                ->webinars()
                 ->orderBy('created_at', 'desc')
                 ->paginate(),
         ];

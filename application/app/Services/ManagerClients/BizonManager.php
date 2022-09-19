@@ -2,6 +2,7 @@
 
 namespace App\Services\ManagerClients;
 
+use App\Models\User;
 use App\Models\Webhook;
 use App\Notifications\Api\amoCRMAuthException;
 use App\Notifications\Api\BizonAuthException;
@@ -53,6 +54,6 @@ class BizonManager
 
         $setting = $user->bizonSetting()->create();
 
-        $setting->createWebhooks();
+        $setting->createWebhooks($user);
     }
 }

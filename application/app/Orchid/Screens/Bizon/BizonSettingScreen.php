@@ -52,11 +52,6 @@ class BizonSettingScreen extends Screen
 
         $setting = Auth::user()->bizonSetting;
 
-        if ($setting->webhooks->count() == 0) {
-
-            $setting->createWebhooks();
-        }
-
         $this->amoApi = (new \App\Services\amoCRM\Client($this->amoAccount));
 
         return [
@@ -69,11 +64,7 @@ class BizonSettingScreen extends Screen
                 ->orderBy('id')
                 ->get(),
 
-            'webhook' => Auth::user()
-                ->webhooks()
-                ->where('app_id', 2)
-                ->where('type', 'webinar_end')
-                ->first(),
+            'webhook' => $setting->webhooks()->first()
         ];
     }
 
@@ -103,10 +94,10 @@ class BizonSettingScreen extends Screen
         $status_id_soft = $this->setting->status_id_soft;
         $status_id_hot  = $this->setting->status_id_hot;
 
-        $tag_cold = $this->setting->tag_cold;
-        $tag_soft = $this->setting->tag_soft;
-        $tag_hot  = $this->setting->tag_hot;
-        $tag      = $this->setting->tag;
+        $tag_cold = $this->setting->tag_cold ?? 'Холодный';
+        $tag_soft = $this->setting->tag_soft ?? 'Теплый';
+        $tag_hot  = $this->setting->tag_hot ?? 'Горячий';
+        $tag      = $this->setting->tag ?? 'Бизон';
 
         $time_cold = $this->setting->time_cold ?? 30;
         $time_soft = $this->setting->time_soft ?? 60;
@@ -125,6 +116,7 @@ class BizonSettingScreen extends Screen
                         true  => 'Включена',
                         null  => 'Выключена',
                     ])
+                    ->value($this->setting->active)
                     ->help('Статус интеграции'),
             ]))
             ->title('Статус интеграции')

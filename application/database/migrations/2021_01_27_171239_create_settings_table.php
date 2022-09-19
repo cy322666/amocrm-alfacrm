@@ -37,6 +37,8 @@ class CreateSettingsTable extends Migration
             $table->string('staff_id_soft')->nullable();
             $table->string('staff_id_hot')->nullable();
 
+            $table->boolean('active')->default(false);
+
             $table->index('user_id');
         });
     }

@@ -60,6 +60,6 @@ class AlfaCRMManager
 
         $setting = $user->alfaSetting()->create();
 
-        $setting->createWebhooks();
+        $setting->createWebhooks($user);
     }
 }

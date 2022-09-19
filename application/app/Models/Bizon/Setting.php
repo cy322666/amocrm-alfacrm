@@ -3,6 +3,7 @@
 namespace App\Models\Bizon;
 
 use App\Models\Account;
+use App\Models\User;
 use App\Models\Webhook;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -22,12 +23,17 @@ class Setting extends Model
         'status_id_cold',
         'status_id_soft',
         'status_id_hot',
-        'responsible_user_id',
+        'staff_id_cold',
+        'staff_id_soft',
+        'staff_id_hot',
         'tag',
         'tag_cold',
         'tag_soft',
         'tag_hot',
-        'strategy',
+        'time_cold',
+        'time_soft',
+        'time_hot',
+        'active',
     ];
 
     protected $table = 'bizon_settings';
@@ -47,10 +53,10 @@ class Setting extends Model
         return $this->hasMany(Webhook::class)->where('app_name', 'bizon');
     }
 
-    public function createWebhooks()
+    public function createWebhooks(User $user)
     {
         $this->webhooks()->create([
-            'user_id'  => Auth::user()->id,
+            'user_id'  => $user->id,
             'app_name' => 'bizon',
             'app_id'   => 2,
             'active'   => true,

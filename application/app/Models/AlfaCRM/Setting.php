@@ -4,12 +4,11 @@ namespace App\Models\AlfaCRM;
 
 use App\Models\Account;
 use App\Models\amoCRM\Field;
+use App\Models\User;
 use App\Models\Webhook;
 use App\Services\AlfaCRM\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Ufee\Amo\Models\Contact;
 use Ufee\Amo\Models\Lead;
@@ -192,10 +191,10 @@ class Setting extends Model
         return $customer;
     }
 
-    public function createWebhooks()
+    public function createWebhooks(User $user)
     {
         $this->webhooks()->create([
-            'user_id'  => Auth::user()->id,
+            'user_id'  => $user->id,
             'app_name' => 'alfacrm',
             'app_id'   => 1,
             'active'   => true,
@@ -206,7 +205,7 @@ class Setting extends Model
         ]);
 
         $this->webhooks()->create([
-            'user_id'  => Auth::user()->id,
+            'user_id'  => $user->id,
             'app_name' => 'alfacrm',
             'app_id'   => 1,
             'active'   => true,
