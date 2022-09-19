@@ -10,6 +10,7 @@ use App\Services\amoCRM\Models\Contacts;
 use App\Services\amoCRM\Models\Leads;
 use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\AlfaCRMManager;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -37,8 +38,9 @@ class OmissionWithoutLead implements ShouldQueue
      * Execute the job.
      *
      * @return false
+     * @throws Exception
      */
-    public function handle()
+    public function handle(): bool
     {
         $manager = new AlfaCRMManager($this->webhook);
 
