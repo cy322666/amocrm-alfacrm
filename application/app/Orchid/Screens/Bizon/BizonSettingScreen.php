@@ -55,7 +55,7 @@ class BizonSettingScreen extends Screen
         return [
             'staffs'    => $this->amoAccount->amoStaffs,
             'pipelines' => $this->amoAccount->amoPipelines,
-            'setting'   => Auth::user()->bizonAccount()->bizonSetting,
+            'setting'   => Auth::user()->bizonSetting,
             'statuses'  => $this->amoAccount
                 ->amoStatuses()
                 ->where('name', '!=', 'Неразобранное')
