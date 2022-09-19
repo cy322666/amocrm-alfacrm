@@ -16,7 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::create('bizon_settings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('account_id')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('pipeline_id')->nullable();
 
             $table->integer('status_id_cold')->nullable();
@@ -37,7 +37,7 @@ class CreateSettingsTable extends Migration
             $table->string('staff_id_soft')->nullable();
             $table->string('staff_id_hot')->nullable();
 
-            $table->index('account_id');
+            $table->index('user_id');
         });
     }
 
