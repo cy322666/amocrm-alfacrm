@@ -109,9 +109,11 @@ return [
     */
 
     'resource' => [
-        'stylesheets' => [],
+        'stylesheets' => [
+            '/platform/app.css',
+        ],
         'scripts'     => [
-            'https://www.amocrm.ru/auth/button.min.js',
+//            'https://www.amocrm.ru/auth/button.min.js',
         ],
     ],
 

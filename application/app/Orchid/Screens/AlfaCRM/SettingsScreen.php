@@ -3,11 +3,12 @@
 namespace App\Orchid\Screens\AlfaCRM;
 
 use App\Models\amoCRM\Field;
+use App\Models\amoCRM\Pipeline;
 use App\Models\Feedback;
 use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
 use App\Orchid\Layouts\AlfaCRM\Settings\Info;
 use App\Orchid\Layouts\AlfaCRM\Settings\Stages;
-use App\Orchid\Layouts\AlfaCRM\Listeners\StatusListener;
+use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
 use App\Services\AlfaCRM\Models\Branch;
 use App\Services\AlfaCRM\Models\Customer;
 use App\Services\AlfaCRM\Models\Source;
@@ -173,23 +174,6 @@ class SettingsScreen extends Screen
 
             Layout::block(Layout::rows([
                 Group::make([
-                    Button::make('Сохранить')
-                        ->method('save')
-                        ->type(Color::INFO())->horizontal(),
-
-//                    Button::make('Диагностика')
-//                        ->method('diagnostic')
-//                        ->type(Color::DARK())->horizontal(),//TODO проверка авторизаций и настроек
-
-                    Button::make('Сбросить')
-                        ->confirm('Настройки интеграции будут сброшены')
-                        ->method('resetSetting')
-                        ->type(Color::WARNING())->horizontal()
-                ])->autoWidth(),
-            ])),
-
-            Layout::block(Layout::rows([
-                Group::make([
                     Button::make('Поля amoCRM')
                         ->method('updateFieldsAmo')
                         ->type(Color::DEFAULT()),
@@ -210,6 +194,23 @@ class SettingsScreen extends Screen
             ]))
                 ->title('Обновить данные')
                 ->description('Если нужно обновить данные систем, то нажмите нужную кнопку'),
+
+            Layout::block(Layout::rows([
+                Group::make([
+                    Button::make('Сохранить')
+                        ->method('save')
+                        ->type(Color::INFO())->horizontal(),
+
+//                    Button::make('Диагностика')
+//                        ->method('diagnostic')
+//                        ->type(Color::DARK())->horizontal(),//TODO проверка авторизаций и настроек
+
+                    Button::make('Сбросить')
+                        ->confirm('Настройки интеграции будут сброшены')
+                        ->method('resetSetting')
+                        ->type(Color::WARNING())->horizontal()
+                ])->autoWidth(),
+            ])),
 
             Layout::tabs([
                 'Поля' => Layout::columns([
@@ -239,7 +240,7 @@ class SettingsScreen extends Screen
 //                            ->required()
                             ->help('Этап на который сделка передвигается при отмене пробного'),
                     ]),
-                    StatusListener::class,
+                    Statuses::class,
                 ]),
                 'Этапы' => Layout::columns([
                     Layout::rows([
@@ -559,38 +560,7 @@ class SettingsScreen extends Screen
                 return;
             }
 
-            $account = $this->amoAccount;
-
-            $account->amoPipelines()->delete();
-            $account->amoStatuses()->delete();
-
-            $this->amoApi
-                ->service
-                ->account
-                ->pipelines
-                ->each(function($pipeline) use ($account) {
-
-                    Log::info(__METHOD__, [$pipeline]);
-
-                    $model = $account
-                        ->amoPipelines()
-                        ->create([
-                            'pipeline_id' => $pipeline->id,
-                            'name'        => $pipeline->name,
-                            'is_main'     => $pipeline->is_main,
-                        ]);
-
-                    $pipeline->statuses->each(function($status) use ($model, $account) {
-
-                        $model->statuses()->create([
-                            'status_id'  => $status->id,
-                            'name'       => $status->name,
-                            'color'      => $status->color,
-                            'sort'       => $status->sort,
-                            'account_id' => $account->id,
-                        ]);
-                    });
-                });
+            Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
 
             Toast::success('Успешно обновлено');
 

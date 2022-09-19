@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AlfaCRMController;
 use App\Http\Controllers\Auth\amoCRMController;
+use App\Http\Controllers\BizonController;
 
 use Illuminate\Support\Facades\Log;
 
@@ -39,3 +40,5 @@ Route::prefix('alfacrm')->group(function () {
             ->name('alfacrm.came');
     });
 });
+
+Route::post('/bizon/webinar/{webhook:uuid}', [BizonController::class, 'webinar'])->name('bizon.webinar');

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Services\amoCRM\Helpers;
+namespace App\Services\amoCRM\Models;
 
 
 use App\Services\amoCRM\Client;

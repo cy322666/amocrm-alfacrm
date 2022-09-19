@@ -22,13 +22,13 @@ class Webhook extends Model
         'user_id',
     ];
 
-    public function account(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(Account::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function bizonSetting()
+    {
+        return $this->belongsTo(\App\Models\Bizon\Setting::class, 'setting_id', 'id');
     }
 }

@@ -74,13 +74,13 @@ class amoCRMController extends Controller
     {
         Log::info(__METHOD__, $request->toArray());
 
-        $user = User::query()
-            ->where('email', $request->account)
-            ->first();
-
-        $account = $user->amoAccount();
-        $account->client_secret = $request->client_secret;
-        $account->save();
+//        $user = User::query()
+//            ->where('email', $request->account)
+//            ->first();
+//
+//        $account = $user->amoAccount();
+//        $account->client_secret = $request->client_secret;
+//        $account->save();
     }
 
     public function off(Request $request)

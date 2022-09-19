@@ -46,32 +46,20 @@ class PlatformProvider extends OrchidServiceProvider
                         ->route('alfacrm.transactions'),
                 ]),
 
-//            Menu::make('Basic Elements')
-//                ->title('Form controls')
-//                ->icon('note')
-//                ->route('platform.example.fields'),
-//
-//            Menu::make('Advanced Elements')
-//                ->icon('briefcase')
-//                ->route('platform.example.advanced'),
-//
-//            Menu::make('Text Editors')
-//                ->icon('list')
-//                ->route('platform.example.editors'),
-//
-//            Menu::make('Overview layouts')
-//                ->title('Layouts')
-//                ->icon('layers')
-//                ->route('platform.example.layouts'),
-//
-//            Menu::make('Chart tools')
-//                ->icon('bar-chart')
-//                ->route('platform.example.charts'),
-//
-//            Menu::make('Cards')
-//                ->icon('grid')
-//                ->route('platform.example.cards')
-//                ->divider(),
+            Menu::make('Бизон365')
+                ->icon('grid')
+//                ->title('Интеграции')
+                ->list([
+                    Menu::make('Настройки')
+                        ->icon('settings')
+                        ->route('bizon.settings'),
+
+                    Menu::make('События')->icon('list')
+                        ->icon('clock')
+                        ->route('bizon.webinars'),
+
+                    //Menu::make('Посетители')->icon('list')->route('bizon.orders.viewers'),
+                ]),
 
             Menu::make('Документация')
                 ->title('Дополнительно')

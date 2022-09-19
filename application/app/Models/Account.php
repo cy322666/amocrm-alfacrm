@@ -8,6 +8,7 @@ use App\Models\AlfaCRM\LeadStatus;
 use App\Models\AlfaCRM\Setting;
 use App\Models\amoCRM\Field;
 use App\Models\amoCRM\Pipeline;
+use App\Models\amoCRM\Staff;
 use App\Models\amoCRM\Status;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -81,6 +82,11 @@ class Account extends Model
         return $this->hasMany(Pipeline::class);
     }
 
+    public function amoStaffs()
+    {
+        return $this->hasMany(Staff::class);
+    }
+
     public function webhooks()
     {
         return $this->hasMany(Webhook::class);
@@ -99,5 +105,10 @@ class Account extends Model
     public function alfaSetting()
     {
         return $this->hasOne(Setting::class);
+    }
+
+    public function bizonSetting()
+    {
+        return $this->hasOne(\App\Models\Bizon\Setting::class);
     }
 }

@@ -43,7 +43,6 @@ class CameWithoutLead implements ShouldQueue
         $alfaApi = $manager->alfaApi;
 
         try {
-
             if ($this->transaction->amo_lead_id) {
 
                 $lead = $amoApi->service

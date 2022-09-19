@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -102,7 +103,10 @@ class AuthController extends LoginController
             'permissions' => ['platform.index' => true],
         ]);
 
-        $user->account()->create(['name' => 'amocrm']);
+        $user->account()->create([
+            'name' => 'amocrm',
+            'client_secret' => Config::get('services.amocrm.client_secret'),
+        ]);
 
         $user->account()->create(['name' => 'alfacrm']);
 

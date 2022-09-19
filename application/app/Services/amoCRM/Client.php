@@ -4,6 +4,7 @@ namespace App\Services\amoCRM;
 
 use App\Models\Account;
 use Exception;
+use Illuminate\Support\Facades\Config;
 use Ufee\Amo\Oauthapi;
 
 class Client
@@ -19,7 +20,7 @@ class Client
             'domain'    => $account->subdomain ?? null,
             'client_id' => $account->client_id ?? null,
             'client_secret' => $account->client_secret ?? null,
-            'redirect_uri'  => env('AMOCRM_REDIRECT'),
+            'redirect_uri'  => $account->redirect_uri ?? null,
         ], $account);
 
         \Ufee\Amo\Services\Account::setCacheTime(1);
@@ -41,7 +42,7 @@ class Client
             'domain'        => $this->storage->model->subdomain,
             'client_id'     => $this->storage->model->client_id,
             'client_secret' => $this->storage->model->client_secret,
-            'redirect_uri'  => env('AMOCRM_REDIRECT'),
+            'redirect_uri'  => Config::get('services.amocrm.redirect_uri') ?? null,
         ]);
 
         try {

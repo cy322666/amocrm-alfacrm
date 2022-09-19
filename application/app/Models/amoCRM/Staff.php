@@ -5,9 +5,12 @@ namespace App\Models\amoCRM;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Screen\AsSource;
 
 class Staff extends Model
 {
+    use AsSource;
+
     protected $fillable = [
         'account_id',
         'name',
