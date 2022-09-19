@@ -15,6 +15,7 @@ class CreatePipelinesTable extends Migration
     {
         Schema::create('amocrm_pipelines', function (Blueprint $table) {
             $table->id();
+            $table->timestamps();
             $table->string('name')->nullable();
             $table->integer('pipeline_id')->nullable();
             $table->integer('account_id')->nullable();
