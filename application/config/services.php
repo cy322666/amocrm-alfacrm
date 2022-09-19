@@ -36,5 +36,6 @@ return [
         'description'  => 'Подключите платформу к вашему аккаунту для подключения интеграций',
         'redirect_uri'  => env('AMOCRM_REDIRECT'),
         'client_secret' => env('AMOCRM_SECRET'),
+        'client_id' => env('AMOCRM_CLIENT_ID'),
     ],
 ];
