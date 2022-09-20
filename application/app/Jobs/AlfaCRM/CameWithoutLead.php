@@ -39,6 +39,7 @@ class CameWithoutLead implements ShouldQueue
      * @throws DdException
      * @throws Exception
      */
+    // artisan queue:listen database --queue=alfacrm_hook
     public function handle()
     {
         $manager = new AlfaCRMManager($this->webhook);

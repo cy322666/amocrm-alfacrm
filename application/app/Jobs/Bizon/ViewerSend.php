@@ -87,7 +87,7 @@ class ViewerSend implements ShouldQueue
      * @return bool
      * @var Client $amoApi
      */
-    // artisan queue:listen database --queue=bizon_export --sleep=2
+    // artisan queue:listen database --queue=bizon_export --sleep=3
     public function handle()
     {
         Log::info(__METHOD__.' > начало отправки viewer id : '.$this->viewer->id);
