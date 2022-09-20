@@ -83,8 +83,6 @@
 
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
 
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-
 <link rel="icon" type="image/png" href={{ asset("favicon.png") }}>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
