@@ -16,8 +16,8 @@ class BizonController extends Controller
 
             $user = $webhook->user;
 
-            $setting = $user->bizonSetting()->first();
-            $account = $user->bizonAccount()->first();
+            $setting = $user->bizonSetting;
+            $account = $user->bizonAccount();
             $webinar = $setting->webinars()->create($request->toArray());
 
             $bizonApi = (new \App\Services\Bizon\Client())->setToken($account->access_token);
