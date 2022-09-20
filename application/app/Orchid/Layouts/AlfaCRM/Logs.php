@@ -37,14 +37,13 @@ class Logs extends Table
                             ->format('Y-m-d H:i:s');
                     })
                     ->sort(),
-                TD::make('amo_lead_id', 'ID сделки'),
             TD::make('lead_id', 'ID сделки')
                 ->render(function ($transaction) use ($subdomain) {
 
-                    if ($transaction->lead_id) {
+                    if ($transaction->amo_lead_id) {
 
-                        return Link::make($transaction->lead_id)
-                            ->href('https://'.$subdomain.'/leads/detail/'.$transaction->lead_id);
+                        return Link::make($transaction->amo_lead_id)
+                            ->href('https://'.$subdomain.'/leads/detail/'.$transaction->amo_lead_id);
                     } else
                         return '-';
                 }),
