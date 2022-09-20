@@ -85,6 +85,11 @@
 
 <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
+<link rel="icon" type="image/png" href={{ asset("favicon.png") }}>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet"/>
+<link href={{ asset("site/css/material-kit.css?v=3.0.1") }} rel="stylesheet"/>
+
 <script src={{ asset("site/js/core/popper.min.js") }}></script>
 {{--<script src={{ asset("site/js/core/bootstrap.min.js") }}></script>--}}
 {{--<script src={{ asset("site/js/core/bootstrap.bundle.min.js") }}></script>--}}
