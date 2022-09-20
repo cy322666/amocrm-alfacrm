@@ -118,8 +118,8 @@ class ViewerSend implements ShouldQueue
             $contact = Contacts::create($amoApi, $this->viewer->username);
 
             $contact = Contacts::update($contact, [
-                'Телефон' => $this->viewer->phone,
-                'Почта'   => $this->viewer->email,
+                'Телефоны' => [$this->viewer->phone],
+                'Почта'    => $this->viewer->email,
                 'Ответственный' => $responsibleId ?? $contact->responsible_user_id,
             ]);
         }
