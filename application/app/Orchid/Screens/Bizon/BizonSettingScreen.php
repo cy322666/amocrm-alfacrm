@@ -266,6 +266,9 @@ class BizonSettingScreen extends Screen
         try {
             $this->bizonAccount->access_token = $request->token;
 
+            if ($request->token)
+                $this->active = true;
+
             $this->setting->time_cold = $request->time_cold;
             $this->setting->time_soft = $request->time_soft;
             $this->setting->time_hot  = $request->time_hot;
