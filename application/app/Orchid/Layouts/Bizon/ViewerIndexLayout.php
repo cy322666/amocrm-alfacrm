@@ -75,7 +75,7 @@ class ViewerIndexLayout extends Table
                         return Link::make($viewer->contact_id)
                             ->href('https://'.$subdomain.'.amocrm.ru/contacts/detail/'.$viewer->contact_id);
                     } else
-                        return '-';
+                        return '   -';
                 }),
             TD::make('lead_id', 'ID сделки')
                 ->render(function (Viewer $viewer) use ($subdomain) {
@@ -85,7 +85,7 @@ class ViewerIndexLayout extends Table
                         return Link::make($viewer->lead_id)
                             ->href('https://'.$subdomain.'.amocrm.ru/leads/detail/'.$viewer->lead_id);
                     } else
-                        return '-';
+                        return '   -';
                 }),
             TD::make('status', 'Статус')
                 ->sort()
