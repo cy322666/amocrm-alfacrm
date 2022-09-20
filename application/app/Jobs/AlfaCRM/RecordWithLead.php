@@ -32,7 +32,10 @@ class RecordWithLead implements ShouldQueue
         public Webhook $webhook,
         public Transaction $transaction,
         public array $data,
-    ) {}
+    )
+    {
+        $this->onQueue('alfacrm_hook');
+    }
 
     /**
      * Execute the job.

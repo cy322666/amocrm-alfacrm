@@ -46,9 +46,8 @@ class Logs extends Table
                     }),
                 TD::make('error', 'Есть ошибка')
                     ->render(function ($transaction) {
-                        return !empty($transaction->error);
-                    })
-                    ->defaultHidden(),
+                        return empty($transaction->error) ? 'Нет' : 'Да';
+                    }),
         ];
     }
 

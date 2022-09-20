@@ -41,7 +41,7 @@ class RecordWithoutLead implements ShouldQueue
         public array $data,
     )
     {
-//        $this->onConnection('alfacrm.record');
+        $this->onQueue('alfacrm_hook');
     }
 
     /**

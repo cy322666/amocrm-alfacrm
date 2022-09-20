@@ -30,7 +30,10 @@ class CameWithoutLead implements ShouldQueue
         public Webhook $webhook,
         public Transaction $transaction,
         public array $data,
-    ) {}
+    )
+    {
+        $this->onQueue('alfacrm_hook');
+    }
 
     /**
      * @throws DdException

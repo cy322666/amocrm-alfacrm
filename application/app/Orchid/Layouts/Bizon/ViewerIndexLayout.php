@@ -94,6 +94,10 @@ class ViewerIndexLayout extends Table
                     if($viewer->status == 1) return 'Отправлен';
                     if($viewer->status == 0) return 'В очереди';
                 }),
+            TD::make('error', 'Есть ошибка')
+                ->render(function ($transaction) {
+                    return empty($transaction->error) ? 'Нет' : 'Да';
+                }),
         ];
     }
 }
