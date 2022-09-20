@@ -9,7 +9,7 @@
                                 <div class="mask bg-gradient-dark opacity-9"></div>
                                 <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
                                     <h3 class="text-white">Контакты</h3>
-                                    <p class="text-white opacity-8 mb-4">Или свяжитесь с нами, если вопрос срочный</p>
+                                    <p class="text-white opacity-8 mb-4">Или свяжитесь со мной, если вопрос срочный</p>
                                     <div class="d-flex p-2 text-white">
 {{--                                        <div>--}}
 {{--                                            <i class="fas fa-phone text-sm"></i>--}}
@@ -80,3 +80,23 @@
         </div>
     </div>
 </section>
+
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+<script src={{ asset("site/js/core/popper.min.js") }}></script>
+<script src={{ asset("site/js/core/bootstrap.min.js") }}></script>
+<script src={{ asset("site/js/core/bootstrap.bundle.min.js") }}></script>
+
+<script src={{ asset("site/js/plugins/perfect-scrollbar.min.js") }}></script>
+<script src={{ asset("site/js/plugins/countup.min.js") }}></script>
+<script src={{ asset("site/js/plugins/flatpickr.min.js") }}></script>
+<script src={{ asset("site/js/plugins/choices.min.js") }}></script>
+<script src={{ asset("site/js/plugins/prism.min.js") }}></script>
+<script src={{ asset("site/js/plugins/moment.min.js") }}></script>
+<script src={{ asset("site/js/plugins/highlight.min.js") }}></script>
+<script src={{ asset("site/js/plugins/rellax.min.js") }}></script>
+<script src={{ asset("site/js/plugins/typedjs.js") }}></script>
+<script src={{ asset("site/js/plugins/tilt.min.js") }}></script>
+<script src={{ asset("site/js/plugins/choices.min.js") }}></script>
+<script src={{ asset("site/js/plugins/parallax.min.js") }}></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
