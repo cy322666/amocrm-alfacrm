@@ -116,13 +116,13 @@ class ViewerSend implements ShouldQueue
 
         if (!$contact) {
             $contact = Contacts::create($amoApi, $this->viewer->username);
-
-            $contact = Contacts::update($contact, [
-                'Телефоны' => [$this->viewer->phone],
-                'Почта'    => $this->viewer->email,
-                'Ответственный' => $responsibleId ?? $contact->responsible_user_id,
-            ]);
         }
+
+        $contact = Contacts::update($contact, [
+            'Телефоны' => [$this->viewer->phone],
+            'Почта'    => $this->viewer->email,
+            'Ответственный' => $responsibleId ?? $contact->responsible_user_id,
+        ]);
 
         $lead = Leads::search($contact, $amoApi, $pipelineId);
 
