@@ -2,7 +2,10 @@
 
 namespace App\Orchid\Layouts\AlfaCRM;
 
+use App\Models\Bizon\Viewer;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -25,6 +28,8 @@ class Logs extends Table
      */
     protected function columns(): iterable
     {
+        $subdomain = Auth::user()->amoAccount()->subdomain;
+
         return [
                 TD::make('created_at', 'Создано')
                     ->render(function ($transaction) {
@@ -33,6 +38,16 @@ class Logs extends Table
                     })
                     ->sort(),
                 TD::make('amo_lead_id', 'ID сделки'),
+            TD::make('lead_id', 'ID сделки')
+                ->render(function ($transaction) use ($subdomain) {
+
+                    if ($transaction->lead_id) {
+
+                        return Link::make($transaction->lead_id)
+                            ->href('https://'.$subdomain.'/leads/detail/'.$transaction->lead_id);
+                    } else
+                        return '-';
+                }),
                 TD::make('alfa_branch_id', 'ID филиала'),
                 TD::make('alfa_client_id', 'ID клиента'),
                 TD::make('status', 'Событие')

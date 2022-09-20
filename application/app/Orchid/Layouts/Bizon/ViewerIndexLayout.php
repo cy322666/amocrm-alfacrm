@@ -82,7 +82,7 @@ class ViewerIndexLayout extends Table
 
                     if ($viewer->lead_id) {
 
-                        return Link::make($viewer->contact_id)
+                        return Link::make($viewer->lead_id)
                             ->href('https://'.$subdomain.'/leads/detail/'.$viewer->lead_id);
                     } else
                         return '-';
