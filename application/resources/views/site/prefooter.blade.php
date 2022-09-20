@@ -81,6 +81,8 @@
     </div>
 </section>
 
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+
 <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
 <script src={{ asset("site/js/core/popper.min.js") }}></script>
