@@ -67,7 +67,6 @@ class WebinarIndexLayout extends Table
                 }),
             TD::make('room_title', 'Название комнаты')
                 ->align('left')
-                ->width('500')
                 ->render(function (Webinar $webinar) {
                     return $webinar->room_title;
                 }),
