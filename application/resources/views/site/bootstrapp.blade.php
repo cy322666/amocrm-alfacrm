@@ -1,5 +1,5 @@
 
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+<link href={{ asset("site/css/material-kit.css?v=3.0.1") }} rel="stylesheet"/>
 
 {{--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>--}}
 {{--<script src={{ asset("site/js/material-kit.min.js?v=3.0.1") }} type="text/javascript"></script>--}}
