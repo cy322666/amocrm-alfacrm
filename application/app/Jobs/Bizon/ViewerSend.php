@@ -90,81 +90,86 @@ class ViewerSend implements ShouldQueue
     // artisan queue:listen database --queue=bizon_export --sleep=3
     public function handle()
     {
-        Log::info(__METHOD__.' > начало отправки viewer id : '.$this->viewer->id);
+        try {
+            Log::info(__METHOD__.' > начало отправки viewer id : '.$this->viewer->id);
 
-        $manager = new BizonManager($this->webhook);
+            $manager = new BizonManager($this->webhook);
 
-        $amoApi   = $manager->amoApi;
+            $amoApi   = $manager->amoApi;
 
-        $statusId = $this->viewer->getStatusId($this->setting);
+            $statusId = $this->viewer->getStatusId($this->setting);
 
-        $pipelineId = $manager->amoAccount
-            ->amoStatuses()
-            ->where('status_id', $statusId)
-            ->first()
-            ->pipeline
-            ->pipeline_id;
+            $pipelineId = $manager->amoAccount
+                ->amoStatuses()
+                ->where('status_id', $statusId)
+                ->first()
+                ->pipeline
+                ->pipeline_id;
 
-        $responsibleId = $this->viewer->getResponsibleType($this->setting);
+            $responsibleId = $this->viewer->getResponsibleType($this->setting);
 
-        $tag = $this->viewer->getTagType($this->setting);
+            $tag = $this->viewer->getTagType($this->setting);
 
-        $contact = Contacts::search([
-            'Телефоны' => [$this->viewer->phone],
-            'Почта'    => $this->viewer->email,
-        ], $amoApi);
+            $contact = Contacts::search([
+                'Телефоны' => [$this->viewer->phone],
+                'Почта'    => $this->viewer->email,
+            ], $amoApi);
 
-        if (!$contact) {
-            $contact = Contacts::create($amoApi, $this->viewer->username);
-        }
+            if (!$contact) {
+                $contact = Contacts::create($amoApi, $this->viewer->username);
+            }
 
-        $contact = Contacts::update($contact, [
-            'Телефоны' => [$this->viewer->phone],
-            'Почта'    => $this->viewer->email,
-            'Ответственный' => $responsibleId ?? $contact->responsible_user_id,
-        ]);
+            $contact = Contacts::update($contact, [
+                'Телефоны' => [$this->viewer->phone],
+                'Почта'    => $this->viewer->email,
+                'Ответственный' => $responsibleId ?? $contact->responsible_user_id,
+            ]);
 
-        $lead = Leads::search($contact, $amoApi, $pipelineId);
+            $lead = Leads::search($contact, $amoApi, $pipelineId);
 
-        if (!$lead) {
+            if (!$lead) {
 
-            $lead = Leads::create($contact, [
+                $lead = Leads::create($contact, [
+                    'status_id' => $statusId,
+                ], 'Новый лид с Вебинара');
+            }
+
+            $lead = Leads::update($lead, [
                 'status_id' => $statusId,
-            ], 'Новый лид с Вебинара');
+                'responsible_user_id' => $responsibleId,
+            ], []);
+
+            $lead->attachTags([
+                $this->setting->tag,
+                $tag,
+            ]);
+            $lead->save();
+
+            Notes::addOne($lead, $this->viewer->createTextForNote());
+
+            $this->viewer->lead_id = $lead->id;
+            $this->viewer->contact_id = $contact->id;
+            $this->viewer->status = 1;
+            $this->viewer->save();
+
+            $webinar = $this->viewer->webinar;
+
+            if ($webinar->viewers()->count() == 0) {
+
+                $webinar->status = 1;
+                $webinar->save();
+
+                Log::info(__METHOD__.' > выгрузка webinar_id : '.$webinar->id.' завершена');
+            }
+
+            return true;
+
+        } catch (\Throwable $exception) {
+
+            $this->viewer->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $this->viewer->save();
+
+            return false;
         }
-
-        $lead = Leads::update($lead, [
-            'status_id' => $statusId,
-            'responsible_user_id' => $responsibleId,
-        ], []);
-
-        $lead->attachTags([
-            $this->setting->tag,
-            $tag,
-        ]);
-        $lead->save();
-
-        Notes::addOne($lead, $this->viewer->createTextForNote());
-
-        $this->viewer->lead_id = $lead->id;
-        $this->viewer->contact_id = $contact->id;
-        $this->viewer->status = 1;
-        $this->viewer->save();
-
-        return true;
-
-
-//        Log::info(__METHOD__.' > результат отправки viewer id : '.$this->viewer->id.' '.$result);
-//
-//        if(!Viewer::query()
-//            ->where('webinar_id', $this->viewer->webinar_id)
-//            ->where('status', '!=', 'ok')
-//            ->count()) {
-//
-//            Log::info(__METHOD__.' > выгрузка webinar id : '.$this->viewer->webinar_id.' завершена');
-//
-//            $this->viewer->webinar->status = 'ok';
-//            $this->viewer->webinar->save();
-//        }
     }
 }
