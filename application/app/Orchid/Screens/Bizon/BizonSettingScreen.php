@@ -280,6 +280,7 @@ class BizonSettingScreen extends Screen
             $this->setting->staff_id_cold = $request->staffCold;
             $this->setting->staff_id_soft = $request->staffSoft;
             $this->setting->staff_id_hot  = $request->staffHot;
+            $this->setting->active  = $request->active;
 
             if ($this->setting->save() &&
                 $this->bizonAccount->save()) {
