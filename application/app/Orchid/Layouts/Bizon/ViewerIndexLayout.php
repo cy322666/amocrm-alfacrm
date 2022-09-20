@@ -73,7 +73,7 @@ class ViewerIndexLayout extends Table
                     if ($viewer->contact_id) {
 
                         return Link::make($viewer->contact_id)
-                            ->href('https://'.$subdomain.'/contacts/detail/'.$viewer->contact_id);
+                            ->href('https://'.$subdomain.'.amocrm.ru/contacts/detail/'.$viewer->contact_id);
                     } else
                         return '-';
                 }),
@@ -83,7 +83,7 @@ class ViewerIndexLayout extends Table
                     if ($viewer->lead_id) {
 
                         return Link::make($viewer->lead_id)
-                            ->href('https://'.$subdomain.'/leads/detail/'.$viewer->lead_id);
+                            ->href('https://'.$subdomain.'.amocrm.ru/leads/detail/'.$viewer->lead_id);
                     } else
                         return '-';
                 }),

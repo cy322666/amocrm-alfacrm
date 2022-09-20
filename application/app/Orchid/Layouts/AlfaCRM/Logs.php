@@ -43,7 +43,7 @@ class Logs extends Table
                     if ($transaction->amo_lead_id) {
 
                         return Link::make($transaction->amo_lead_id)
-                            ->href('https://'.$subdomain.'/leads/detail/'.$transaction->amo_lead_id);
+                            ->href('https://'.$subdomain.'.amocrm.ru/leads/detail/'.$transaction->amo_lead_id);
                     } else
                         return '-';
                 }),
