@@ -215,4 +215,6 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+
+    'version' => '1.1.0',
 ];

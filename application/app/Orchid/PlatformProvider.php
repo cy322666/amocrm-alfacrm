@@ -71,7 +71,7 @@ class PlatformProvider extends OrchidServiceProvider
 //                ->url('https://github.com/orchidsoftware/platform/blob/master/CHANGELOG.md')
                 ->target('_blank')
                 ->badge(function () {
-                    return env('APP_VERSION');
+                    return config('app.version');
                 }, Color::DARK()),
 
             Menu::make(__('Users'))
