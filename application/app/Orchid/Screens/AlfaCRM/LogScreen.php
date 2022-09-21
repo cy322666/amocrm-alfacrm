@@ -24,7 +24,7 @@ class LogScreen extends Screen
             'transactions' => Auth::user()
                 ->alfaTransactions()
                 ->orderByDesc('created_at')
-                ->get(),
+                ->paginate(20),
         ];
     }
 
