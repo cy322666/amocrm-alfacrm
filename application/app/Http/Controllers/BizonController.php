@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Api\Bizon\HookRequest;
 use App\Jobs\Bizon\ViewerSend;
 use App\Models\Webhook;
+use App\Notifications\Api\BizonAuthException;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Support\Facades\Log;
 
 class BizonController extends Controller
@@ -22,7 +24,15 @@ class BizonController extends Controller
 
             $bizonApi = (new \App\Services\Bizon\Client())->setToken($account->access_token);
 
-            $info = $bizonApi->webinar($webinar->webinarId);
+            try {
+                $info = $bizonApi->webinar($webinar->webinarId);
+
+            } catch (GuzzleException $exception) {
+
+                Log::error(__METHOD__.' account '.$user->email.' : '.$exception->getMessage());
+
+                $user->notify(new BizonAuthException());
+            }
 
             $webinar_title   = $info->room_title;
             $webinar_created = $info->report->created;
@@ -47,7 +57,7 @@ class BizonController extends Controller
 
         } catch (\Throwable $exception) {
 
-            dd($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+//            dd($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
 
             $webinar->error = $exception->getMessage();
             $webinar->save();
