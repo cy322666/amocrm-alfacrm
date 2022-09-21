@@ -9,6 +9,7 @@ use App\Models\Webhook;
 use App\Services\AlfaCRM\Models\Customer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Ramsey\Uuid\Uuid;
 use Ufee\Amo\Models\Contact;
 use Ufee\Amo\Models\Lead;
@@ -180,6 +181,8 @@ class Setting extends Model
         if (count($customers) == 0) {
 
             $fieldValues['branch_ids'] = [$fieldValues['branch_id']];
+            $fieldValues['is_study'] = 0;
+            $fieldValues['legal_type'] = 1;
 
             $customer = (new Customer($alfaApi))->create($fieldValues);
 
