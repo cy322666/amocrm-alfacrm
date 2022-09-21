@@ -69,6 +69,9 @@ class Client
 
             $this->auth = true;
         }
+
+        $this->service->queries->setDelay(1);
+
         return $this;
     }
 }
