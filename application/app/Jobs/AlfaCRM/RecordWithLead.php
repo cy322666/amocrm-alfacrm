@@ -80,7 +80,7 @@ class RecordWithLead implements ShouldQueue
 
             $fieldValues = $this->setting->getFieldValues($lead, $contact, $manager->amoAccount, $manager->alfaAccount);
 
-            $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi, true);
+            $customer = $this->setting->customerUpdateOrCreate($fieldValues, $alfaApi, true);
 
             Field::prepareCreateLead($fieldValues, $amoApi, $alfaApi, $contact, $stageId);
 

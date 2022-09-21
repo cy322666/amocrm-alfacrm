@@ -162,7 +162,7 @@ class Setting extends Model
         return $branchId;
     }
 
-    public static function customerUpdateOrCreate(array $fieldValues, alfaApi $alfaApi, ?bool $workLead = false)
+    public function customerUpdateOrCreate(array $fieldValues, alfaApi $alfaApi, ?bool $workLead = false)
     {
         $customers = (new Customer($alfaApi))->search($fieldValues['phone']);
 
@@ -181,7 +181,9 @@ class Setting extends Model
         if (count($customers) == 0) {
 
             $fieldValues['branch_ids'] = [$fieldValues['branch_id']];
-            $fieldValues['is_study'] = 0;
+
+            $fieldValues['study_status_id'] = $workLead ? $this->stage_record_id : 1;
+            $fieldValues['is_study'] = $workLead ? 0 : 1;
             $fieldValues['legal_type'] = 1;
 
             $customer = (new Customer($alfaApi))->create($fieldValues);

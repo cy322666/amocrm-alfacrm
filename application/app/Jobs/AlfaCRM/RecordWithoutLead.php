@@ -76,7 +76,7 @@ class RecordWithoutLead implements ShouldQueue
 
             Field::prepareCreateCustomer($fieldValues, $amoApi, $alfaApi, $contact);
 
-            $customer = Setting::customerUpdateOrCreate($fieldValues, $alfaApi);
+            $customer = $this->setting->customerUpdateOrCreate($fieldValues, $alfaApi);
 
             if (is_string($customer) === true) {
 
