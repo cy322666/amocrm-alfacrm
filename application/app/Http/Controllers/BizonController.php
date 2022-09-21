@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\HookRequest;
+use App\Http\Requests\Api\Bizon\HookRequest;
 use App\Jobs\Bizon\ViewerSend;
 use App\Models\Webhook;
 use Illuminate\Support\Facades\Log;
