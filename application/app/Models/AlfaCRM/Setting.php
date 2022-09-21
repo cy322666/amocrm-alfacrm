@@ -128,6 +128,11 @@ class Setting extends Model
             }
         }
 
+        if (empty($fieldValues['branch_id'])) {
+
+            $fieldValues['branch_id'] = $alfaAccount->alfaBranches()->first()->branch_id;
+        }
+
         return $fieldValues ?? [];
     }
 
