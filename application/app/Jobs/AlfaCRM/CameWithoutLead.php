@@ -95,8 +95,9 @@ class CameWithoutLead implements ShouldQueue
                     'web' => $link,
                 ]);
 
-                Notes::addOne($lead, 'Синхронизировано с АльфаСРМ, ссылка на клиента '. $link);
             }
+
+            Notes::addOne($lead, 'Синхронизировано с АльфаСРМ, ссылка на клиента '. $link);
 
             if (empty($lead)) {
 

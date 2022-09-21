@@ -82,6 +82,14 @@ class RecordWithLead implements ShouldQueue
 
             $customer = $this->setting->customerUpdateOrCreate($fieldValues, $alfaApi, true);
 
+            if (is_string($customer) === true) {
+
+                $this->transaction->error = $customer;
+                $this->transaction->save();
+
+                return false;
+            }
+
             Field::prepareCreateLead($fieldValues, $amoApi, $alfaApi, $contact, $stageId);
 
             $this->transaction->alfa_client_id = $customer->id;
