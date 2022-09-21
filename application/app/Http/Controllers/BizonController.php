@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\HookRequest;
 use App\Jobs\Bizon\ViewerSend;
 use App\Models\Webhook;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class BizonController extends Controller
 {
-    public function webinar(Webhook $webhook, Request $request)
+    public function webinar(Webhook $webhook, HookRequest $request)
     {
         try {
             Log::info(__METHOD__, $request->toArray());

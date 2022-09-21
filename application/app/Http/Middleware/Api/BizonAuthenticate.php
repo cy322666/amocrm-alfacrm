@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Laravel\Octane\Exceptions\DdException;
 
-class AlfaAuthenticate
+class BizonAuthenticate
 {
     /**
      * Handle an incoming request.
@@ -22,7 +22,7 @@ class AlfaAuthenticate
 
         if ($request->webhook->active === true &&
             $request->webhook
-                ->alfaSetting
+                ->bizonSetting
                 ->first()
                 ->active == true) {
 

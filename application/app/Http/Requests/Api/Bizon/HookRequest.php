@@ -24,7 +24,9 @@ class HookRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "event"  => "required|in:webinarEnd",
+            "roomid" => "required",
+            "webinarId" => "required",
         ];
     }
 }

@@ -41,4 +41,6 @@ Route::prefix('alfacrm')->group(function () {
     });
 });
 
-Route::post('/bizon/webinar/{webhook:uuid}', [BizonController::class, 'webinar'])->name('bizon.webinar');
+Route::post('/bizon/webinar/{webhook:uuid}', [BizonController::class, 'webinar'])
+    ->name('bizon.webinar')
+    ->middleware('api.bizon');
