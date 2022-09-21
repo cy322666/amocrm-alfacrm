@@ -11,6 +11,7 @@ services:
             - postgresql
         networks:
             - cluster
+        restart: always
     postgresql:
         image: postgres:9.6.21-alpine
         ports:
@@ -23,6 +24,7 @@ services:
             POSTGRES_USER: root
             POSTGRES_PASSWORD: pQLkm8NOkS0gOBox
             POSTGRES_DB: clever
+        restart: always
 networks:
     cluster:
         name: cluster
