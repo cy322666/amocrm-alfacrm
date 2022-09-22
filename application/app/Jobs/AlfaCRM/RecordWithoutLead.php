@@ -25,9 +25,27 @@ class RecordWithoutLead implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $tries = 3;
+    public int $tries = 1;
+    /**
+     * Количество секунд, в течение которых задание может выполняться до истечения тайм-аута.
+     *
+     * @var int
+     */
+//    public int $timeout = 90;
 
-    public int $maxExceptions = 3;
+    /**
+     * Количество секунд ожидания перед повторной попыткой выполнения задания.
+     *
+     * @var int
+     */
+    public int $backoff = 10;
+
+    /**
+     * Indicate if the job should be marked as failed on timeout.
+     *
+     * @var bool
+     */
+    public bool $failOnTimeout = true;
 
     /**
      * Create a new job instance.

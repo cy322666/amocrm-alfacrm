@@ -25,6 +25,28 @@ class CameWithoutLead implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public int $tries = 1;
+    /**
+     * Количество секунд, в течение которых задание может выполняться до истечения тайм-аута.
+     *
+     * @var int
+     */
+//    public int $timeout = 90;
+
+    /**
+     * Количество секунд ожидания перед повторной попыткой выполнения задания.
+     *
+     * @var int
+     */
+    public int $backoff = 10;
+
+    /**
+     * Indicate if the job should be marked as failed on timeout.
+     *
+     * @var bool
+     */
+    public bool $failOnTimeout = true;
+
     public function __construct(
         public Setting $setting,
         public Webhook $webhook,
