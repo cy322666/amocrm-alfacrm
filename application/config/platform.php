@@ -179,8 +179,8 @@ return [
     */
 
     'notifications' => [
-        'enabled'  => false,
-        'interval' => 600,
+        'enabled'  => true,
+        'interval' => 1200,
     ],
 
     /*
