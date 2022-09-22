@@ -20,14 +20,14 @@
                     <ul class="navbar-nav navbar-nav-hover ms-auto">
                         <li class="nav-item dropdown dropdown-hover mx-2">
                             <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="material-icons opacity-6 me-2 text-md">dashboard</i>
+{{--                                <i class="material-icons opacity-6 me-2 text-md">dashboard</i>--}}
                                 amoCRM
 {{--                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">--}}
                             </a>
 
                         <li class="nav-item dropdown dropdown-hover mx-2">
                             <a href="#platform" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="material-icons opacity-6 me-2 text-md">view_day</i>
+{{--                                <i class="material-icons opacity-6 me-2 text-md">view_day</i>--}}
                                 Разработка
 {{--                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">--}}
                             </a>
@@ -35,7 +35,7 @@
 
                         <li class="nav-item dropdown dropdown-hover mx-2">
                             <a href="#platform" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="material-icons opacity-6 me-2 text-md">article</i>
+{{--                                <i class="material-icons opacity-6 me-2 text-md">article</i>--}}
                                 Платформа
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive mt-0 mt-lg-3 p-3 border-radius-lg" aria-labelledby="dropdownMenuDocs">
