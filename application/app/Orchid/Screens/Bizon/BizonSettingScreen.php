@@ -55,6 +55,7 @@ class BizonSettingScreen extends Screen
         $this->amoApi = (new \App\Services\amoCRM\Client($this->amoAccount));
 
         return [
+            'active'    => $setting->active,
             'staffs'    => $this->amoAccount->amoStaffs,
             'pipelines' => $this->amoAccount->amoPipelines,
             'setting'   => $setting,
