@@ -110,7 +110,7 @@ class BizonSettingScreen extends Screen
                     ->title('Токен Бизон365')
                     ->value($this->bizonAccount->access_token),
 
-                RadioButtons::make('setting.active')
+                RadioButtons::make('active')
                     ->options([
                         true  => 'Включена',
                         null  => 'Выключена',
