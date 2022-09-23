@@ -141,8 +141,8 @@ class Viewer extends Model
             ' - Присутствовал : ' .$this->time. ' мин',
             ' - Когда зашел : ' . $this->convertToDate($this->view),
             ' - Когда вышел : ' . $this->convertToDate($this->viewTill),
-            ' - Присутствовал до конца : ' .$this->convertToString($this->userFinished),
-            ' - Кликал по банеру : ' . $this->convertToString($this->clickBanner),
+            ' - Присутствовал до конца : ' .$this->finished,
+            ' - Кликал по банеру : ' . $this->clickBanner,
             ' - Кликал по кнопке : ' . $this->convertToString($this->clickFile),
             ' - Комментарии : ' . "\n    ".implode("\n    ", json_decode($this->commentaries) ?? []),
         ];
