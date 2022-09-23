@@ -29,7 +29,7 @@ class amoCRMController extends Controller
 
         if ($request->state !== 'hello') {
 
-            redirect(route('account'), ['auth' => false]);
+            redirect(route('account'), ['auth' => 2]);
         }
 
         $account = Auth::user()->amoAccount();
@@ -44,6 +44,7 @@ class amoCRMController extends Controller
             return redirect()->route('account', ['auth' => 2]);
         }
 
+        $account->client_secret = config('services.amocrm.client_secret');
         $account->subdomain = $subdomain;
         $account->code = $request->code;
         $account->client_id = $request->client_id;
