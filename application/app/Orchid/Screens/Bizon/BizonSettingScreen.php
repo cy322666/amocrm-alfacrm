@@ -76,10 +76,9 @@ class BizonSettingScreen extends Screen
                 ->modal('question')
                 ->icon('globe-alt'),
 
-            ModalToggle::make('Инструкция')
-                ->method('questionSave')
-                ->modal('question')
-                ->icon('docs'),
+            Link::make('Инструкция')
+                ->icon('docs')
+                ->href('https://www.youtube.com/watch?v=kUdNZeGh1jY'),
 
             ModalToggle::make('Обратная связь')
                 ->method('feedbackSave')

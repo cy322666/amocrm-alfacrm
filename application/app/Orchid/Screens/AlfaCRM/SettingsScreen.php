@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Fields\Input;
@@ -154,10 +155,9 @@ class SettingsScreen extends Screen
                 ->modal('question')
                 ->icon('globe-alt'),
 
-            ModalToggle::make('Справка')
-                ->method('questionSave')
-                ->modal('question')
-                ->icon('docs'),
+            Link::make('Инструкция')
+                ->icon('docs')
+                ->href('https://www.youtube.com/watch?v=Jg-9-eqAYzM&t=1s'),
 
             ModalToggle::make('Обратная связь')
                 ->method('feedbackSave')
