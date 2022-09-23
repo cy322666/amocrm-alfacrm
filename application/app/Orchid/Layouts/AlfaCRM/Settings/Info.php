@@ -36,6 +36,7 @@ class Info extends \Orchid\Screen\Layouts\Rows
             RadioButtons::make('setting.active')
                 ->options([
                     true  => 'Включена',
+                    false => 'Выключена',
                     null  => 'Выключена',
                 ])
                 ->help('Статус интеграции'),

@@ -113,6 +113,7 @@ class BizonSettingScreen extends Screen
                 RadioButtons::make('setting.active')
                     ->options([
                         true  => 'Включена',
+                        false => 'Выключена',
                         null  => 'Выключена',
                     ])
                     ->help('Статус интеграции'),
