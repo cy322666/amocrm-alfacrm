@@ -78,13 +78,13 @@ class WebinarIndexLayout extends Table
                 ->render(function (Webinar $webinar) {
                     return $webinar->stat;
                 }),
-            TD::make('status', 'Статус')
-                //->filter(TD::FILTER_TEXT)
-                ->render(function (Webinar $webinar) {
-
-                    if($webinar->status == 1) return 'Выгружен';
-                    if($webinar->status == 0) return 'Выгружается';
-                }),
+//            TD::make('status', 'Статус')
+//                //->filter(TD::FILTER_TEXT)
+//                ->render(function (Webinar $webinar) {
+//
+//                    if($webinar->status == 1) return 'Выгружен';
+//                    if($webinar->status == 0) return 'Выгружается';
+//                }),
             TD::make('detail', 'Посетители')
                 ->render(function (Webinar $webinar) {
                     return Link::make('Посетители')
