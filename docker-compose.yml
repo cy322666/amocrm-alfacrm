@@ -1,16 +1,29 @@
 version: '3.5'
 
 services:
+    nginx:
+        build: ./docker/images/nginx
+        ports:
+            - "6969:80"
+        volumes:
+            - ./docker/images/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./application:/var/www/html
+            - ./logs:/var/log/nginx
+        networks:
+            - cluster
+        links:
+            - app
+        restart: always
     app:
         build: ./docker/images/php81
-        volumes:
-            - ./application:/app
-        ports:
-            - "6969:8000"
+        working_dir: /var/www/html
         links:
             - postgresql
         networks:
             - cluster
+        volumes:
+            - ./application:/var/www/html
+            - ./docker/images/php81/php.ini:/usr/local/etc/php/conf.d/php.ini
         restart: always
     postgresql:
         image: postgres:9.6.21-alpine
