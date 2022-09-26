@@ -1,63 +1,76 @@
-FROM php:8.1-cli-alpine
+FROM php:8.1-fpm
 
+# Copy composer.lock and composer.json
+#COPY composer.lock composer.json /var/www/
+
+# Set working directory
 WORKDIR /app
 
-# PHP: Copy configuration files & remove dist files
-RUN #mkdir /phpIni
-#COPY files/bin /usr/local/bin/
-COPY files/php/php.ini /usr/local/etc/php/conf.d/php.ini
-#COPY files/php/ext /phpIni
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    python \
+    build-essential \
+    mariadb-client \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
+    unzip \
+    git \
+    curl
 
-# SYS: Install required packages
-RUN apk --no-cache upgrade && \
-    apk --no-cache add bash git sudo openssh libxml2-dev postgresql-dev oniguruma-dev autoconf g++ make npm freetype-dev libjpeg-turbo-dev libpng-dev libzip-dev
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# COMPOSER: install binary and prestissimo
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
+RUN apt-get -y --no-install-recommends install g++ zlib1g-dev
+#RUN pecl install grpc
 
-# PHP: Install php extensions
-RUN pecl channel-update pecl.php.net
-RUN pecl install pcov
-RUN pecl install swoole
+RUN apt-get update && apt-get install -y \
+    libpq-dev
 
-#RUN docker-php-ext-configure gd --with-freetype --with-jpeg
+# Install extensions
+RUN docker-php-ext-install pdo_pgsql exif pcntl
+RUN docker-php-ext-install -j$(nproc) opcache
+RUN docker-php-ext-install gd
+#RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
 
-#gd sockets iconv
-RUN docker-php-ext-install mbstring xml pcntl zip pdo pdo_pgsql bcmath soap
+#enable extensions
+#RUN docker-php-ext-enable grpc
 
-#sockets gd iconv
-RUN docker-php-ext-enable mbstring xml zip swoole pcov pcntl bcmath pdo pdo_pgsql soap
-
-RUN docker-php-ext-install exif
-
-RUN docker-php-ext-install -j "$(nproc)" gd
+RUN apt-get install -y \
+    imagemagick libmagickwand-dev --no-install-recommends \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick
 
 
-RUN docker-php-ext-install intl opcache \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-install zip
+RUN pecl install -o -f redis \
+&&  rm -rf /tmp/pear \
+&&  docker-php-ext-enable redis
 
-# fix work iconv library with alphine
-RUN apk add --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted gnu-libiconv
-ENV LD_PRELOAD /usr/lib/preloadable_libiconv.so php
-ENV NODE_PATH "/home/www-data/.npm-global/lib/node_modules"
+# Install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN apk add --no-cache nodejs npm && \
-    mkdir "/home/www-data/.npm-global/" && \
-    npm config set prefix "/home/www-data/.npm-global/" && \
-    npm install -g chokidar
+RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 
-ENV SWOOLE_MAX_REQUESTS "200"
-ENV SWOOLE_TASK_WORKERS "5"
-ENV SWOOLE_WATCH $true
-ENV SWOOLE_WORKERS "100"
+RUN chmod a+rx /usr/local/bin/youtube-dl
 
-RUN chown -R www-data:www-data /app
+# Add user for laravel application
+RUN groupadd -g 1000 www
+RUN useradd -u 1000 -ms /bin/bash -g www www
 
-#RUN chmod -R 777 storage/
+# Copy existing application directory contents
+COPY . /var/www
 
-COPY ./start.sh /
-RUN chmod +x /start.sh
-ENTRYPOINT ["/start.sh"]
+# Copy existing application directory permissions
+
+COPY --chown=www:www . /var/www
+
+# Change current user to www
+USER www
+
+# Expose port 9000 and start php-fpm server
+EXPOSE 9000
+CMD ["php-fpm"]
