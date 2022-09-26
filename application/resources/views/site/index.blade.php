@@ -328,7 +328,7 @@
                                 <div class="col-md-6 mt-3">
                                     <i class="material-icons text-gradient text-primary text-3xl">price_change</i>
                                     <h5 class="font-weight-bolder mt-3">Современный стек</h5>
-                                    <p class="pe-5">Используем только новейшие технологии и фреймоврки для разработки</p>
+                                    <p class="pe-5">Используем только новейшие технологии и фреймворки для разработки</p>
                                 </div>
                                 <div class="col-md-6 mt-3">
                                     <div class="info">
@@ -350,7 +350,7 @@
                             <h3 class="text-gradient text-primary mb-0">Нет тех специалиста?</h3>
                             <h3>Нужна помощь?</h3>
                             <p class="pe-md-5 mb-4">
-                                Не имея технического специалиста в штате сложно объекивно оценить разработку, написать техническое задание, оценить затраты. Оставьте заявку на консультацию со специалистом, который поможет сформировать запрос или ответит на ваши вопросы по разработке
+                                Не имея технического специалиста в штате сложно объективно оценить разработку, написать техническое задание, оценить затраты. Оставьте заявку на консультацию со специалистом, который поможет сформировать запрос или ответит на ваши вопросы по разработке
                             </p>
                             <div class="github-buttons">
                                 <a href="#contact-form" class="btn bg-gradient-primary mb-5 mb-sm-0">Связаться</a>
@@ -360,9 +360,9 @@
                             </div>
                         </div>
                         <div class="col-md-5 col-12 my-auto">
-                            <a href="https://www.creative-tim.com/product/material-kit-pro?ref=index-mk2">
+{{--                            <a href="https://www.creative-tim.com/product/material-kit-pro?ref=index-mk2">--}}
                                 <img class="w-100 border-radius-lg shadow-lg" src=" {{ asset('/site/img/code2.png') }}" alt="Product Image">
-                            </a>
+{{--                            </a>--}}
                         </div>
                     </div>
                 </div>
