@@ -49,8 +49,8 @@ RUN apk add --no-cache nodejs npm && \
     npm config set prefix "/home/www-data/.npm-global/" && \
     npm install -g chokidar
 
-ENV SWOOLE_MAX_REQUESTS "200"
-ENV SWOOLE_TASK_WORKERS "5"
+ENV SWOOLE_MAX_REQUESTS "100"
+ENV SWOOLE_TASK_WORKERS "3"
 ENV SWOOLE_WATCH $true
 ENV SWOOLE_WORKERS "100"
 
