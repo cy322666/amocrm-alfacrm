@@ -15,7 +15,9 @@ class Client
 
     public bool $auth = false;
 
-    public function __construct(Account $account) {
+    public function __construct(Account $account)
+    {
+        Log::debug(__METHOD__, $account->toArray());
 
         $this->storage = new EloquentStorage([
             'domain'    => $account->subdomain ?? null,
@@ -57,8 +59,12 @@ class Client
 
                 $oauth = $this->service->refreshAccessToken($this->storage->model->refresh_token);
 
+                Log::debug(__METHOD__.' refresh : ', $oauth);
+
             } else {
                 $oauth = $this->service->fetchAccessToken($this->storage->model->code);
+
+                Log::debug(__METHOD__.' exc fetch : ', $oauth);
             }
             $this->storage->setOauthData($this->service, [
                 'token_type'    => 'Bearer',

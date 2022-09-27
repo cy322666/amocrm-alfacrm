@@ -3,6 +3,7 @@
 namespace App\Services\amoCRM;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Ufee\Amo\Base\Storage\Oauth\AbstractStorage;
 use Ufee\Amo\Oauthapi;
 
@@ -12,6 +13,8 @@ class EloquentStorage extends AbstractStorage
 
     public function __construct(array $options, Model $storage_model)
     {
+        Log::debug(__METHOD__, $options);
+
         $this->options = $options;
 
         $this->model = $storage_model;
@@ -26,6 +29,8 @@ class EloquentStorage extends AbstractStorage
     {
         static::$_oauth = $oauth;
 
+        Log::debug(__METHOD__, $oauth);
+
         $this->setOauth($oauth);
 
         return true;
@@ -38,6 +43,8 @@ class EloquentStorage extends AbstractStorage
 
     private function getOauth() : array
     {
+        Log::debug(__METHOD__, $this->model->toArray());
+
         return [
             'token_type'    => 'Bearer',
             'access_token'  => $this->model->access_token,
@@ -49,6 +56,8 @@ class EloquentStorage extends AbstractStorage
 
     private function setOauth(array $oauth) : array
     {
+        Log::debug(__METHOD__, $oauth);
+
         $this->model->access_token  = $oauth['access_token'];
         $this->model->refresh_token = $oauth['refresh_token'];
         $this->model->expires_in    = $oauth['expires_in'];
