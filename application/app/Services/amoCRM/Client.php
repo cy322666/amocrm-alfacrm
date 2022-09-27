@@ -23,7 +23,7 @@ class Client
             'domain'    => $account->subdomain ?? null,
             'client_id' => $account->client_id ?? null,
             'client_secret' => $account->client_secret ?? null,
-            'redirect_uri'  => $account->redirect_uri ?? null,
+            'redirect_uri'  => \config('services.amocrm.redirect_uri'),
         ], $account);
 
         \Ufee\Amo\Services\Account::setCacheTime(1);
