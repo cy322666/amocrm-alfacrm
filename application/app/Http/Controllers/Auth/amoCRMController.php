@@ -29,7 +29,7 @@ class amoCRMController extends Controller
 
         if ($request->state !== 'hello') {
 
-            redirect(route('account'), ['auth' => 2]);
+            return redirect()->route('account', ['auth' => 2]);
         }
 
         $account = Auth::user()->amoAccount();
