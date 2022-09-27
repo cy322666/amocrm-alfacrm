@@ -4,7 +4,7 @@
             <div class="col">
                 <div class="card box-shadow-xl overflow-hidden mb-5">
                     <div class="row">
-                        <div class="col-lg-5 position-relative bg-cover px-0" style="background-image: url({{asset('/site/img/shapes/waves-white.svg')}})" loading="lazy">
+                        <div class="col-lg-5 position-relative bg-cover px-0">
                             <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
                                 <div class="mask bg-gradient-dark opacity-9"></div>
                                 <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
