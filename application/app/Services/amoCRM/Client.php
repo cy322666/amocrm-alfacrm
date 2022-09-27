@@ -45,7 +45,7 @@ class Client
             'domain'        => $this->storage->model->subdomain,
             'client_id'     => $this->storage->model->client_id,
             'client_secret' => $this->storage->model->client_secret,
-            'redirect_uri'  => Config::get('services.amocrm.redirect_uri') ?? null,
+            'redirect_uri'  => \config('services.amocrm.redirect_uri'),
         ]);
 
         try {
