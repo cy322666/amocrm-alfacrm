@@ -48,6 +48,8 @@ class AccountIndexScreen extends Screen
      */
     public function query(Request $request): array
     {
+        User::saveMemoryInfo(__METHOD__);
+
         return [
             'user' => Auth::user(),
             'auth' => $request->auth,

@@ -11,6 +11,7 @@ use App\Jobs\AlfaCRM\RecordWithLead;
 use App\Jobs\AlfaCRM\RecordWithoutLead;
 use App\Models\AlfaCRM\Setting;
 use App\Models\AlfaCRM\Transaction;
+use App\Models\User;
 use App\Models\Webhook;
 use App\Services\AlfaCRM\Client as alfaApi;
 use App\Services\AlfaCRM\Mapper;
@@ -53,6 +54,8 @@ class AlfaCRMController extends Controller
             $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
             $transaction->save();
         }
+
+        User::saveMemoryInfo(__METHOD__);
     }
 
     public function came(Webhook $webhook, CameRequest $request)
@@ -103,6 +106,8 @@ class AlfaCRMController extends Controller
             } else
                 Log::error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
+
+        User::saveMemoryInfo(__METHOD__);
     }
 
     public function omission(Webhook $webhook, OmissionRequest $request)
@@ -147,5 +152,7 @@ class AlfaCRMController extends Controller
             } else
                  Log::error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
+
+        User::saveMemoryInfo(__METHOD__);
     }
 }

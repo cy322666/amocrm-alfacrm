@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\AlfaCRM;
 use App\Models\amoCRM\Field;
 use App\Models\amoCRM\Pipeline;
 use App\Models\Feedback;
+use App\Models\User;
 use App\Orchid\Layouts\AlfaCRM\Settings\FieldsAlfaCRM;
 use App\Orchid\Layouts\AlfaCRM\Settings\Info;
 use App\Orchid\Layouts\AlfaCRM\Settings\Stages;
@@ -54,6 +55,8 @@ class SettingsScreen extends Screen
 
     public function query(): iterable
     {
+        User::saveMemoryInfo(__METHOD__);
+
         $account = Auth::user()->alfaAccount();
 
         $setting = Auth::user()->alfaSetting;

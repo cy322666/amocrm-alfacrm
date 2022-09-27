@@ -3,6 +3,7 @@
 namespace App\Orchid\Screens;
 
 use App\Models\Feedback;
+use App\Models\User;
 use App\Services\Telegram\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,8 @@ class StartScreen extends Screen
      */
     public function query(): iterable
     {
+        User::saveMemoryInfo(__METHOD__);
+
         return [];
     }
 

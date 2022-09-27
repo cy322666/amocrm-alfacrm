@@ -7,6 +7,7 @@ use App\Models\amoCRM\Staff;
 use App\Models\amoCRM\Status;
 use App\Models\Account;
 use App\Models\Feedback;
+use App\Models\User;
 use App\Models\Webhook;
 use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
 use App\Orchid\Layouts\Bizon\Staffs;
@@ -47,6 +48,8 @@ class BizonSettingScreen extends Screen
 
     public function query(): array
     {
+        User::saveMemoryInfo(__METHOD__);
+
         $this->amoAccount   = Auth::user()->amoAccount();
         $this->bizonAccount = Auth::user()->bizonAccount();
 

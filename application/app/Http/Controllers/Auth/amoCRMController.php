@@ -61,11 +61,15 @@ class amoCRMController extends Controller
                 return redirect()->route('account', ['auth' => 0]);
             }
 
+            User::saveMemoryInfo(__METHOD__);
+
             return redirect()->route('account', ['auth' => 1]);
 
         } catch (\Throwable $exception) {
 
             Log::error(__METHOD__.' : '.$exception->getMessage());
+
+            User::saveMemoryInfo(__METHOD__);
 
             return redirect()->route('account', ['auth' => 0]);
         }

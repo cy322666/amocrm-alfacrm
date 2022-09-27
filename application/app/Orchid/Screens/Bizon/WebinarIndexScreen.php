@@ -3,6 +3,7 @@
 namespace App\Orchid\Screens\Bizon;
 
 use App\Models\Bizon\Webinar;
+use App\Models\User;
 use App\Orchid\Layouts\Bizon\WebinarIndexLayout;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Action;
@@ -31,6 +32,8 @@ class WebinarIndexScreen extends Screen
      */
     public function query(): array
     {
+        User::saveMemoryInfo(__METHOD__);
+
         return [
             'webinars' => Auth::user()
                 ->bizonSetting

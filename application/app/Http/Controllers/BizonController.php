@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Api\Bizon\HookRequest;
 use App\Jobs\Bizon\ViewerSend;
+use App\Models\User;
 use App\Models\Webhook;
 use App\Notifications\Api\BizonAuthException;
 use GuzzleHttp\Exception\GuzzleException;
@@ -62,5 +63,6 @@ class BizonController extends Controller
             $webinar->error = $exception->getMessage();
             $webinar->save();
         }
+        User::saveMemoryInfo(__METHOD__);
     }
 }
