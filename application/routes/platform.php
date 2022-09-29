@@ -47,7 +47,7 @@ Route::screen('bizon/{webinar}/viewers', \App\Orchid\Screens\Bizon\ViewerIndexSc
 
 Route::screen('bizon/settings', \App\Orchid\Screens\Bizon\BizonSettingScreen::class)->name('bizon.settings');
 
-Route::screen('getcourse/settings', \App\Orchid\Screens\GetCourse\SettingScreen::class)->name('getcourse.settings');
+//Route::screen('getcourse/settings', \App\Orchid\Screens\GetCourse\SettingScreen::class)->name('getcourse.settings');
 
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)
