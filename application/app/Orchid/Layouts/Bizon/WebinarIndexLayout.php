@@ -55,7 +55,7 @@ class WebinarIndexLayout extends Table
     protected function columns(): array
     {
         return [
-            TD::make('start', 'Создан')
+            TD::make('start', 'Получено')
                 ->render(function (Webinar $webinar) {
 
                     return Carbon::parse($webinar->created)->format('Y-m-d H:i:s');
