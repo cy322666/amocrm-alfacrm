@@ -162,6 +162,8 @@ class ViewerSend implements ShouldQueue
                 Log::channel('bizon')->info(__METHOD__.' > выгрузка webinar_id : '.$webinar->id.' завершена');
             }
 
+            Log::channel('bizon')->info(__METHOD__.' > отправка закончена viewer id : '.$this->viewer->id);
+
             return true;
 
         } catch (\Throwable $exception) {
