@@ -39,12 +39,15 @@ Route::screen('alfacrm/settings', \App\Orchid\Screens\AlfaCRM\SettingsScreen::cl
 Route::screen('alfacrm/transactions', \App\Orchid\Screens\AlfaCRM\LogScreen::class)->name('alfacrm.transactions');
 
 Route::screen('bizon/webinars', \App\Orchid\Screens\Bizon\WebinarIndexScreen::class)->name('bizon.webinars');
+//TODO middle
 
 Route::screen('bizon/{webinar}/viewers', \App\Orchid\Screens\Bizon\ViewerIndexScreen::class)
     ->name('bizon.viewers');
-//    ->middleware('viewers');
+//    ->middleware('viewers');//TODO
 
 Route::screen('bizon/settings', \App\Orchid\Screens\Bizon\BizonSettingScreen::class)->name('bizon.settings');
+
+Route::screen('getcourse/settings', \App\Orchid\Screens\GetCourse\SettingScreen::class)->name('getcourse.settings');
 
 // Platform > Profile
 Route::screen('profile', UserProfileScreen::class)

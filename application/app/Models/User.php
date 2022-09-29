@@ -120,6 +120,10 @@ class User extends Authenticatable
     {
         $data = explode("\n", file_get_contents("/proc/meminfo"));
 
-        Log::debug($info.' : ', $data);
+        Log::channel('memory')->debug($info.' : ', [
+            str_replace(' ', '', $data[1]),
+            str_replace(' ', '', $data[3]),
+            str_replace(' ', '', $data[4]),
+        ]);
     }
 }

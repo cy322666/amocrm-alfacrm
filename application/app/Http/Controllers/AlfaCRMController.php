@@ -92,7 +92,7 @@ class AlfaCRMController extends Controller
                     CameWithoutLead::dispatch($setting, $webhook, $transaction, $request->toArray());
                 }
             } else {
-                Log::error('Lesson dont get by id : ', [
+                Log::channel('alfacrm')->error('Lesson dont get by id : ', [
                     'branch_id' => $this->alfaApi->branchId,
                     'entity_id' => $request->entity_id,
                     'status'    => Lesson::LESSON_CAME_TYPE_ID,
@@ -104,7 +104,7 @@ class AlfaCRMController extends Controller
                 $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
                 $transaction->save();
             } else
-                Log::error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+                Log::channel('alfacrm')->error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
 
         User::saveMemoryInfo(__METHOD__);
@@ -150,7 +150,7 @@ class AlfaCRMController extends Controller
                 $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
                 $transaction->save();
             } else
-                 Log::error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
+                Log::channel('alfacrm')->error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
 
         User::saveMemoryInfo(__METHOD__);

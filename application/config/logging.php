@@ -70,7 +70,41 @@ return [
             'days' => 14,
         ],
 
-        //TODO requests log channel
+        'memory' => [
+            'driver' => 'daily',
+            'path'  => storage_path('logs/memory/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'requests' => [
+            'driver' => 'daily',
+            'path'  => storage_path('logs/requests/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'bizon' => [
+            'driver' => 'daily',
+            'path'  => storage_path('logs/bizon/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'alfacrm' => [
+            'driver' => 'daily',
+            'path'  => storage_path('logs/alfacrm/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        //TODO
+        'critical' => [
+//            'driver' => 'daily',
+//            'path'  => storage_path('logs/requests/laravel.log'),
+//            'level' => 'error',
+//            'days' => 14,
+        ],
 
         'slack' => [
             'driver' => 'slack',

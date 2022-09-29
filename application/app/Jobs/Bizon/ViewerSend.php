@@ -91,7 +91,7 @@ class ViewerSend implements ShouldQueue
     public function handle()
     {
         try {
-            Log::info(__METHOD__.' > начало отправки viewer id : '.$this->viewer->id);
+            Log::channel('bizon')->info(__METHOD__.' > начало отправки viewer id : '.$this->viewer->id);
 
             $manager = new BizonManager($this->webhook);
 
@@ -159,7 +159,7 @@ class ViewerSend implements ShouldQueue
                 $webinar->status = 1;
                 $webinar->save();
 
-                Log::info(__METHOD__.' > выгрузка webinar_id : '.$webinar->id.' завершена');
+                Log::channel('bizon')->info(__METHOD__.' > выгрузка webinar_id : '.$webinar->id.' завершена');
             }
 
             return true;
