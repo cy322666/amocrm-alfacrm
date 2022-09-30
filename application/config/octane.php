@@ -147,8 +147,8 @@ return [
     */
 
     'cache' => [
-        'rows' => 1000,
-        'bytes' => 10000,
+        'rows' => 10,
+        'bytes' => 10,
     ],
 
     /*
@@ -163,7 +163,7 @@ return [
     */
 
     'tables' => [
-        'example:1000' => [
+        'example:10' => [
             'name' => 'string:1000',
             'votes' => 'int',
         ],
