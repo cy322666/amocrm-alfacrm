@@ -13,13 +13,14 @@ use App\Services\amoCRM\Models\Contacts;
 use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\BizonManager;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class ViewerSend implements ShouldQueue
+class ViewerSend implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -80,6 +81,11 @@ class ViewerSend implements ShouldQueue
     public function middleware(): array
     {
         return [];
+    }
+
+    public function uniqueId()
+    {
+        return $this->viewer->id;
     }
 
     /**
