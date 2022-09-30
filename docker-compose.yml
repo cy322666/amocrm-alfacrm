@@ -20,6 +20,7 @@ services:
             - cluster
         volumes:
             - ./database:/var/lib/postgresql
+            - ./database/postgresql.conf:/var/lib/postgresql/data/
         environment:
             POSTGRES_USER: root
             POSTGRES_PASSWORD: pQLkm8NOkS0gOBox
