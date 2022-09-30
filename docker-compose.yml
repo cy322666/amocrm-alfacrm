@@ -13,7 +13,7 @@ services:
             - cluster
         restart: always
     postgresql:
-        image: postgres:9.6.21-alpine
+        image: postgres:14-alpine3.14
         ports:
             - "5431:5432"
         networks:
