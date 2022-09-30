@@ -3,7 +3,7 @@ FROM php:8.1-cli-alpine
 WORKDIR /app
 
 # PHP: Copy configuration files & remove dist files
-RUN #mkdir /phpIni
+#RUN mkdir /phpIni
 #COPY files/bin /usr/local/bin/
 COPY files/php/php.ini /usr/local/etc/php/conf.d/php.ini
 #COPY files/php/ext /phpIni
