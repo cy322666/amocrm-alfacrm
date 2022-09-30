@@ -168,6 +168,9 @@ class BizonSettingScreen extends Screen
                 'Сегментация' => Layout::columns([
 
                     Layout::rows([
+                        Label::make('label_segment')
+                            ->title('Сегменты по времени присутствия'),
+
                         Input::make('time_cold')
                             ->type('text')
                             ->title('Холодные')
@@ -188,6 +191,9 @@ class BizonSettingScreen extends Screen
                     ]),
 
                     Layout::rows([
+                        Label::make('label_tag')
+                            ->title('Тегирование'),
+
                         Input::make('tag')
                             ->type('text')
                             ->title('Все')
