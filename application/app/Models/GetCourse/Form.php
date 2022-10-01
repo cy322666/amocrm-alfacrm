@@ -23,14 +23,14 @@ class Form extends Model
         'error',
     ];
 
-    public static function text(Form $form): string
+    public function text(): string
     {
         $note = [
             "Информация о заявке",
             '----------------------',
-            ' - Имя : ' . $form->name,
-            ' - Телефон : ' . $form->phone,
-            ' - Почта : ' . $form->email,
+            ' - Имя : ' . $this->form->name,
+            ' - Телефон : ' . $this->form->phone,
+            ' - Почта : ' . $this->form->email,
         ];
         return implode("\n", $note);
     }

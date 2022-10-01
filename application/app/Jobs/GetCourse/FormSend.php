@@ -51,12 +51,6 @@ class FormSend implements ShouldQueue, ShouldBeUnique
 
             $responsibleId = $this->setting->responsible_user_id_form ?? $this->setting->responsible_user_id_default;
 
-            $pipelineId = $account
-                ->amoPipelines()
-                ->where('is_main', true)
-                ->first()
-                ->pipeline_id;
-
             $contact = Contacts::search([
                 'Телефоны' => [$this->form->phone],
                 'Почта'    => $this->form->email,
@@ -72,10 +66,9 @@ class FormSend implements ShouldQueue, ShouldBeUnique
                 ]);
             }
 
-            $lead = $contact->leads->filter(function ($lead) use ($pipelineId) {
+            $lead = $contact->leads->filter(function ($lead) {
 
-                if ($lead->pipeline_id == $pipelineId &&
-                    $lead->status_id !== 142 &&
+                if ($lead->status_id !== 142 &&
                     $lead->status_id !== 143) {
 
                     return $lead;
@@ -99,7 +92,7 @@ class FormSend implements ShouldQueue, ShouldBeUnique
             $this->form->lead_id = $lead->id;
             $this->form->save();
 
-            Notes::addOne($lead, Form::text($this->form));
+            Notes::addOne($lead, $this->form->text());
 
         } catch (\Throwable $exception) {
 
