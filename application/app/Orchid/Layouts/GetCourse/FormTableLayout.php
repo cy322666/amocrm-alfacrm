@@ -21,16 +21,6 @@ class FormTableLayout extends Table
      */
     protected $target = 'forms';
 
-    protected function textNotFound(): string
-    {
-        return 'Данных нет :(';
-    }
-
-    protected function subNotFound(): string
-    {
-        return 'На вебинаре отсутствовали посетители';
-    }
-
     /**
      * Get the table cells to be displayed.
      *
@@ -82,5 +72,18 @@ class FormTableLayout extends Table
                     return empty($form->error) ? 'Нет' : 'Да';
                 }),
         ];
+    }
+
+    protected function textNotFound(): string
+    {
+        return 'В интеграции пока не было событий';
+    }
+
+    /**
+     * @return string
+     */
+    protected function subNotFound(): string
+    {
+        return 'Проверьте настройки или напишите нам';
     }
 }

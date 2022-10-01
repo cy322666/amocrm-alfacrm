@@ -29,11 +29,10 @@ class FormsScreen extends Screen
     public function query(): iterable
     {
         return [
-            'forms' => Auth::user()
-                ->getcourseSetting
-                ->forms()
+            'forms' => Form::query()
+                ->where('user_id', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
-                ->paginate(),
+                ->paginate(15),
         ];
     }
 

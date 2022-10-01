@@ -2,6 +2,8 @@
 
 namespace App\Orchid\Screens\GetCourse;
 
+use App\Models\GetCourse\Payment;
+use App\Orchid\Layouts\GetCourse\PaymentTableLayout;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Screen;
 
@@ -15,11 +17,10 @@ class PaymentsScreen extends Screen
     public function query(): iterable
     {
         return [
-            'payments' => Auth::user()
-                ->getcourseSetting
-                ->payments()
+            'payments' => Payment::query()
+                ->where('user_id', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
-                ->paginate(),
+                ->paginate(15),
         ];
     }
 
@@ -50,6 +51,8 @@ class PaymentsScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+            PaymentTableLayout::class,
+        ];
     }
 }

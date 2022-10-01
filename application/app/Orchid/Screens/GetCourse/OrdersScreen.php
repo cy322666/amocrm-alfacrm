@@ -2,6 +2,8 @@
 
 namespace App\Orchid\Screens\GetCourse;
 
+use App\Models\GetCourse\Order;
+use App\Orchid\Layouts\GetCourse\OrderTableLayout;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Screen;
 
@@ -15,11 +17,10 @@ class OrdersScreen extends Screen
     public function query(): iterable
     {
         return [
-            'orders' => Auth::user()
-                ->getcourseSetting
-                ->orders()
+            'orders' => Order::query()
+                ->where('user_id', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
-                ->paginate(),
+                ->paginate(15),
         ];
     }
 
@@ -50,6 +51,8 @@ class OrdersScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+            OrderTableLayout::class,
+        ];
     }
 }

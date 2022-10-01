@@ -22,4 +22,16 @@ class Form extends Model
         'contact_id',
         'error',
     ];
+
+    public static function text(Form $form): string
+    {
+        $note = [
+            "Информация о заявке",
+            '----------------------',
+            ' - Имя : ' . $form->name,
+            ' - Телефон : ' . $form->phone,
+            ' - Почта : ' . $form->email,
+        ];
+        return implode("\n", $note);
+    }
 }

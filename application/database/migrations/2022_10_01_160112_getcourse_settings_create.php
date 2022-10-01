@@ -24,7 +24,12 @@ return new class extends Migration
             $table->string('status_id_order')->nullable();
             $table->string('status_id_order_close')->nullable();
 
-            $table->boolean('active')->nullable();
+            $table->integer('response_user_id_default')->nullable();
+            $table->integer('response_user_id_form')->nullable();
+            $table->integer('response_user_id_payment')->nullable();
+            $table->integer('response_user_id_order')->nullable();
+
+            $table->boolean('active')->default(false);
         });
     }
 

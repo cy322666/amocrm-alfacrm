@@ -40,16 +40,16 @@ class PaymentTableLayout extends Table
                     return Carbon::parse($payment->created_at)->format('Y-m-d H:i:s');
                 }),
             TD::make('name', 'Имя'),
-            TD::make('email', 'Почта'),
+            TD::make('email', 'Почта')->defaultHidden(),
             TD::make('phone', 'Телефон'),
             TD::make('number', '№ Платежа'),
-            TD::make('order_id', '№ Заказа'),
-            TD::make('positions', 'Позиции'),
-            TD::make('left_cost_money', 'Осталось'),
+            TD::make('order_id', '№ Заказа')->defaultHidden(),
+            TD::make('positions', 'Позиции')->defaultHidden(),
+            TD::make('left_cost_money', 'Осталось')->defaultHidden(),
             TD::make('cost_money', 'Сумма'),
             TD::make('payed_money', 'Оплачено'),
             TD::make('payment_status', 'Статус платежа'),
-            TD::make('link', 'Ссылка на платеж'),
+            TD::make('link', 'Ссылка на платеж')->defaultHidden(),
             TD::make('contact_id', 'ID контакта')
                 ->render(function (Payment $payment) use ($subdomain) {
 
@@ -82,5 +82,18 @@ class PaymentTableLayout extends Table
                     return empty($payment->error) ? 'Нет' : 'Да';
                 }),
         ];
+    }
+
+    protected function textNotFound(): string
+    {
+        return 'В интеграции пока не было событий';
+    }
+
+    /**
+     * @return string
+     */
+    protected function subNotFound(): string
+    {
+        return 'Проверьте настройки или напишите нам';
     }
 }
