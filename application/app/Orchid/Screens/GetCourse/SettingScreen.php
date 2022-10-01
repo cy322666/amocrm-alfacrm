@@ -26,7 +26,9 @@ class SettingScreen extends Screen
      */
     public function query(): iterable
     {
-        return [];
+        return [
+
+        ];
     }
 
     /**
@@ -36,7 +38,7 @@ class SettingScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'SettingScreen';
+        return 'Настройки';
     }
 
     /**
