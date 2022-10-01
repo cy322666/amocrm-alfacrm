@@ -2,6 +2,7 @@
 
 namespace App\Orchid\Screens\GetCourse;
 
+use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Screen;
 
 class OrdersScreen extends Screen
@@ -13,7 +14,13 @@ class OrdersScreen extends Screen
      */
     public function query(): iterable
     {
-        return [];
+        return [
+            'orders' => Auth::user()
+                ->getcourseSetting
+                ->orders()
+                ->orderBy('created_at', 'desc')
+                ->paginate(),
+        ];
     }
 
     /**

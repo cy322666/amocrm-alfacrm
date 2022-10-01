@@ -20,10 +20,15 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('phone')->nullable();
             $table->string('name')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(0);
+
+            $table->integer('lead_id')->nullable();
+            $table->integer('contact_id')->nullable();
 
             $table->integer('webhook_id')->nullable();
             $table->integer('user_id')->nullable();
+
+            $table->text('error')->nullable();
         });
     }
 

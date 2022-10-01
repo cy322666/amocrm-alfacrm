@@ -2,6 +2,9 @@
 
 namespace App\Orchid\Screens\GetCourse;
 
+use App\Models\GetCourse\Form;
+use App\Orchid\Layouts\GetCourse\FormTableLayout;
+use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Screen;
 
 class FormsScreen extends Screen
@@ -26,7 +29,11 @@ class FormsScreen extends Screen
     public function query(): iterable
     {
         return [
-
+            'forms' => Auth::user()
+                ->getcourseSetting
+                ->forms()
+                ->orderBy('created_at', 'desc')
+                ->paginate(),
         ];
     }
 
@@ -47,6 +54,8 @@ class FormsScreen extends Screen
      */
     public function layout(): iterable
     {
-        return [];
+        return [
+            FormTableLayout::class,
+        ];
     }
 }

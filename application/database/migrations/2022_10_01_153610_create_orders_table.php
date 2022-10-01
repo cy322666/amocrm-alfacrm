@@ -27,10 +27,15 @@ return new class extends Migration
             $table->string('cost_money')->nullable();
             $table->string('payed_money')->nullable();
             $table->string('order_status')->nullable();
-            $table->integer('status')->nullable();
+            $table->integer('status')->default(0);
+
+            $table->integer('lead_id')->nullable();
+            $table->integer('contact_id')->nullable();
 
             $table->integer('webhook_id')->nullable();
             $table->integer('user_id')->nullable();
+
+            $table->text('error')->nullable();
         });
     }
 

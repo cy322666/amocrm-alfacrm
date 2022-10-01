@@ -26,5 +26,8 @@ class Payment extends Model
         'status',
         'webhook_id',
         'user_id',
+        'lead_id',
+        'contact_id',
+        'error',
     ];
 }
