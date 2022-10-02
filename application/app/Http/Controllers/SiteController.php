@@ -21,4 +21,19 @@ class SiteController extends Controller
 
         return back()->with('status', 'Успех');
     }
+
+    public function index()
+    {
+        return view('site.index');
+    }
+
+    public function widgets()
+    {
+        return view('site.platform');
+    }
+
+    public function dev()
+    {
+        return view('site.dev');
+    }
 }

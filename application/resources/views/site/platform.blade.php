@@ -1,78 +1,60 @@
 <!DOCTYPE HTML>
+
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
 @include('site.bootstrapp')
-<html>
-	<head>
-		<title>Left Sidebar - Escape Velocity by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href={{ asset("css/main.css") }} />
-	</head>
+
+<head>
+    <meta charset="utf-8" />
+    <meta property="og:title" content="Внедрение AmoCRM">
+    <meta property="og:description" content="Внедрение и настройка amoCRM">
+    <meta property="og:type" content="website">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <script>
+        window.Laravel = {!! json_encode([
+        'csrfToken' => csrf_token(),
+        ]) !!};
+    </script>
+    <title>Внедрение AmoCRM и разработка</title>
+</head>
 	<body class="left-sidebar is-preload">
-		<div id="page-wrapper">
 
-			<!-- Header -->
-				<section id="header" class="wrapper">
+        @include('site.nav')
 
-					<!-- Logo -->
-						<div id="logo">
-							<h1><a href={{ route('site.index') }}>CLEVER PLATFORM</a></h1>
-							<p>A free responsive site template by HTML5 UP</p>
-						</div>
+        @include('site.header')
 
-					@include('site.nav')
 
-				</section>
+        <section class="py-5">
+            <div class="container">
+                <div class="row">
+                    <div class="row text-center my-sm-5 mt-5">
+                        <div class="col-lg-6 mx-auto">
+                            <span class="badge bg-primary mb-3">CLEVER PLATFORM</span>
+                            <h2 class="">Платформа готовых решений</h2>
+                            <a href="#platform"></a>
+                            {{--                        TODO --}}
+                            <p class="lead">В основном у компаний похожие запросы. Для этого мы ведем разработку платформы</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<!-- Main -->
-			<div id="main" class="wrapper style2">
-				<div class="title">No Sidebar</div>
-				<div class="container">
+            <div class="container mt-5">
+                <div class="row">
 
-					<!-- Content -->
-					<div id="content">
-						<article class="box post">
-							<header class="style1">
-								<h2>Lorem ipsum dolor sit amet magna egestas<br class="mobile-hide" />
-									morbi bibendum sed malesuada</h2>
-								<p>Tempus feugiat veroeros sed nullam dolore</p>
-							</header>
-							<a href="#" class="image featured">
-								<img src="images/pic01.jpg" alt="" />
-							</a>
-							<p>Fringilla nisl. Donec accumsan interdum nisi, quis tincidunt felis sagittis eget.
-								odio eleifend. Duis commodo fringilla commodo. Aliquam erat volutpat. Vestibulum
-								facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-								tempus euismod. Vestibulum ante ipsum primis in faucibus.</p>
-							<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
-								bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
-								lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
-								Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
-								magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
-								leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
-								amet risus elit.</p>
-							<p>Donec consectetur vestibulum dolor et pulvinar. Etiam vel felis enim, at viverra
-								ligula. Ut porttitor sagittis lorem, quis eleifend nisi ornare vel. Praesent nec orci
-								eget quam rutrum bibendum. Proin pellentesque diam non ligula commodo tempor. Vivamus
-								eget urna nibh. Curabitur non fringilla nisl. Donec accumsan interdum nisi, quis
-								tincidunt felis sagittis eget. Donec elementum ligula dignissim sem pulvinar non semper
-								odio eleifend. Duis commodo fringilla commodo. Aliquam erat volutpat. Vestibulum
-								facilisis leo magna. Cras sit amet urna eros, id egestas urna. Quisque aliquam
-								tempus euismod. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-								posuere cubilia.</p>
-							<p>Phasellus nisl nisl, varius id porttitor sed, pellentesque ac orci. Pellentesque
-								habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Morbi
-								bibendum justo sed mauris vehicula malesuada aliquam elit imperdiet. Aliquam eu nibh
-								lorem, eget gravida mi. Duis odio diam, luctus et vulputate vitae, vehicula ac dolor.
-								Pellentesque at urna eget tellus lobortis ultrices sed non erat. Donec eget erat non
-								magna volutpat malesuada quis eget eros. Nullam sodales cursus sapien, id consequat
-								leo suscipit ut. Praesent id turpis vitae turpis pretium ultricies. Vestibulum sit
-								amet risus elit.</p>
-						</article>
-					</div>
+                    @include('site.widgets')
 
-				</div>
-			</div>
+                    <div class="col-md-3 mx-auto mt-md-0 mt-5">
+                        <div class="position-sticky" style="top:100px !important">
+                            <h4 class="">CLEVER PLATFORM</h4>
+                            <h6 class="text-secondary font-weight-normal">Подключи платформу к amoCRM и используй виджеты по выбору. Количество решений постоянно растет!</h6>
+                        </div>
+                    </div>
+                </div>
+        </section>
+
 
 			<!-- Highlights -->
 			<section id="highlights" class="wrapper style3">
@@ -113,9 +95,11 @@
 				</div>
 			</section>
 
-			<!-- Footer -->
-			@include('site.footer')
+        </div>
+        @include('site.scripts')
 
-		</div>
+			<!-- Footer -->
+        @include('site.footer')
+
 	</body>
 </html>

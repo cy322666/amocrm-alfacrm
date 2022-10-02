@@ -233,20 +233,135 @@
 
     </section>
 
-    <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="row text-center my-sm-5 mt-5">
-                    <div class="col-lg-6 mx-auto">
-                        <span class="badge bg-primary mb-3">CLEVER PLATFORM</span>
-                        <h2 class="">Платформа готовых решений</h2>
-                        <a href="#platform"></a>
-{{--                        TODO --}}
-                        <p class="lead">В основном у компаний похожие запросы. Для этого мы ведем разработку платформы</p>
+
+{{--        что то --}}
+            <section class="pt-3 pb-4" id="count-stats">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 mx-auto py-3">
+                            <div class="row">
+                                <div class="col-md-4 position-relative">
+                                    <div class="p-3 text-center">
+                                        <h1 class="text-gradient text-primary"><span id="state1" countTo="70">0</span>+</h1>
+                                        <h5 class="mt-3">Coded Elements</h5>
+                                        <p class="text-sm font-weight-normal">From buttons, to inputs, navbars, alerts or cards, you are covered</p>
+                                    </div>
+                                    <hr class="vertical dark">
+                                </div>
+                                <div class="col-md-4 position-relative">
+                                    <div class="p-3 text-center">
+                                        <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">0</span>+</h1>
+                                        <h5 class="mt-3">Design Blocks</h5>
+                                        <p class="text-sm font-weight-normal">Mix the sections, change the colors and unleash your creativity</p>
+                                    </div>
+                                    <hr class="vertical dark">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3 text-center">
+                                        <h1 class="text-gradient text-primary" id="state3" countTo="4">0</h1>
+                                        <h5 class="mt-3">Pages</h5>
+                                        <p class="text-sm font-weight-normal">Save 3-4 weeks of work when you use our pre-made pages for your website</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        {{-- кейсы --}}
+        <section class="py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h3 class="mb-5">Check my latest blogposts</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-plain">
+                            <div class="card-header p-0 position-relative">
+                                <a class="d-block blur-shadow-image">
+                                    <img src="../assets/img/examples/testimonial-6-2.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="card-body px-0">
+                                <h5>
+                                    <a href="javascript:;" class="text-dark font-weight-bold">Rover raised $65 million</a>
+                                </h5>
+                                <p>
+                                    Finding temporary housing for your dog should be as easy as
+                                    renting an Airbnb. That’s the idea behind Rover ...
+                                </p>
+                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
+                                    <i class="fas fa-arrow-right text-xs ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-plain">
+                            <div class="card-header p-0 position-relative">
+                                <a class="d-block blur-shadow-image">
+                                    <img src="../assets/img/examples/testimonial-6-3.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="card-body px-0">
+                                <h5>
+                                    <a href="javascript:;" class="text-dark font-weight-bold">MateLabs machine learning</a>
+                                </h5>
+                                <p>
+                                    If you’ve ever wanted to train a machine learning model
+                                    and integrate it with IFTTT, you now can with ...
+                                </p>
+                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
+                                    <i class="fas fa-arrow-right text-xs ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="card card-plain">
+                            <div class="card-header p-0 position-relative">
+                                <a class="d-block blur-shadow-image">
+                                    <img src="../assets/img/examples/blog-9-4.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                </a>
+                            </div>
+                            <div class="card-body px-0">
+                                <h5>
+                                    <a href="javascript:;" class="text-dark font-weight-bold">MateLabs machine learning</a>
+                                </h5>
+                                <p>
+                                    If you’ve ever wanted to train a machine learning model
+                                    and integrate it with IFTTT, you now can with ...
+                                </p>
+                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
+                                    <i class="fas fa-arrow-right text-xs ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-12">
+                        <div class="card card-blog card-background cursor-pointer">
+                            <div class="full-background" style="background-image: url('../assets/img/examples/blog2.jpg')" loading="lazy"></div>
+                            <div class="card-body">
+                                <div class="content-left text-start my-auto py-4">
+                                    <h2 class="card-title text-white">Flexible work hours</h2>
+                                    <p class="card-description text-white">Rather than worrying about switching offices every couple years, you stay in the same place.</p>
+                                    <a href="javascript:;" class="text-white text-sm icon-move-right">Read More
+                                        <i class="fas fa-arrow-right text-xs ms-1"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+    <section class="py-5">
+
 
         <div class="container mt-5">
             <div class="row">
@@ -369,70 +484,17 @@
             </section>
         </div>
 
+
     @include('site.prefooter')
 
     </section>
     </div>
 
-{{--    @include('site.footer')--}}
 
-    <!-- Yandex.Metrika counter -->
-    <script type="text/javascript" >
-        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
-            m[i].l=1*new Date();
-            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
-            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    @include('site.scripts')
 
-        ym(90370781, "init", {
-            clickmap:true,
-            trackLinks:true,
-            accurateTrackBounce:true,
-            webvisor:true
-        });
-    </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/90370781" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-    <!-- /Yandex.Metrika counter -->
-
-{{--    amochat   --}}
-    <script>
-        (function(a,m,o,c,r,m){a[m]={id:"290181",hash:"d0b625ed48b9390dbeca8ed9ac0b8f1e771dd8be82080abcbc7f4fa429ca7749",locale:"ru",inline:false,setMeta:function(p){this.params=(this.params||[]).concat([p])}};a[o]=a[o]||function(){(a[o].q=a[o].q||[]).push(arguments)};var d=a.document,s=d.createElement('script');s.async=true;s.id=m+'_script';s.src='https://gso.amocrm.ru/js/button.js?1663159216';d.head&&d.head.appendChild(s)}(window,0,'amoSocialButton',0,0,'amo_social_button'));
-    </script>
+    @include('site.footer')
 </body>
 
 </html>
 
-{{--    TODO цифры--}}
-{{--    <section class="pt-3 pb-4" id="count-stats">--}}
-{{--        <div class="container">--}}
-{{--            <div class="row">--}}
-{{--                <div class="col-lg-9 mx-auto py-3">--}}
-{{--                    <div class="row">--}}
-{{--                        <div class="col-md-4 position-relative">--}}
-{{--                            <div class="p-3 text-center">--}}
-{{--                                <h1 class="text-gradient text-primary"><span id="state1" countTo="70">0</span>+</h1>--}}
-{{--                                <h5 class="mt-3">Coded Elements</h5>--}}
-{{--                                <p class="text-sm font-weight-normal">From buttons, to inputs, navbars, alerts or cards, you are covered</p>--}}
-{{--                            </div>--}}
-{{--                            <hr class="vertical dark">--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-4 position-relative">--}}
-{{--                            <div class="p-3 text-center">--}}
-{{--                                <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">0</span>+</h1>--}}
-{{--                                <h5 class="mt-3">Design Blocks</h5>--}}
-{{--                                <p class="text-sm font-weight-normal">Mix the sections, change the colors and unleash your creativity</p>--}}
-{{--                            </div>--}}
-{{--                            <hr class="vertical dark">--}}
-{{--                        </div>--}}
-{{--                        <div class="col-md-4">--}}
-{{--                            <div class="p-3 text-center">--}}
-{{--                                <h1 class="text-gradient text-primary" id="state3" countTo="4">0</h1>--}}
-{{--                                <h5 class="mt-3">Pages</h5>--}}
-{{--                                <p class="text-sm font-weight-normal">Save 3-4 weeks of work when you use our pre-made pages for your website</p>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </section>--}}
