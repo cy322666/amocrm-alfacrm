@@ -26,6 +26,15 @@ services:
             - ./docker/images/postgres/files/postgresql.conf:/etc/postgresql.conf
         command: ["postgres", "-c", "config_file=/etc/postgresql.conf"]
         restart: always
+
+    redis:
+        image: bitnami/redis:latest
+        ports:
+            - "6379:6379"
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+        networks:
+            - cluster
 networks:
     cluster:
         name: cluster
