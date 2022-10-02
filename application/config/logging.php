@@ -84,6 +84,13 @@ return [
             'days' => 14,
         ],
 
+        'query' => [
+            'driver' => 'daily',
+            'path'  => storage_path('logs/queries/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
         'bizon' => [
             'driver' => 'daily',
             'path'  => storage_path('logs/bizon/laravel.log'),

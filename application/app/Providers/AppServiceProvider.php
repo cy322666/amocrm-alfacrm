@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Services\amoCRM\Client;
 use App\Services\amoCRM\EloquentStorage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,5 +30,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        DB::listen(function ($query) {
+
+            Log::channel('query')->debug('>', [
+                    $query->sql,
+                    $query->bindings,
+                    $query->time,
+                ]
+            );
+        });
     }
 }
