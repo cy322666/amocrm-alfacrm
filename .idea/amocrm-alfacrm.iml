@@ -124,7 +124,6 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/telescope" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/ui" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/horizon" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/predis/predis" />
