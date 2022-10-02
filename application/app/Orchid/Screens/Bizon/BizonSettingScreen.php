@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Webhook;
 use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
 use App\Orchid\Layouts\Bizon\Staffs;
+use App\Orchid\Screens\ScreenHelper;
 use App\Services\amoCRM\Client;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Http\Request;
@@ -352,7 +353,6 @@ class BizonSettingScreen extends Screen
                         ->amoStaffs()
                         ->create([
                             'name' => $user->name,
-//                            'group' => $user->group,//TODO
                             'staff_id' => $user->id,//TODO role
                         ]);
 
@@ -362,35 +362,18 @@ class BizonSettingScreen extends Screen
 
         } catch (\Exception $exception) {
 
-            Toast::error($request->get('toast', $exception->getMessage()));
+            Toast::error($request->get('toast', 'Произошла ошибка'));
             //Toast::error($request->get('toast', 'Произошла ошибка'));
         }
     }
 
     public function feedbackSave(Request $request)
     {
-        (new \App\Services\Telegram\Client())->send('Фидбек из кабинета '.Auth::user()->email.' | сообщение : '.$request->message);
-
-        Feedback::query()->create([
-            'user' => Auth::user()->email,
-            'message' => $request->message,
-            'type' => 'feedback',
-        ]);
-
-        Toast::success('Сообщение отправлено');
+        ScreenHelper::feedbackSave($request);
     }
 
-    public function questionSave(Request $request)
+    public static function questionSave(Request $request)
     {
-        (new \App\Services\Telegram\Client())->send('Вопрос из кабинета '.Auth::user()->email.' | контакты '.$request->contacts.' сообщение : '.$request->message);
-
-        Feedback::query()->create([
-            'user' => Auth::user()->email,
-            'message'  => $request->message,
-            'contacts' => $request->contacts,
-            'type' => 'question',
-        ]);
-
-        Toast::success('Сообщение отправлено');
+        ScreenHelper::questionSave($request);
     }
 }

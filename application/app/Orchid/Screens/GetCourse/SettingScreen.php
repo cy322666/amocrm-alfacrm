@@ -3,6 +3,8 @@
 namespace App\Orchid\Screens\GetCourse;
 
 use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
+use App\Orchid\Layouts\Bizon\Staffs;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Orchid\Screen\Action;
 use Orchid\Screen\Actions\Button;
@@ -19,6 +21,8 @@ use Orchid\Support\Facades\Layout;
 
 class SettingScreen extends Screen
 {
+    private $amoAccount;
+
     /**
      * Query data.
      *
@@ -26,8 +30,20 @@ class SettingScreen extends Screen
      */
     public function query(): iterable
     {
-        return [
+        $this->amoAccount   = Auth::user()->amoAccount();
 
+        $setting = Auth::user()->getcourseSetting;
+
+        return [
+            'active'    => $setting->active,
+            'staffs'    => $this->amoAccount->amoStaffs,
+            'pipelines' => $this->amoAccount->amoPipelines,
+            'setting'   => $setting,
+            'statuses'  => $this->amoAccount
+                ->amoStatuses()
+                ->where('name', '!=', 'Неразобранное')
+                ->orderBy('id')
+                ->get(),
         ];
     }
 
@@ -116,34 +132,65 @@ class SettingScreen extends Screen
             Layout::tabs([
                 'Статусы' => Layout::columns([
                     Layout::rows([
+                        Input::make('status_id_form')
+                            ->type('text')
+                            ->title('Для новых заявок'),
+
+                        Input::make('status_id_payment')
+                            ->type('text')
+                            ->title('Для новых оплат'),
+
+                        Input::make('status_id_order')
+                            ->type('text')
+                            ->title('Для новых заказов'),
+
+                        Input::make('status_id_order_close')
+                            ->type('text')
+                            ->title('Для оплаченных заказов'),
                     ]),
+                    Statuses::class,
                 ]),
                 'Ответственные' => Layout::columns([
 
                     Layout::rows([
-                        Input::make('staffDefault')
-                            ->type('text')
-                            ->title('По умолчанию')
-                            ->value($this->setting->staff_id_default ?? ''),
+                        Input::make('response_user_id_default')
+                            ->type('numeric')
+                            ->title('По умолчанию'),
 
-                        Input::make('staffCold')
-                            ->type('text')
-                            ->title('Для Холодных')
-                            ->value($this->setting->staff_id_cold ?? ''),
+                        Input::make('response_user_id_form')
+                            ->type('numeric')
+                            ->title('Для новых заявок'),
 
-                        Input::make('staffSoft')
-                            ->type('text')
-                            ->title('Для Теплых')
-                            ->value($this->setting->staff_id_soft ?? ''),
+                        Input::make('response_user_id_payment')
+                            ->type('numeric')
+                            ->title('Для новых платежей'),
 
-                        Input::make('staffHot')
-                            ->type('text')
-                            ->title('Для Горячих')
-                            ->value($this->setting->staff_id_hot ?? ''),
-
-//                        Staffs::class,
+                        Input::make('response_user_id_order')
+                            ->type('numeric')
+                            ->title('Для новых заказов'),
                     ]),
+                    Staffs::class,
                 ]),
+
+                'Вебхуки' => [
+                    Layout::rows([
+                        Label::make('wh1')
+                            ->title('Хук для заявок с форм'),
+//                            ->value(URL::route($this->whStatusCame->path, [
+//                                'webhook' => $this->whStatusCame->uuid,
+//                            ])),
+                        Label::make('wh2')
+                            ->title('Хук для заказов'),
+//                            ->value(URL::route($this->whStatusOmission->path, [
+//                                'webhook' => $this->whStatusOmission->uuid,
+//                            ])),
+                        Label::make('wh2')
+                            ->title('Хук для оплат'),
+//                            ->value(URL::route($this->whStatusOmission->path, [
+//                                'webhook' => $this->whStatusOmission->uuid,
+//                            ])),
+                    ]),
+                ],
             ]),
         ];
     }

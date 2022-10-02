@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\GetCourse;
 use App\Models\GetCourse\Form;
 use App\Orchid\Layouts\GetCourse\FormTableLayout;
 use Illuminate\Support\Facades\Auth;
+use Orchid\Screen\Action;
 use Orchid\Screen\Screen;
 
 class FormsScreen extends Screen
@@ -19,7 +20,7 @@ class FormsScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Регистрации на сайтах';
+        return 'Заявки';
     }
     /**
      * Query data.
@@ -39,7 +40,7 @@ class FormsScreen extends Screen
     /**
      * Button commands.
      *
-     * @return \Orchid\Screen\Action[]
+     * @return Action[]
      */
     public function commandBar(): iterable
     {
@@ -49,7 +50,7 @@ class FormsScreen extends Screen
     /**
      * Views.
      *
-     * @return \Orchid\Screen\Layout[]|string[]
+     * @return iterable
      */
     public function layout(): iterable
     {
