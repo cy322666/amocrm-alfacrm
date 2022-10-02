@@ -54,7 +54,7 @@ class CameWithoutLead implements ShouldQueue
         public array $data,
     )
     {
-        $this->onQueue('alfacrm_hook');
+//        $this->onQueue('alfacrm_hook');
     }
 
     /**
