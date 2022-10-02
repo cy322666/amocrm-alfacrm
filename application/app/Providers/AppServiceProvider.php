@@ -41,7 +41,9 @@ class AppServiceProvider extends ServiceProvider
 
             if (round((floatval($query->time))) > 5) {
 
-                (new \App\Services\Telegram\Client())->send('fat query '.Auth::user()->email ?? 'user'.' : '.$query->sql.' time : '.$query->time);
+                $user = Auth::user()->email ?? 'user';
+
+                (new \App\Services\Telegram\Client())->send('fat query '.$user.' : '.$query->sql.' time : '.$query->time);
             }
         });
     }
