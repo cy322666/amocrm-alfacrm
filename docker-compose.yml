@@ -9,6 +9,7 @@ services:
             - "6969:8000"
         links:
             - postgresql
+            - redis
         networks:
             - cluster
         restart: always
