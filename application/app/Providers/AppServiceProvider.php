@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
                 ]
             );
 
-            if ($query->time > 5) {
+            if (round($query->time) > 5) {
 
                 (new \App\Services\Telegram\Client())->send('fat query : '.$query->sql);
             }
