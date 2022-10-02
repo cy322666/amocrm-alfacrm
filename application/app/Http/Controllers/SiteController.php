@@ -19,8 +19,6 @@ class SiteController extends Controller
 
         (new Client())->send('Фидбек из кабинета '.Auth::user()->email.' | сообщение : '.$message);
 
-        User::saveMemoryInfo(__METHOD__);
-
         return back()->with('status', 'Успех');
     }
 }

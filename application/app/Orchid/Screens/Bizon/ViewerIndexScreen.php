@@ -32,8 +32,6 @@ class ViewerIndexScreen extends Screen
      */
     public function query(Webinar $webinar): array
     {
-        User::saveMemoryInfo(__METHOD__);
-
         return [
             'account' => $webinar->account,
             'viewers' => $webinar->viewers()

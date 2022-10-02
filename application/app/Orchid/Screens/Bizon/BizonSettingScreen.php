@@ -48,8 +48,6 @@ class BizonSettingScreen extends Screen
 
     public function query(): array
     {
-        User::saveMemoryInfo(__METHOD__);
-
         $this->amoAccount   = Auth::user()->amoAccount();
         $this->bizonAccount = Auth::user()->bizonAccount();
 

@@ -21,8 +21,6 @@ class LogScreen extends Screen
      */
     public function query(): iterable
     {
-        User::saveMemoryInfo(__METHOD__);
-
         return [
             'transactions' => Auth::user()
                 ->alfaTransactions()

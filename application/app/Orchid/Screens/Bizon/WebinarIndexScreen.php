@@ -32,8 +32,6 @@ class WebinarIndexScreen extends Screen
      */
     public function query(): array
     {
-        User::saveMemoryInfo(__METHOD__);
-
         return [
             'webinars' => Auth::user()
                 ->bizonSetting

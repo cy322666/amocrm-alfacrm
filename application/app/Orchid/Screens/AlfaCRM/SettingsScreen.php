@@ -55,8 +55,6 @@ class SettingsScreen extends Screen
 
     public function query(): iterable
     {
-        User::saveMemoryInfo(__METHOD__);
-
         $account = Auth::user()->alfaAccount();
 
         $setting = Auth::user()->alfaSetting;

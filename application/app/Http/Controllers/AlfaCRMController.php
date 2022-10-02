@@ -54,8 +54,6 @@ class AlfaCRMController extends Controller
             $transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
             $transaction->save();
         }
-
-        User::saveMemoryInfo(__METHOD__);
     }
 
     public function came(Webhook $webhook, CameRequest $request)
@@ -106,8 +104,6 @@ class AlfaCRMController extends Controller
             } else
                 Log::channel('alfacrm')->error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
-
-        User::saveMemoryInfo(__METHOD__);
     }
 
     public function omission(Webhook $webhook, OmissionRequest $request)
@@ -152,7 +148,5 @@ class AlfaCRMController extends Controller
             } else
                 Log::channel('alfacrm')->error($request->path().' '.$exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
-
-        User::saveMemoryInfo(__METHOD__);
     }
 }

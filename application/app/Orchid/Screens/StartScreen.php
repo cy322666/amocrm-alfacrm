@@ -24,8 +24,6 @@ class StartScreen extends Screen
      */
     public function query(): iterable
     {
-        User::saveMemoryInfo(__METHOD__);
-
         return [];
     }
 

@@ -61,6 +61,5 @@ class BizonController extends Controller
             $webinar->error = $exception->getMessage();
             $webinar->save();
         }
-        User::saveMemoryInfo(__METHOD__);
     }
 }

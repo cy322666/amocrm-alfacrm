@@ -16,9 +16,6 @@ use App\Http\Controllers\Auth\AuthController;
 */
 
 Route::get('/', function () {
-
-    User::saveMemoryInfo('index');
-
     return view('site.index');
 })->name('site');
 
