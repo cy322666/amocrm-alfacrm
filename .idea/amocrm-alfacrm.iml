@@ -126,6 +126,8 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/telescope" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/horizon" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/predis/predis" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

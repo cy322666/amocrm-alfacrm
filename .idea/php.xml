@@ -126,6 +126,8 @@
       <path value="$PROJECT_DIR$/application/vendor/psr/cache" />
       <path value="$PROJECT_DIR$/application/vendor/laravel/telescope" />
       <path value="$PROJECT_DIR$/application/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/application/vendor/laravel/horizon" />
+      <path value="$PROJECT_DIR$/application/vendor/predis/predis" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
