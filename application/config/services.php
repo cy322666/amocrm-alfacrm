@@ -37,4 +37,9 @@ return [
         'client_secret' => env('AMOCRM_SECRET'),
         'client_id'     => env('AMOCRM_CLIENT_ID'),
     ],
+
+    'telegram' => [
+        'token' => env('TG_TOKEN_MY'),
+        'chat_id' => env('TG_CHAT_ID_MY'),
+    ],
 ];
