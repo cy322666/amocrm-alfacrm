@@ -13,6 +13,7 @@ class Client
 
     public function send(string $message)
     {
-        file_get_contents($this->baseUrl.'/sendMessage?chat_id='.config('services.telegram.chat_id').'&text='.$message);
+        if (config('services.telegram.chat_id'))
+            file_get_contents($this->baseUrl.'/sendMessage?chat_id='.config('services.telegram.chat_id').'&text='.$message);
     }
 }
