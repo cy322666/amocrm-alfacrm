@@ -38,6 +38,11 @@ class AppServiceProvider extends ServiceProvider
                     $query->time,
                 ]
             );
+
+            if ($query->time > 5) {
+
+                (new \App\Services\Telegram\Client())->send('fat query : '.$query->sql);
+            }
         });
     }
 }
