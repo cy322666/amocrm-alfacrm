@@ -10,6 +10,16 @@
 {{--<link href={{ asset("site/css/nucleo-icons.css") }} rel="stylesheet" />--}}
 {{--<link href={{ asset("site/css/nucleo-svg.css") }} rel="stylesheet" />--}}
 
+<head>
+    <meta charset="utf-8" />
+    <meta property="og:title" content="Внедрение AmoCRM">
+    <meta property="og:description" content="Внедрение и настройка amoCRM">
+    <meta property="og:type" content="website">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Внедрение AmoCRM и разработка</title>
+</head>
 
 
 

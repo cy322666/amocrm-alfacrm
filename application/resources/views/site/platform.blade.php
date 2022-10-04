@@ -2,29 +2,15 @@
 
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
-@include('site.bootstrapp')
+@include('site.bootstrap')
 
-<head>
-    <meta charset="utf-8" />
-    <meta property="og:title" content="Внедрение AmoCRM">
-    <meta property="og:description" content="Внедрение и настройка amoCRM">
-    <meta property="og:type" content="website">
+<body class="index-page bg-gray-200">
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @include('site.nav')
 
-    <script>
-        window.Laravel = {!! json_encode([
-        'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
-    <title>Внедрение AmoCRM и разработка</title>
-</head>
-	<body class="left-sidebar is-preload">
+    @include('site.header')
 
-        @include('site.nav')
-
-        @include('site.header')
-
+    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
 
         <section class="py-5">
             <div class="container">
@@ -53,53 +39,55 @@
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
 
+        <!-- Highlights -->
+        <section id="highlights" class="wrapper style3">
+            <div class="title">The Endorsements</div>
+            <div class="container">
+                <div class="row aln-center">
+                    <div class="col-4 col-12-medium">
+                        <section class="highlight">
+                            <a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
+                            <h3><a href="#">Aliquam diam consequat</a></h3>
+                            <p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button style1">Learn More</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="col-4 col-12-medium">
+                        <section class="highlight">
+                            <a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
+                            <h3><a href="#">Nisl adipiscing sed lorem</a></h3>
+                            <p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button style1">Learn More</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                    <div class="col-4 col-12-medium">
+                        <section class="highlight">
+                            <a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
+                            <h3><a href="#">Mattis tempus lorem</a></h3>
+                            <p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button style1">Learn More</a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-			<!-- Highlights -->
-			<section id="highlights" class="wrapper style3">
-				<div class="title">The Endorsements</div>
-				<div class="container">
-					<div class="row aln-center">
-						<div class="col-4 col-12-medium">
-							<section class="highlight">
-								<a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-								<h3><a href="#">Aliquam diam consequat</a></h3>
-								<p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
-								<ul class="actions">
-									<li><a href="#" class="button style1">Learn More</a></li>
-								</ul>
-							</section>
-						</div>
-						<div class="col-4 col-12-medium">
-							<section class="highlight">
-								<a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
-								<h3><a href="#">Nisl adipiscing sed lorem</a></h3>
-								<p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
-								<ul class="actions">
-									<li><a href="#" class="button style1">Learn More</a></li>
-								</ul>
-							</section>
-						</div>
-						<div class="col-4 col-12-medium">
-							<section class="highlight">
-								<a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
-								<h3><a href="#">Mattis tempus lorem</a></h3>
-								<p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
-								<ul class="actions">
-									<li><a href="#" class="button style1">Learn More</a></li>
-								</ul>
-							</section>
-						</div>
-					</div>
-				</div>
-			</section>
+        @include('site.prefooter')
 
-        </div>
-        @include('site.scripts')
+    </div>
 
-			<!-- Footer -->
-        @include('site.footer')
+    @include('site.scripts')
 
-	</body>
+    @include('site.footer')
+
+</body>
 </html>
