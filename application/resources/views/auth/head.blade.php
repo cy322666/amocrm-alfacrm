@@ -2,7 +2,7 @@
 
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
-@include('site.bootstrapp')
+@include('site.bootstrap')
 
 <head>
     <meta charset="utf-8" />
