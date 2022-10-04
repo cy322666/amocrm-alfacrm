@@ -12,15 +12,14 @@
 
     <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
 
-        <section class="py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="row text-center my-sm-5 mt-5">
-                        <div class="col-lg-6 mx-auto">
+        <section class="my-5 py-5">
+
+            <div class="bg-gradient-dark position-relative m-3 border-radius-xl overflow-hidden">
+                <div class="container py-7 postion-relative z-index-2 position-relative">
+                    <div class="row">
+                        <div class="col-md-7 mx-auto text-center">
                             <span class="badge bg-primary mb-3">CLEVER PLATFORM</span>
-                            <h2 class="">Платформа готовых решений</h2>
-                            <a href="#platform"></a>
-                            {{--                        TODO --}}
+                            <h2 class="text-white mb-0">Платформа готовых решений</h2>
                             <p class="lead">В основном у компаний похожие запросы. Для этого мы ведем разработку платформы</p>
                         </div>
                     </div>
@@ -37,45 +36,6 @@
                             <h4 class="">CLEVER PLATFORM</h4>
                             <h6 class="text-secondary font-weight-normal">Подключи платформу к amoCRM и используй виджеты по выбору. Количество решений постоянно растет!</h6>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Highlights -->
-        <section id="highlights" class="wrapper style3">
-            <div class="title">The Endorsements</div>
-            <div class="container">
-                <div class="row aln-center">
-                    <div class="col-4 col-12-medium">
-                        <section class="highlight">
-                            <a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-                            <h3><a href="#">Aliquam diam consequat</a></h3>
-                            <p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
-                            <ul class="actions">
-                                <li><a href="#" class="button style1">Learn More</a></li>
-                            </ul>
-                        </section>
-                    </div>
-                    <div class="col-4 col-12-medium">
-                        <section class="highlight">
-                            <a href="#" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
-                            <h3><a href="#">Nisl adipiscing sed lorem</a></h3>
-                            <p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
-                            <ul class="actions">
-                                <li><a href="#" class="button style1">Learn More</a></li>
-                            </ul>
-                        </section>
-                    </div>
-                    <div class="col-4 col-12-medium">
-                        <section class="highlight">
-                            <a href="#" class="image featured"><img src="images/pic04.jpg" alt="" /></a>
-                            <h3><a href="#">Mattis tempus lorem</a></h3>
-                            <p>Eget mattis at, laoreet vel amet sed velit aliquam diam ante, dolor aliquet sit amet vulputate mattis amet laoreet lorem.</p>
-                            <ul class="actions">
-                                <li><a href="#" class="button style1">Learn More</a></li>
-                            </ul>
-                        </section>
                     </div>
                 </div>
             </div>
