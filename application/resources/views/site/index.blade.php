@@ -423,7 +423,7 @@
                             <div class="full-background" style="background-color: black" loading="lazy"></div>
                             <div class="card-body">
                                 <div class="content-left text-start my-auto py-4">
-                                    <h2 class="card-title text-white">Остальные кейсы</h2>
+                                    <h2 class="card-title text-white">Другие кейсы</h2>
                                     <p class="card-description text-white">Посмотрите другие крутые кейсы нашей компании</p>
                                     <a href="javascript:;" class="text-white text-sm icon-move-right">Смотреть
                                         <i class="fas fa-arrow-right text-xs ms-1"></i>
