@@ -5,8 +5,6 @@
                 <h3 class="text-gradient text-primary mb-0">Проекты ведем</h3>
                 <h3>в Asana</h3>
                 <p class="pe-md-5 mb-4">
-                    Most complex and innovative Design System Made by <a href="https://asana.com/ru" target="_blank">Creative Tim </a> . Check our latest Premium Bootstrap 5 UI Kit.
-
                     От мелочей до общей картины — Asana организует работу так, чтобы все знали, чем нужно заниматься, почему это важно и как это сделать.
                 </p>
                 <div class="github-buttons">

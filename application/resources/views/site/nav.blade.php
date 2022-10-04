@@ -19,23 +19,21 @@
                     <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
                     <ul class="navbar-nav navbar-nav-hover ms-auto">
                         <li class="nav-item dropdown dropdown-hover mx-2">
-                            <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
-{{--                                <i class="material-icons opacity-6 me-2 text-md">dashboard</i>--}}
+                            <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="{{ route('site') }}">
+                                <i class="material-icons opacity-6 me-2 text-md">dashboard</i>
                                 amoCRM
-{{--                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">--}}
                             </a>
 
                         <li class="nav-item dropdown dropdown-hover mx-2">
-                            <a href="#platform" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
-{{--                                <i class="material-icons opacity-6 me-2 text-md">view_day</i>--}}
+                            <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="{{ route('dev') }}">
+                                <i class="material-icons opacity-6 me-2 text-md">view_day</i>
                                 Разработка
-{{--                                                                    <img src="./assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-auto ms-md-2">--}}
                             </a>
                         </li>
 
                         <li class="nav-item dropdown dropdown-hover mx-2">
-                            <a href="#platform" class="nav-link ps-2 d-flex cursor-pointer align-items-center" id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
-{{--                                <i class="material-icons opacity-6 me-2 text-md">article</i>--}}
+                            <a class="nav-link ps-2 d-flex cursor-pointer align-items-center" href="{{ route('widgets') }}">
+                                <i class="material-icons opacity-6 me-2 text-md">article</i>
                                 Платформа
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-animation dropdown-md dropdown-md-responsive mt-0 mt-lg-3 p-3 border-radius-lg" aria-labelledby="dropdownMenuDocs">
@@ -57,7 +55,6 @@
                                 </div>
                             </ul>
                         </li>
-
                         <li class="nav-item my-auto ms-3 ms-lg-0">
                             <a href="#contact-form" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Связаться</a>
                         </li>
@@ -68,14 +65,3 @@
         </div>
     </div>
 </div>
-
-
-
-{{--<nav id="nav">--}}
-{{--    <ul>--}}
-{{--        <li class="current"><a href={{ route('site.index') }}>Главная</a></li>--}}
-{{--        <li><a href={{ route('site.amocrm') }}>amoCRM</a></li>--}}
-{{--        <li><a href={{ route('site.platform') }}>Платформа</a></li>--}}
-{{--        <li><a href={{ route('site.dev') }}>Разработка</a></li>--}}
-{{--    </ul>--}}
-{{--</nav>--}}
