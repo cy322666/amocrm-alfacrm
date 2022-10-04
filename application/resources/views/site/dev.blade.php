@@ -82,6 +82,39 @@
         </div>
     </section>
 
+    <div class="col-lg-6 ms-auto">
+        <div class="row justify-content-start">
+            <div class="col-md-6">
+                <div class="info">
+                    <i class="material-icons text-gradient text-primary text-3xl">flip_to_front</i>
+                    <h5 class="font-weight-bolder mt-3">Широкие возможности</h5>
+                    <p class="pe-3">Практически неограниченный простор для доработки функционала системы: от небольших улучшений до полного преобразования системы</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info">
+                    <i class="material-icons text-gradient text-primary text-3xl">content_copy</i>
+                    <h5 class="font-weight-bolder mt-3">Техническое задание</h5>
+                    <p class="pe-5">Поможем написать/доработать или напишем сами ТЗ, декомпозируем на задачи</p>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-start mt-5">
+            <div class="col-md-6 mt-3">
+                <i class="material-icons text-gradient text-primary text-3xl">price_change</i>
+                <h5 class="font-weight-bolder mt-3">Современный стек</h5>
+                <p class="pe-5">Используем только новейшие технологии и фреймворки для разработки</p>
+            </div>
+            <div class="col-md-6 mt-3">
+                <div class="info">
+                    <i class="material-icons text-gradient text-primary text-3xl">devices</i>
+                    <h5 class="font-weight-bolder mt-3">Отправим исходники</h5>
+                    <p class="pe-3">Напишем документацию, передадим код, предоставим поддержку своих кастомных решений</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section class="my-5">
         <div class="container">
             <div class="row">
