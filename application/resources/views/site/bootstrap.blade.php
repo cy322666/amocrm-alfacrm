@@ -19,7 +19,7 @@
 
     <link href={{ asset("site/css/material-kit.min.css") }} rel="stylesheet"/>
 
-    <link rel="icon" href={{ env('APP_URL').'/'.'favicon.ico' }}>
+    <link rel="icon" href={{ public_path('favicon.ico') }}>
 
     <title>Внедрение AmoCRM и разработка</title>
 </head>
