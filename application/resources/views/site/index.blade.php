@@ -175,8 +175,6 @@
 
         {{--        цифры  --}}
         <section class="mt-4 pb-4" id="count-stats">
-            {{--                <div class="container">--}}
-            {{--                    <div class="row">--}}
             <div class="col-lg-9 mx-auto py-3">
                 <div class="row">
                     <div class="col-md-4 position-relative">
@@ -203,8 +201,6 @@
                         </div>
                     </div>
                 </div>
-                {{--                        </div>--}}
-                {{--                    </div>--}}
             </div>
         </section>
 

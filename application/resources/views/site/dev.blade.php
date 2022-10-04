@@ -52,11 +52,62 @@
 
     </section>
 
-    <section class="py-5">
+    <section class="mt-4 pb-4" id="count-stats">
+        <div class="col-lg-9 mx-auto py-3">
+            <div class="row">
+                <div class="col-md-4 position-relative">
+                    <div class="p-3 text-center">
+                        <h1 class="text-gradient text-primary"><span id="state1" countTo="70">200</span>+</h1>
+                        <h5 class="mt-3">Проектов</h5>
+                        <p class="text-sm font-weight-normal">Проектов внедрения/сопровождения/разработки для наших клиентов, использующих amoCRM</p>
+                    </div>
+                    <hr class="vertical dark">
+                </div>
+                <div class="col-md-4 position-relative">
+                    <div class="p-3 text-center">
+                        <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">4 из 5</span></h1>
+                        <h5 class="mt-3">Клиентов</h5>
+                        <p class="text-sm font-weight-normal">Остается сотрудничать с нами после завершения основного проекта</p>
+                    </div>
+                    <hr class="vertical dark">
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 text-center">
+                        <h1 class="text-gradient text-primary" id="state3" countTo="4">5+</h1>
+                        <h5 class="mt-3">Лет на рынке</h5>
+                        <p class="text-sm font-weight-normal">Прошли долгий путь вместе с замечательным продуктом amoCRM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="my-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-12 my-auto">
+                    <h3 class="text-gradient text-primary mb-0">Нет тех специалиста?</h3>
+                    <h3>Нужна помощь?</h3>
+                    <p class="pe-md-5 mb-4">
+                        Не имея технического специалиста в штате сложно объективно оценить разработку, написать техническое задание, оценить затраты. Оставьте заявку на консультацию со специалистом, который поможет сформировать запрос или ответит на ваши вопросы по разработке
+                    </p>
+                    <div class="github-buttons">
+                        <a href="#contact-form" class="btn bg-gradient-primary mb-5 mb-sm-0">Связаться</a>
+                        <div class="github-button">
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-12 my-auto">
+                    {{--                            <a href="https://www.creative-tim.com/product/material-kit-pro?ref=index-mk2">--}}
+                    <img class="w-100 border-radius-lg shadow-lg" src=" {{ asset('/site/img/code2.png') }}" alt="Product Image">
+                    {{--                            </a>--}}
+                </div>
+            </div>
+        </div>
+    </section>
 
         @include('site.prefooter')
-
-    </section>
 </div>
 
 {{--    @include('site.footer')--}}
