@@ -20,12 +20,14 @@
                                     <div class="d-flex p-2 text-white">
                                         <div>
                                             <i class="fas fa-envelope text-sm"></i>
-                                            <a class=" text-white btn-lg mb-0" href="mailto:hello@blackclever.ru">hello@blackclever.ru</a>
+                                        </div>
+                                        <div class="ps-3">
+                                            <span class="text-sm opacity-8">hello@blackclever.ru</span>
                                         </div>
                                     </div>
-                                    <div class="d-flex p-2 text-white">
-                                    </div>
-                                    <div class="mt-4">
+                                    <p>ИП Трофимов Вячеслав Михайлович</p>
+                                    <p>ИНН: 025508490244</p>
+                                    <div class="mt-2">
                                         <a  class="btn btn-icon-only btn-link text-white btn-lg mb-0" href="https://wapp.click/79996373955" data-toggle="tooltip" data-placement="bottom">
                                             <i class="fab fa-whatsapp"></i>
                                         </a>
