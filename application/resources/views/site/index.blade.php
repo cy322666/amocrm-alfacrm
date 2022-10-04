@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="container mt-sm-5 mt-3">
+            <div class="container mt-sm-5 mt-3 pb-6">
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
@@ -154,38 +154,7 @@
                 </div>
             </div>
 
-            {{--        цифры  --}}
-            <section class="mt-4 pb-4" id="count-stats">
-                <div class="col-lg-9 mx-auto py-3">
-                    <div class="row">
-                        <div class="col-md-4 position-relative">
-                            <div class="p-3 text-center">
-                                <h1 class="text-gradient text-primary"><span id="state1" countTo="70">200</span>+</h1>
-                                <h5 class="mt-3">Проектов</h5>
-                                <p class="text-sm font-weight-normal">Проектов внедрения/сопровождения/разработки для наших клиентов, использующих amoCRM</p>
-                            </div>
-                            <hr class="vertical dark">
-                        </div>
-                        <div class="col-md-4 position-relative">
-                            <div class="p-3 text-center">
-                                <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">4 из 5</span></h1>
-                                <h5 class="mt-3">Клиентов</h5>
-                                <p class="text-sm font-weight-normal">Остается сотрудничать с нами после завершения основного проекта</p>
-                            </div>
-                            <hr class="vertical dark">
-                        </div>
-                        <div class="col-md-4">
-                            <div class="p-3 text-center">
-                                <h1 class="text-gradient text-primary" id="state3" countTo="4">5+</h1>
-                                <h5 class="mt-3">Лет на рынке</h5>
-                                <p class="text-sm font-weight-normal">Прошли долгий путь вместе с замечательным продуктом amoCRM</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div class="container mt-sm-7 mt-3">
+            <div class="container mt-sm-5 mt-3 my-5">
                 <div class="row">
                     <div class="col-lg-6 ms-auto">
                         <div class="row justify-content-start">
@@ -219,39 +188,165 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-lg-3">
                         <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
                             <h3>Хорошо, а что потом?</h3>
                             <h6 class="text-secondary font-weight-normal pe-3">Базовое внедрение выполнено, менеджеры познакомились с системой, какие дальнейшие действия?</h6>
                         </div>
                     </div>
+                </div>
+            </div>
+                {{-- команда --}}
+                <section class="pb-7 position-relative bg-gradient-dark mx-n3">
                     <div class="container">
                         <div class="row">
-                            <div class="row text-center my-sm-5 mt-5">
-                                <div class="col-lg-6 mx-auto">
-                                    <span class="badge bg-primary mb-3">Важно</span>
-                                    <h2 class="">Менеджмент</h2>
-                                    <p class="lead">Хорошее внедрение - это прежде всего хороший менеджмент. Мы делаем на этом большой упор, в этом помогают крутые сервисы</p>
+                            <div class="col-md-8 text-start mb-5 mt-5 pt-2">
+                                <h3 class="text-white z-index-1 position-relative">Наша команда</h3>
+                                <p class="text-white opacity-8 mb-0">Основа нашей команды состоит из проверенных временем и задачами людей!</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 col-12" style="width: 50%;">
+                                <div class="card card-profile mt-4">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6 col-12 mt-n5">
+                                            <div class="p-3 pe-md-0">
+                                                <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/slava.jpeg") }} alt="image">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8 col-md-6 col-12 my-auto">
+                                            <div class="card-body ps-lg-0">
+                                                <h5 class="mb-0">Вячеслав</h5>
+                                                <h6 class="text-rose">Основатель</h6>
+                                                <p class="mb-0">Бэкенд разработчик и аналитик со стажем более 5 лет в сфере СРМ систем. Умеет все, что касается amoCRM</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-12" style="width: 50%;">
+                                <div class="card card-profile mt-lg-4 mt-5">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6 col-12 mt-n5">
+                                            <a href="javascript:;">
+                                                <div class="p-3 pe-md-0">
+                                                    <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/kris.jpeg") }} alt="image">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-8 col-md-6 col-12 my-auto">
+                                            <div class="card-body ps-lg-0">
+                                                <h5 class="mb-0">Кристина</h5>
+                                                <h6 class="text-rose">Руководитель отдела внедрения</h6>
+                                                <p class="mb-0">Несколько лет работы в сфере СРМ. Помимо технических и аналитических скиллов, прокачала компетенции в Мой склад и Sensei</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-lg-5 col-12" style="width: 50%;">
+                                <div class="card card-profile mt-4 z-index-2">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6 col-12 mt-n5">
+                                            <a href="javascript:;">
+                                                <div class="p-3 pe-md-0">
+                                                    <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/ksenia.jpeg") }} alt="image">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-8 col-md-6 col-12 my-auto">
+                                            <div class="card-body ps-lg-0">
+                                                <h5 class="mb-0">Ксения</h5>
+                                                <h6 class="text-rose">Руководитель отдела тех поддержки</h6>
+                                                <p class="mb-0">Работала руководителем колл-центров и отделов сопровождения</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-12" style="width: 50%;">
+                                <div class="card card-profile mt-lg-4 mt-5 z-index-2">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-6 col-12 mt-n5">
+                                            <a href="javascript:;">
+                                                <div class="p-3 pe-md-0">
+                                                    <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/egor.jpeg") }} alt="image">
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-lg-8 col-md-6 col-12 my-auto">
+                                            <div class="card-body ps-lg-0">
+                                                <h5 class="mb-0">Егор</h5>
+                                                <h6 class="text-rose">Руководитель отдела разработки</h6>
+                                                <p class="mb-0">Пришел из сферы Веб программирования. Full-stack разработчик уровня middle</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </section>
 
+                <div class="container">
+                    <div class="row">
+                        <div class="row text-center my-sm-5 mt-5">
+                            <div class="col-lg-6 mx-auto">
+                                <span class="badge bg-primary mb-3">Важно</span>
+                                <h2 class="">Менеджмент</h2>
+                                <p class="lead">Хорошее внедрение - это прежде всего хороший менеджмент. Мы делаем на этом большой упор, в этом помогают крутые сервисы</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+
 
             @include('site.asana')
 
             @include('site.miro')
 
         </section>
+
+        {{--        цифры  --}}
+        <section class="mt-1 pb-1" id="count-stats">
+            <div class="col-lg-9 mx-auto py-3">
+                <div class="row">
+                    <div class="col-md-4 position-relative">
+                        <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary"><span id="state1" countTo="70">200</span>+</h1>
+                            <h5 class="mt-3">Проектов</h5>
+                            <p class="text-sm font-weight-normal">Проектов внедрения/сопровождения/разработки для наших клиентов, использующих amoCRM</p>
+                        </div>
+                        <hr class="vertical dark">
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">4 из 5</span></h1>
+                            <h5 class="mt-3">Клиентов</h5>
+                            <p class="text-sm font-weight-normal">Остается сотрудничать с нами после завершения основного проекта</p>
+                        </div>
+                        <hr class="vertical dark">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary" id="state3" countTo="4">5+</h1>
+                            <h5 class="mt-3">Лет на рынке</h5>
+                            <p class="text-sm font-weight-normal">Прошли долгий путь вместе с замечательным продуктом amoCRM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {{-- кейсы --}}
         <section class="py-3">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h3 class="mb-5">Наши кейсы</h3>
+                        <h3 class="mb-5 pt-6">Наши кейсы</h3>
                     </div>
                 </div>
                 <div class="row">
