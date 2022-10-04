@@ -171,6 +171,43 @@
         </div>
 
 
+{{--        --}}
+
+        {{--        цифры  --}}
+        <section class="mt-4 pb-4" id="count-stats">
+            {{--                <div class="container">--}}
+            {{--                    <div class="row">--}}
+            <div class="col-lg-9 mx-auto py-3">
+                <div class="row">
+                    <div class="col-md-4 position-relative">
+                        <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary"><span id="state1" countTo="70">200</span>+</h1>
+                            <h5 class="mt-3">Проектов</h5>
+                            <p class="text-sm font-weight-normal">Проектов внедрения/сопровождения/разработки для наших клиентов, использующих amoCRM</p>
+                        </div>
+                        <hr class="vertical dark">
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">4 из 5</span></h1>
+                            <h5 class="mt-3">Клиентов</h5>
+                            <p class="text-sm font-weight-normal">Остается сотрудничать с нами после завершения основного проекта</p>
+                        </div>
+                        <hr class="vertical dark">
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 text-center">
+                            <h1 class="text-gradient text-primary" id="state3" countTo="4">5+</h1>
+                            <h5 class="mt-3">Лет на рынке</h5>
+                            <p class="text-sm font-weight-normal">Прошли долгий путь вместе с замечательным продуктом amoCRM</p>
+                        </div>
+                    </div>
+                </div>
+                {{--                        </div>--}}
+                {{--                    </div>--}}
+            </div>
+        </section>
+
         <div class="container mt-sm-7 mt-3">
             <div class="row">
                 <div class="col-lg-6 ms-auto">
@@ -232,50 +269,12 @@
         @include('site.miro')
 
     </section>
-
-
-{{--        что то --}}
-            <section class="pt-3 pb-4" id="count-stats">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-9 mx-auto py-3">
-                            <div class="row">
-                                <div class="col-md-4 position-relative">
-                                    <div class="p-3 text-center">
-                                        <h1 class="text-gradient text-primary"><span id="state1" countTo="70">0</span>+</h1>
-                                        <h5 class="mt-3">Coded Elements</h5>
-                                        <p class="text-sm font-weight-normal">From buttons, to inputs, navbars, alerts or cards, you are covered</p>
-                                    </div>
-                                    <hr class="vertical dark">
-                                </div>
-                                <div class="col-md-4 position-relative">
-                                    <div class="p-3 text-center">
-                                        <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">0</span>+</h1>
-                                        <h5 class="mt-3">Design Blocks</h5>
-                                        <p class="text-sm font-weight-normal">Mix the sections, change the colors and unleash your creativity</p>
-                                    </div>
-                                    <hr class="vertical dark">
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="p-3 text-center">
-                                        <h1 class="text-gradient text-primary" id="state3" countTo="4">0</h1>
-                                        <h5 class="mt-3">Pages</h5>
-                                        <p class="text-sm font-weight-normal">Save 3-4 weeks of work when you use our pre-made pages for your website</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-
         {{-- кейсы --}}
         <section class="py-3">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h3 class="mb-5">Check my latest blogposts</h3>
+                        <h3 class="mb-5">Наши кейсы</h3>
                     </div>
                 </div>
                 <div class="row">
@@ -283,20 +282,21 @@
                         <div class="card card-plain">
                             <div class="card-header p-0 position-relative">
                                 <a class="d-block blur-shadow-image">
-                                    <img src="../assets/img/examples/testimonial-6-2.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                    <img src={{ asset("site/img/cases/swedish.png") }} alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
                                 </a>
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="javascript:;" class="text-dark font-weight-bold">Rover raised $65 million</a>
+                                    <a href="https://swedish-online.se" class="text-dark font-weight-bold">Swedish Online</a>
                                 </h5>
+                                <p>Онлайн Школа Шведского языка</p>
                                 <p>
-                                    Finding temporary housing for your dog should be as easy as
-                                    renting an Airbnb. That’s the idea behind Rover ...
+                                    Классический запрос: индивидуальная интеграция с
+                                    Бизон365 и Геткурс. Подключили телефонию и обучили сотрудников
                                 </p>
-                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
-                                    <i class="fas fa-arrow-right text-xs ms-1"></i>
-                                </a>
+                                <p>
+                                    Важно было обеспечить отслеживание оплат и заказов, посещение вебинаров и конверсию
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -304,20 +304,23 @@
                         <div class="card card-plain">
                             <div class="card-header p-0 position-relative">
                                 <a class="d-block blur-shadow-image">
-                                    <img src="../assets/img/examples/testimonial-6-3.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                    <img src={{ asset("site/img/cases/ideas.png") }} alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
                                 </a>
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="javascript:;" class="text-dark font-weight-bold">MateLabs machine learning</a>
+                                    <a href="https://wehaveideas.ru" class="text-dark font-weight-bold">Ideas Agency</a>
                                 </h5>
+                                <p>Маркетинговое агенство</p>
                                 <p>
-                                    If you’ve ever wanted to train a machine learning model
-                                    and integrate it with IFTTT, you now can with ...
+                                    Подключили все источники лидов, настроили рассылки. Пробросили метки и подключили Ройстат
                                 </p>
-                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
-                                    <i class="fas fa-arrow-right text-xs ms-1"></i>
-                                </a>
+                                <p>
+                                    Важно было обеспечить отслеживание источников трафика и рекламных компаний
+                                </p>
+{{--                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More--}}
+{{--                                    <i class="fas fa-arrow-right text-xs ms-1"></i>--}}
+{{--                                </a>--}}
                             </div>
                         </div>
                     </div>
@@ -325,31 +328,32 @@
                         <div class="card card-plain">
                             <div class="card-header p-0 position-relative">
                                 <a class="d-block blur-shadow-image">
-                                    <img src="../assets/img/examples/blog-9-4.jpg" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                    <img src={{ asset("site/img/cases/davos2.png") }} alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
                                 </a>
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="javascript:;" class="text-dark font-weight-bold">MateLabs machine learning</a>
+                                    <a href="https://residencesathrhdavos.com" class="text-dark font-weight-bold">Davos residence</a>
                                 </h5>
+                                <p>Продажа недвижимости в Швейцарии</p>
                                 <p>
-                                    If you’ve ever wanted to train a machine learning model
-                                    and integrate it with IFTTT, you now can with ...
+                                    Клиенты из разных стран: настроили прогрев по почте по каждому сегменту клиентов: язык, пол, возраст.
+                                    Множество микродоработок внутри кабинета
                                 </p>
-                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More
-                                    <i class="fas fa-arrow-right text-xs ms-1"></i>
-                                </a>
+                                <p>
+                                    Важно было обеспечить максимально стабильную работу системы и множества индивидуальных узлов
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-12 col-12">
+                    <div class="col-lg-3 col-sm-6">
                         <div class="card card-blog card-background cursor-pointer">
-                            <div class="full-background" style="background-image: url('../assets/img/examples/blog2.jpg')" loading="lazy"></div>
+                            <div class="full-background" style="background-color: black" loading="lazy"></div>
                             <div class="card-body">
                                 <div class="content-left text-start my-auto py-4">
-                                    <h2 class="card-title text-white">Flexible work hours</h2>
-                                    <p class="card-description text-white">Rather than worrying about switching offices every couple years, you stay in the same place.</p>
-                                    <a href="javascript:;" class="text-white text-sm icon-move-right">Read More
+                                    <h2 class="card-title text-white">Остальные кейсы</h2>
+                                    <p class="card-description text-white">Посмотрите другие крутые кейсы нашей компании</p>
+                                    <a href="javascript:;" class="text-white text-sm icon-move-right">Смотреть
                                         <i class="fas fa-arrow-right text-xs ms-1"></i>
                                     </a>
                                 </div>
