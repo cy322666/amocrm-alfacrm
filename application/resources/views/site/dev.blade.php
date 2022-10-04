@@ -517,32 +517,8 @@
     </section>
 
     <section class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="row text-center my-sm-5 mt-5">
-                    <div class="col-lg-6 mx-auto">
-                        <span class="badge bg-primary mb-3">CLEVER PLATFORM</span>
-                        <h2 class="">Платформа готовых решений</h2>
-                        <a href="#platform"></a>
-                        {{--                        TODO --}}
-                        <p class="lead">В основном у компаний похожие запросы. Для этого мы ведем разработку платформы</p>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="container mt-5">
-            <div class="row">
-
-                @include('site.widgets')
-
-                <div class="col-md-3 mx-auto mt-md-0 mt-5">
-                    <div class="position-sticky" style="top:100px !important">
-                        <h4 class="">CLEVER PLATFORM</h4>
-                        <h6 class="text-secondary font-weight-normal">Подключи платформу к amoCRM и используй виджеты по выбору. Количество решений постоянно растет!</h6>
-                    </div>
-                </div>
-            </div>
 
             <div class="container">
                 <div class="row">
