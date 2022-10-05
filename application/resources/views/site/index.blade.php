@@ -332,7 +332,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary" id="state3" countTo="5+"></h1>
+                            <h1 class="text-gradient text-primary"><span id="state3" countTo="5"></span>+</h1>
                             <h5 class="mt-3">Лет на рынке</h5>
                             <p class="text-sm font-weight-normal">Прошли долгий путь вместе с замечательным продуктом amoCRM</p>
                         </div>

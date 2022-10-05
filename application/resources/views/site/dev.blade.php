@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-4 position-relative">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="0"></span></h1>
+                            <h1 class="text-gradient text-primary"><span id="state2" countTo="0"></span></h1>
                             <h5 class="mt-3">Клиентов</h5>
                             <p class="text-sm font-weight-normal">Отказались от разработки после релиза! Мы доводим дело до конца с высоким уровнем качества</p>
                         </div>
@@ -49,8 +49,8 @@
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary" id="state3" countTo="3+"></h1>
-                            <h5 class="mt-3">Лет</h5>
+                            <h1 class="text-gradient text-primary"><span id="state3" countTo="3"></span>+</h1>
+                            <h5 class="mt-3">Года</h5>
                             <p class="text-sm font-weight-normal">Средний стаж наших разработчиков в программировании. Только качественный код!</p>
                         </div>
                     </div>
@@ -118,14 +118,14 @@
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="https://wehaveideas.ru" class="text-dark font-weight-bold">BangBang Education</a>
+                                    <a href="https://bangbangeducation.ru" class="text-dark font-weight-bold">BangBang Education</a>
                                 </h5>
-                                <p>Маркетинговое агенство</p>
+                                <p>Школа дизайна</p>
                                 <p>
-                                    Подключили все источники лидов, настроили рассылки. Пробросили метки и подключили Ройстат
+                                    Индивидуальная интеграция с основным самописным сайтом и ряд интеграций с лендингами
                                 </p>
                                 <p>
-                                    Важно было обеспечить отслеживание источников трафика и рекламных компаний
+                                    Учет оплат, заявок, подписок и тд. Все под клиента
                                 </p>
                                 {{--                                <a href="javascript:;" class="text-info text-sm icon-move-right">Read More--}}
                                 {{--                                    <i class="fas fa-arrow-right text-xs ms-1"></i>--}}
@@ -142,15 +142,14 @@
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="https://swedish-online.se" class="text-dark font-weight-bold">Chill Spa</a>
+                                    <a href="https://chillspa.ru/" class="text-dark font-weight-bold">Chill Spa</a>
                                 </h5>
-                                <p>Онлайн Школа Шведского языка</p>
+                                <p>Сеть салонов тайского массажа</p>
                                 <p>
-                                    Классический запрос: индивидуальная интеграция с
-                                    Бизон365 и Геткурс. Подключили телефонию и обучили сотрудников
+                                    Индивидуальная интеграция с YClients, учитывающая все аспекты именно этого клиента
                                 </p>
                                 <p>
-                                    Важно было обеспечить отслеживание оплат и заказов, посещение вебинаров и конверсию
+                                    Учет абонементов, записей, отмен: полная синхронизация систем
                                 </p>
                             </div>
                         </div>
@@ -164,15 +163,14 @@
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="https://residencesathrhdavos.com" class="text-dark font-weight-bold">GigAnt</a>
+                                    <a href="https://gigwork.ru" class="text-dark font-weight-bold">GigAnt</a>
                                 </h5>
-                                <p>Продажа недвижимости в Швейцарии</p>
+                                <p>Найм персонала</p>
                                 <p>
-                                    Клиенты из разных стран: настроили прогрев по почте по каждому сегменту клиентов: язык, пол, возраст.
-                                    Множество микродоработок внутри кабинета
+                                    Множество разработок: от микро до отдельного кабинета с мониторингом
                                 </p>
                                 <p>
-                                    Важно было обеспечить максимально стабильную работу системы и множества индивидуальных узлов
+                                    Обеспечили высокое качество и почти круглосуточную тех поддержку своих решений
                                 </p>
                             </div>
                         </div>
