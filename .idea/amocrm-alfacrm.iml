@@ -132,5 +132,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="button" level="application" />
     <orderEntry type="library" name="42d5adcbca" level="application" />
+    <orderEntry type="module" module-name="material-kit-master" />
   </component>
 </module>

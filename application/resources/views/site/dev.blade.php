@@ -33,7 +33,7 @@
                 <div class="row">
                     <div class="col-md-4 position-relative">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary"><span id="state1" countTo="70">400</span>+</h1>
+                            <h1 class="text-gradient text-primary"><span id="state1" countTo="400"></span>+</h1>
                             <h5 class="mt-3">Разработок</h5>
                             <p class="text-sm font-weight-normal">Больших и маленьких: от микродоработок внутри amoCRM до полноценных кабинетов</p>
                         </div>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-4 position-relative">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">0</span></h1>
+                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="0"></span></h1>
                             <h5 class="mt-3">Клиентов</h5>
                             <p class="text-sm font-weight-normal">Отказались от разработки после релиза! Мы доводим дело до конца с высоким уровнем качества</p>
                         </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary" id="state3" countTo="4">3+</h1>
+                            <h1 class="text-gradient text-primary" id="state3" countTo="3+"></h1>
                             <h5 class="mt-3">Лет</h5>
                             <p class="text-sm font-weight-normal">Средний стаж наших разработчиков в программировании. Только качественный код!</p>
                         </div>

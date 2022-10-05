@@ -18,7 +18,7 @@
 
     @include('site.header')
 
-    <div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6">
+    <div class="card card-body blur shadow-blur mx-2 mx-md-4 mt-n6">
 
         <section class="my-5 py-5">
 
@@ -316,7 +316,7 @@
                 <div class="row">
                     <div class="col-md-4 position-relative">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary"><span id="state1" countTo="70">200</span>+</h1>
+                            <h1 class="text-gradient text-primary"><span id="state1" countTo="200"></span>+</h1>
                             <h5 class="mt-3">Проектов</h5>
                             <p class="text-sm font-weight-normal">Проектов внедрения/сопровождения/разработки для наших клиентов, использующих amoCRM</p>
                         </div>
@@ -324,15 +324,15 @@
                     </div>
                     <div class="col-md-4 position-relative">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="15">4 из 5</span></h1>
-                            <h5 class="mt-3">Клиентов</h5>
+                            <h1 class="text-gradient text-primary"> <span id="state2" countTo="4"></span></h1>
+                            <h5 class="mt-3">из 5 клиентов</h5>
                             <p class="text-sm font-weight-normal">Остается сотрудничать с нами после завершения основного проекта</p>
                         </div>
                         <hr class="vertical dark">
                     </div>
                     <div class="col-md-4">
                         <div class="p-3 text-center">
-                            <h1 class="text-gradient text-primary" id="state3" countTo="4">5+</h1>
+                            <h1 class="text-gradient text-primary" id="state3" countTo="5+"></h1>
                             <h5 class="mt-3">Лет на рынке</h5>
                             <p class="text-sm font-weight-normal">Прошли долгий путь вместе с замечательным продуктом amoCRM</p>
                         </div>
