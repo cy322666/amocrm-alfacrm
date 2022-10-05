@@ -439,10 +439,9 @@
         @include('site.prefooter')
     </div>
 
-    @include('site.scripts')
-
     @include('site.footer')
 
+    @include('site.scripts')
 </body>
 </html>
 
