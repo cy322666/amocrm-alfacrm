@@ -158,12 +158,12 @@
                         <div class="card card-plain">
                             <div class="card-header p-0 position-relative">
                                 <a class="d-block blur-shadow-image">
-                                    <img src={{ asset("site/img/cases/gigant.png") }} alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                    <img src={{ asset("site/img/cases/naim.png") }} alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
                                 </a>
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="https://gigwork.ru" class="text-dark font-weight-bold">GigAnt</a>
+                                    <a href="" class="text-dark font-weight-bold">{Договор NDA}}</a>
                                 </h5>
                                 <p>Найм персонала</p>
                                 <p>
