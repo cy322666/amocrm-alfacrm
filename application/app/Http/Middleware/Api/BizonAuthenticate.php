@@ -18,8 +18,6 @@ class BizonAuthenticate
      */
     public function handle(Request $request, Closure $next)
     {
-        Log::info($request->path(), $request->toArray());
-
         if ($request->webhook->active === true &&
             $request->webhook
                 ->bizonSetting

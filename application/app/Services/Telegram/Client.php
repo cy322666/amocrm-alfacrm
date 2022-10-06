@@ -8,11 +8,12 @@ class Client
 
     public function __construct()
     {
-        $this->baseUrl = 'https://api.telegram.org/bot'.env('TG_TOKEN_MY');
+        $this->baseUrl = 'https://api.telegram.org/bot'.config('services.telegram.token');
     }
 
     public function send(string $message)
     {
-        file_get_contents($this->baseUrl.'/sendMessage?chat_id='.env('TG_CHAT_ID_MY').'&text='.$message);
+        if (config('services.telegram.chat_id'))
+            file_get_contents($this->baseUrl.'/sendMessage?chat_id='.config('services.telegram.chat_id').'&text='.$message);
     }
 }

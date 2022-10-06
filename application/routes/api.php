@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlfaCRMController;
 use App\Http\Controllers\Auth\amoCRMController;
 use App\Http\Controllers\BizonController;
-
-use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\GetCourseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/amocrm/secrets', [amoCRMController::class, 'secrets']);
 
+/* ALFACRM */
 Route::prefix('alfacrm')->group(function () {
 
     Route::middleware(['api.alfacrm'])->group(function () {
@@ -41,6 +41,23 @@ Route::prefix('alfacrm')->group(function () {
     });
 });
 
+/* BIZON */
 Route::post('/bizon/webinar/{webhook:uuid}', [BizonController::class, 'webinar'])
     ->name('bizon.webinar')
     ->middleware('api.bizon');
+
+/* GETCOURSE */
+Route::prefix('getcourse')->group(function () {
+
+    Route::middleware(['api.getcourse'])->group(function () {
+
+        Route::get('forms/{webhook:uuid}', [GetCourseController::class, 'forms'])
+            ->name('getcourse.api.forms');
+
+        Route::get('payments/{webhook:uuid}', [GetCourseController::class, 'payments'])
+            ->name('getcourse.api.payments');
+
+        Route::get('orders/{webhook:uuid}', [GetCourseController::class, 'orders'])
+            ->name('getcourse.api.orders');
+    });
+});

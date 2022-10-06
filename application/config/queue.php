@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+    'default' => env('QUEUE_CONNECTION', 'redis'),
 
     /*
     |--------------------------------------------------------------------------
@@ -34,21 +34,13 @@ return [
             'driver' => 'sync',
         ],
 
-        'database' => [
-            'driver' => 'database',
-            'table' => 'jobs',
-            'queue' => 'default',
-            'retry_after' => 90,
-            'after_commit' => false,
-        ],
-
-        'bizon_export' => [
-            'driver' => 'database',
-            'table' => 'jobs',
-            'queue' => 'default',
-            'retry_after' => 90,
-            'after_commit' => false,
-        ],
+//        'database' => [
+//            'driver' => 'database',
+//            'table' => 'jobs',
+//            'queue' => 'default',
+//            'retry_after' => 90,
+//            'after_commit' => false,
+//        ],
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',

@@ -54,7 +54,7 @@ class CameWithoutLead implements ShouldQueue
         public array $data,
     )
     {
-        $this->onQueue('alfacrm_hook');
+//        $this->onQueue('alfacrm_hook');
     }
 
     /**
@@ -169,7 +169,7 @@ class CameWithoutLead implements ShouldQueue
             }
         } catch (\Throwable $exception) {
 
-            $this->transaction->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $this->transaction->error = $exception->getMessage();
             $this->transaction->save();
 
             return false;

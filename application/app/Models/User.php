@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\AlfaCRM\Setting;
 use App\Models\AlfaCRM\Transaction;
+use Illuminate\Support\Facades\Log;
 use Orchid\Platform\Models\User as Authenticatable;
 
 class User extends Authenticatable
@@ -113,5 +114,21 @@ class User extends Authenticatable
     public function bizonSetting()
     {
         return $this->hasOne(\App\Models\Bizon\Setting::class);
+    }
+
+    public function getcourseSetting()
+    {
+        return $this->hasOne(\App\Models\GetCourse\Setting::class);
+    }
+
+    public static function saveMemoryInfo(string $info)
+    {
+        $data = explode("\n", file_get_contents("/proc/meminfo"));
+
+        Log::channel('memory')->debug($info.' : ', [
+            str_replace(' ', '', $data[1]),
+            str_replace(' ', '', $data[3]),
+            str_replace(' ', '', $data[4]),
+        ]);
     }
 }

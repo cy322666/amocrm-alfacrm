@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/amocrm-alfacrm.iml" filepath="$PROJECT_DIR$/.idea/amocrm-alfacrm.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../user-gatawey/.idea/user-gatawey.iml" filepath="$PROJECT_DIR$/../user-gatawey/.idea/user-gatawey.iml" />
+      <module fileurl="file://$USER_HOME$/Downloads/material-kit-master/.idea/material-kit-master.iml" filepath="$USER_HOME$/Downloads/material-kit-master/.idea/material-kit-master.iml" />
     </modules>
   </component>
 </project>

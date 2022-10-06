@@ -13,13 +13,14 @@ use App\Services\amoCRM\Models\Contacts;
 use App\Services\amoCRM\Models\Notes;
 use App\Services\ManagerClients\BizonManager;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class ViewerSend implements ShouldQueue
+class ViewerSend implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -69,7 +70,7 @@ class ViewerSend implements ShouldQueue
         private User $user,
     )
     {
-        $this->onQueue('bizon_export');
+//        $this->onQueue('bizon_export');
     }
 
     /**
@@ -82,6 +83,11 @@ class ViewerSend implements ShouldQueue
         return [];
     }
 
+    public function uniqueId()
+    {
+        return $this->viewer->id;
+    }
+
     /**
      * Execute the job.
      * @return bool
@@ -91,7 +97,7 @@ class ViewerSend implements ShouldQueue
     public function handle()
     {
         try {
-            Log::info(__METHOD__.' > начало отправки viewer id : '.$this->viewer->id);
+            Log::channel('bizon')->info(__METHOD__.' > начало отправки viewer id : '.$this->viewer->id);
 
             $manager = new BizonManager($this->webhook);
 
@@ -159,8 +165,10 @@ class ViewerSend implements ShouldQueue
                 $webinar->status = 1;
                 $webinar->save();
 
-                Log::info(__METHOD__.' > выгрузка webinar_id : '.$webinar->id.' завершена');
+                Log::channel('bizon')->info(__METHOD__.' > выгрузка webinar_id : '.$webinar->id.' завершена');
             }
+
+            Log::channel('bizon')->info(__METHOD__.' > отправка закончена viewer id : '.$this->viewer->id);
 
             return true;
 

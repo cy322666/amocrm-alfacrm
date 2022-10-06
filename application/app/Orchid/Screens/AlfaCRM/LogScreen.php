@@ -2,6 +2,7 @@
 
 namespace App\Orchid\Screens\AlfaCRM;
 
+use App\Models\User;
 use App\Orchid\Layouts\AlfaCRM\Logs;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;

@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\SiteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +16,14 @@ use App\Http\Controllers\Auth\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('site.index');
-})->name('site');
+Route::get('/', [SiteController::class, 'index'])->name('site');
 
-Route::post('form', [\App\Http\Controllers\SiteController::class, 'form'])->name('form');
+Route::get('widgets', [SiteController::class, 'widgets'])->name('widgets');
+
+Route::get('dev', [SiteController::class, 'dev'])->name('dev');
+
+Route::post('form', [SiteController::class, 'form'])->name('form');
+
 
 Route::get('platform/login', [AuthController::class, 'showLoginForm'])->name('auth.login');
 

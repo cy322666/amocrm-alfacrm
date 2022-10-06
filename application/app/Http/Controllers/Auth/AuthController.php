@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Notifications\HelloMessage;
 use App\Services\ManagerClients\AlfaCRMManager;
 use App\Services\ManagerClients\BizonManager;
+use App\Services\ManagerClients\GetCourseManager;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -113,6 +114,8 @@ class AuthController extends LoginController
         AlfaCRMManager::register($user);
 
         BizonManager::register($user);
+
+        GetCourseManager::register($user);
 
         $user->notify(new HelloMessage());
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\Telegram\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,8 +12,6 @@ class SiteController extends Controller
 {
     public function form(Request $request): \Illuminate\Http\RedirectResponse
     {
-//        Log::info(__METHOD__, $request->toArray());
-
         $message = 'Заявка с сайта!'.
             ' имя : '.$request->name.
             ' телефон : '.$request->phone.
@@ -21,5 +20,20 @@ class SiteController extends Controller
         (new Client())->send('Фидбек из кабинета '.Auth::user()->email.' | сообщение : '.$message);
 
         return back()->with('status', 'Успех');
+    }
+
+    public function index()
+    {
+        return view('site.index');
+    }
+
+    public function widgets()
+    {
+        return view('site.platform');
+    }
+
+    public function dev()
+    {
+        return view('site.dev');
     }
 }

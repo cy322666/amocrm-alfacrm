@@ -18,8 +18,6 @@ class PlatformProvider extends OrchidServiceProvider
     public function boot(Dashboard $dashboard): void
     {
         parent::boot($dashboard);
-
-        // ...
     }
 
     /**
@@ -48,7 +46,6 @@ class PlatformProvider extends OrchidServiceProvider
 
             Menu::make('Бизон365')
                 ->icon('grid')
-//                ->title('Интеграции')
                 ->list([
                     Menu::make('Настройки')
                         ->icon('settings')
@@ -57,8 +54,29 @@ class PlatformProvider extends OrchidServiceProvider
                     Menu::make('События')->icon('list')
                         ->icon('clock')
                         ->route('bizon.webinars'),
+                ]),
 
-                    //Menu::make('Посетители')->icon('list')->route('bizon.orders.viewers'),
+            Menu::make('Геткурс')
+                ->icon('grid')
+                ->list([
+                    Menu::make('Настройки')
+                        ->icon('settings')
+                        ->route('getcourse.settings'),
+
+                    Menu::make('Заказы')
+                        ->icon('list')
+                        ->icon('clock')
+                        ->route('getcourse.orders'),
+
+                    Menu::make('Платежи')
+                        ->icon('list')
+                        ->icon('clock')
+                        ->route('getcourse.payments'),
+
+                    Menu::make('Регистрации')
+                        ->icon('list')
+                        ->icon('clock')
+                        ->route('getcourse.forms'),
                 ]),
 
             Menu::make('Документация')

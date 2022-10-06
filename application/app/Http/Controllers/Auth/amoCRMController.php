@@ -14,7 +14,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use App\Services\AlfaCRM\Client as alfaApi;
 
 use App\Services\amoCRM\Client as amoApi;
 
@@ -29,7 +28,7 @@ class amoCRMController extends Controller
 
         if ($request->state !== 'hello') {
 
-            redirect(route('account'), ['auth' => 2]);
+            return redirect()->route('account', ['auth' => 2]);
         }
 
         $account = Auth::user()->amoAccount();
@@ -44,6 +43,9 @@ class amoCRMController extends Controller
             return redirect()->route('account', ['auth' => 2]);
         }
 
+        $account->refresh_token = null;
+        $account->access_token = null;
+
         $account->client_secret = config('services.amocrm.client_secret');
         $account->subdomain = $subdomain;
         $account->code = $request->code;
@@ -51,7 +53,7 @@ class amoCRMController extends Controller
         $account->save();
 
         try {
-            $amoApi = (new amoApi($account))->init();
+            $amoApi = (new amoApi($account->refresh()))->init();
 
             if ($amoApi->auth == true) {
 

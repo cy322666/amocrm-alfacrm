@@ -124,13 +124,14 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/psr/cache" />
-      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/telescope" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/laravel/horizon" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/predis/predis" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="button" level="application" />
     <orderEntry type="library" name="42d5adcbca" level="application" />
-    <orderEntry type="module" module-name="user-gatawey" />
+    <orderEntry type="module" module-name="material-kit-master" />
   </component>
 </module>

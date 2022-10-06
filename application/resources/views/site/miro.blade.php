@@ -1,4 +1,4 @@
-<section class="my-5">
+<section class="my-3">
     <div class="container">
         <div class="row" style="margin-top: 10rem">
             <div class="col-md-5 col-12 my-auto">
