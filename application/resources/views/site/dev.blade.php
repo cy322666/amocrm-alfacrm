@@ -163,7 +163,7 @@
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="" class="text-dark font-weight-bold">{Договор NDA}}</a>
+                                    <a href="" class="text-dark font-weight-bold">{Договор NDA}</a>
                                 </h5>
                                 <p>Найм персонала</p>
                                 <p>
