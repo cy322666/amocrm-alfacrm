@@ -42,7 +42,7 @@ class SettingsScreen extends Screen
     public $account;
     public $amoAccount;
 
-    public $amoApi;
+    public AmoApi $amoApi;
     public $alfaApi;
 
     public $whStatusCame;
@@ -64,11 +64,18 @@ class SettingsScreen extends Screen
         $amoAccount = Auth::user()->amoAccount();
 
         $this->alfaApi = (new \App\Services\AlfaCRM\Client($account));
-        $this->amoApi  = (new \App\Services\amoCRM\Client($amoAccount));
+        $this->amoApi  = (new amoApi($amoAccount));
 
         if ($setting->webhooks->count() == 0) {
 
             $setting->createWebhooks();
+        }
+
+        $this->amoApi->init();
+
+        if ($this->amoApi->auth == false) {
+
+            Alert::error('Ошибка подключения amoCRM');
         }
 
         return [
@@ -475,70 +482,7 @@ class SettingsScreen extends Screen
     public function updateFieldsAmo()
     {
         try {
-            $this->amoApi->init();
-
-            if ($this->amoApi->auth == false) {
-
-                Alert::error('Ошибка подключения amoCRM');
-
-                return;
-            }
-
-            $this->amoAccount->fields(Field::class)
-                ->where('entity', 2)
-                ->delete();
-
-            $account = $this->amoAccount;
-
-            $this->amoApi->service
-                ->account
-                ->customFields
-                ->leads->each(function ($field) use ($account) {
-
-                    $this->amoAccount->fields(Field::class)->create([
-                        'account_id' => $account->id,
-                        "field_id"   => $field->id,
-                        "name" => $field->name,
-                        "code" => $field->code,
-                        "field_type"  => $field->field_type,
-                        "sort"        => $field->sort,
-                        "is_multiple" => $field->is_multiple,
-                        "is_system"   => $field->is_system,
-                        "is_editable" => $field->is_editable,
-                        "enums"       => $field->enums ? json_encode($field->enums) : null,
-                        "values_tree" => $field->values_tree,
-                        'entity'      => 2,
-                    ]);
-                });
-
-            Field::addDefaultForLead($account);
-
-            $this->amoAccount->fields(Field::class)
-                ->where('entity', 1)
-                ->delete();
-
-            $this->amoApi->service
-                ->account
-                ->customFields
-                ->contacts->each(function ($field) use ($account) {
-
-                    $account->fields(Field::class)->create([
-                        'account_id' => $account->id,
-                        "field_id"   => $field->id,
-                        "name" => $field->name,
-                        "code" => $field->code,
-                        "field_type"  => $field->field_type,
-                        "sort"        => $field->sort,
-                        "is_multiple" => $field->is_multiple,
-                        "is_system"   => $field->is_system,
-                        "is_editable" => $field->is_editable,
-                        "enums"       => $field->enums ? json_encode($field->enums) : null,
-                        "values_tree" => $field->values_tree,
-                        'entity'      => 1,
-                    ]);
-                });
-
-            Field::addDefaultForContact($account);
+            Field::updateFields($this->amoApi, $this->amoAccount);
 
             Toast::success('Успешно обновлено');
 
@@ -556,15 +500,6 @@ class SettingsScreen extends Screen
     public function updateStatusesAmo()
     {
         try {
-            $this->amoApi->init();
-
-            if ($this->amoApi->auth == false) {
-
-                Alert::error('Ошибка подключения amoCRM');
-
-                return;
-            }
-
             Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
 
             Toast::success('Успешно обновлено');

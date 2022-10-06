@@ -34,10 +34,11 @@ use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
+use App\Services\amoCRM\Client as amoApi;
 
 class BizonSettingScreen extends Screen
 {
-    public $amoApi;
+    public AmoApi $amoApi;
     public $setting;
     public Account $amoAccount;
     public Account $bizonAccount;
@@ -56,7 +57,14 @@ class BizonSettingScreen extends Screen
 
         $setting = Auth::user()->bizonSetting;
 
-        $this->amoApi = (new \App\Services\amoCRM\Client($this->amoAccount));
+        $this->amoApi = (new AmoApi($this->amoAccount));
+
+        $this->amoApi->init();
+
+        if ($this->amoApi->auth == false) {
+
+            Alert::error('Ошибка подключения amoCRM');
+        }
 
         return [
             'active'    => $setting->active,
@@ -306,22 +314,13 @@ class BizonSettingScreen extends Screen
     public function updateStatuses()
     {
         try {
-            $this->amoApi->init();
-
-            if ($this->amoApi->auth == false) {
-
-                Alert::error('Ошибка подключения amoCRM');
-
-                return;
-            }
-
             Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
 
             Toast::success('Успешно обновлено');
 
         } catch (\Exception $exception) {
 
-//            $this->setting->active = false;//TODO
+            $this->setting->active = false;//TODO
             $this->setting->save();
 
             Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
@@ -333,37 +332,15 @@ class BizonSettingScreen extends Screen
     public function updateStaffs(Request $request)
     {
         try {
-            $this->amoApi->init();
-
-            if ($this->amoApi->auth == false) {
-
-                Alert::error('Ошибка подключения amoCRM');
-
-                return;
-            }
-
-            $this->amoAccount->amoStaffs()->delete();
-
-            $this->amoApi
-                ->service
-                ->account
-                ->users->each(function($user) {
-
-                    $this->amoAccount
-                        ->amoStaffs()
-                        ->create([
-                            'name' => $user->name,
-                            'staff_id' => $user->id,//TODO role
-                        ]);
-
-                });
+            Staff::updateStaffs($this->amoApi, $this->amoAccount);
 
             Toast::success($request->get('toast', 'Успешно'));
 
         } catch (\Exception $exception) {
 
             Toast::error($request->get('toast', 'Произошла ошибка'));
-            //Toast::error($request->get('toast', 'Произошла ошибка'));
+
+//            Log::channel('bizon')->error(.Auth::user()->email.' '.$exception->getMessage());
         }
     }
 

@@ -3,6 +3,7 @@
 namespace App\Services\amoCRM;
 
 use App\Models\Account;
+use App\Models\amoCRM\Field;
 use Exception;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
@@ -56,9 +57,9 @@ class Client
             if ($this->storage->model->refresh_token) {
 
                 $oauth = $this->service->refreshAccessToken($this->storage->model->refresh_token);
-            } else {
+            } else
                 $oauth = $this->service->fetchAccessToken($this->storage->model->code);
-            }
+
             $this->storage->setOauthData($this->service, [
                 'token_type'    => 'Bearer',
                 'expires_in'    => $oauth['expires_in'],
