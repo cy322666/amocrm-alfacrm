@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\Api\AlfaAuthenticate;
 use App\Http\Middleware\Api\BizonAuthenticate;
+use App\Http\Middleware\Api\GetCourseAuthenticate;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -68,5 +69,6 @@ class Kernel extends HttpKernel
 
         'api.alfacrm' => AlfaAuthenticate::class,
         'api.bizon'   => BizonAuthenticate::class,
+        'api.getcourse' => GetCourseAuthenticate::class,
     ];
 }

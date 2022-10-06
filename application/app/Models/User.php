@@ -116,6 +116,11 @@ class User extends Authenticatable
         return $this->hasOne(\App\Models\Bizon\Setting::class);
     }
 
+    public function getcourseSetting()
+    {
+        return $this->hasOne(\App\Models\GetCourse\Setting::class);
+    }
+
     public static function saveMemoryInfo(string $info)
     {
         $data = explode("\n", file_get_contents("/proc/meminfo"));

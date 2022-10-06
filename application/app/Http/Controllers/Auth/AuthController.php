@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Notifications\HelloMessage;
 use App\Services\ManagerClients\AlfaCRMManager;
 use App\Services\ManagerClients\BizonManager;
-use App\Services\Telegram\Client;
+use App\Services\ManagerClients\GetCourseManager;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -115,9 +115,9 @@ class AuthController extends LoginController
 
         BizonManager::register($user);
 
-        $user->notify(new HelloMessage());
+        GetCourseManager::register($user);
 
-        (new Client())->send('Новая регистрация на платформе! '.$request->post('email'));
+        $user->notify(new HelloMessage());
 
         return redirect()->route('auth.login');
     }
