@@ -4,6 +4,8 @@ services:
     app:
         build: ./docker/images/php81
         working_dir: /var/www/html
+        ports:
+            - "6969:8000"
         links:
             - postgresql
             - supervisor
