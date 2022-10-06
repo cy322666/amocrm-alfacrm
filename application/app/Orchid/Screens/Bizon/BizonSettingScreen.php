@@ -56,7 +56,6 @@ class BizonSettingScreen extends Screen
         $setting = Auth::user()->bizonSetting;
 
         $this->amoApi = (new AmoApi($this->amoAccount));
-
         $this->amoApi->init();
 
         if ($this->amoApi->auth == false) {
