@@ -381,7 +381,7 @@
                             </div>
                             <div class="card-body px-0">
                                 <h5>
-                                    <a href="https://wehaveideas.ru" class="text-dark font-weight-bold">{Договор NDA}</a>
+                                    <a href="" class="text-dark font-weight-bold">{Договор NDA}</a>
                                 </h5>
                                 <p>Маркетинговое агенство</p>
                                 <p>
@@ -400,7 +400,7 @@
                         <div class="card card-plain">
                             <div class="card-header p-0 position-relative">
                                 <a class="d-block blur-shadow-image">
-                                    <img src={{ asset("site/img/cases/davos2.jpg") }} alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
+                                    <img src={{ asset("site/img/cases/davos.jpg") }} alt="img-blur-shadow" class="img-fluid shadow border-radius-lg" loading="lazy">
                                 </a>
                             </div>
                             <div class="card-body px-0">
