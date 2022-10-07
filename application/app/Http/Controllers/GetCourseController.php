@@ -8,8 +8,8 @@ use App\Http\Requests\Api\GetCourse\SiteRequest;
 use App\Jobs\GetCourse\FormSend;
 use App\Jobs\GetCourse\OrderSend;
 use App\Jobs\GetCourse\PaymentSend;
-use App\Models\GetCourse\Form;
 use App\Models\Webhook;
+use Illuminate\Support\Facades\Log;
 
 class GetCourseController extends Controller
 {
@@ -30,37 +30,34 @@ class GetCourseController extends Controller
         }
     }
 
-    public function payment(Webhook $webhook, PaymentRequest $request)
+    public function orders(Webhook $webhook, OrderRequest $request)
     {
         try {
             $user = $webhook->user;
 
-            $setting = $user->getcourseSetting;
+            $requestArr = $request->toArray();
 
-            $payment = $setting->forms()->create($request->toArray());
+            $status = $requestArr['status'];
+            $order_id = $requestArr['id'];
 
-            PaymentSend::dispatch($webhook, $payment, $setting, $user);
+            unset($requestArr['status']);
 
-        } catch (\Throwable $exception) {
+            $order = $user->getcourseSetting->orders()
+                ->create(
+                    array_merge($requestArr, [
+                        'status_order' => $status,
+                        'order_id'   => $order_id,
+                        'webhook_id' => $webhook->id,
+                        'user_id'    => $user->id,
+                    ])
+                );
 
-
-        }
-    }
-
-    public function order(Webhook $webhook, OrderRequest $request)
-    {
-        try {
-            $user = $webhook->user;
-
-            $setting = $user->getcourseSetting;
-
-            $order = $setting->orders()->create($request->toArray());
-
-            OrderSend::dispatch($webhook, $order, $setting, $user);
+            OrderSend::dispatch($webhook, $order, $user);
 
         } catch (\Throwable $exception) {
 
-
+            $order->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
+            $order->save();
         }
     }
 }

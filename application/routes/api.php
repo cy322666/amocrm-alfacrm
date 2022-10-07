@@ -52,12 +52,9 @@ Route::prefix('getcourse')->group(function () {
     Route::middleware(['api.getcourse'])->group(function () {
 
         Route::get('forms/{webhook:uuid}', [GetCourseController::class, 'forms'])
-            ->name('getcourse.api.forms');
-
-        Route::get('payments/{webhook:uuid}', [GetCourseController::class, 'payments'])
-            ->name('getcourse.api.payments');
+            ->name('getcourse.api.form');
 
         Route::get('orders/{webhook:uuid}', [GetCourseController::class, 'orders'])
-            ->name('getcourse.api.orders');
+            ->name('getcourse.api.order');
     });
 });

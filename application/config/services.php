@@ -39,7 +39,12 @@ return [
     ],
 
     'telegram' => [
-        'token' => env('TG_TOKEN_MY'),
+        'token'   => env('TG_TOKEN_MY'),
         'chat_id' => env('TG_CHAT_ID_MY'),
     ],
+
+    'getcourse' => [
+        'wh_form_params'  => '?email={object.email}&phone={object.phone}&name={object.name}',
+        'wh_order_params' => '?phone={object.user.phone}&name={object.user.first_name}&email={object.user.email}&number={object.number}&id={object.id}&positions={object.positions}&left_cost_money={object.left_cost_money}&cost_money={object.cost_money}&payed_money={object.payed_money}&status={object.status}&link={object.payment_link}',
+    ]
 ];

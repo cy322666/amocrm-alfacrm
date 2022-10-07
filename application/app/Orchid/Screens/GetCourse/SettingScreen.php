@@ -6,6 +6,7 @@ use App\Models\Account;
 use App\Models\amoCRM\Pipeline;
 use App\Models\amoCRM\Staff;
 use App\Models\GetCourse\Setting;
+use App\Models\Webhook;
 use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
 use App\Orchid\Layouts\Bizon\Staffs;
 use App\Services\amoCRM\Client as amoApi;
@@ -34,6 +35,9 @@ class SettingScreen extends Screen
     private amoApi $amoApi;
     private Setting $setting;
 
+    public Webhook $whForm;
+    public Webhook $whOrder;
+
     public function query(): iterable
     {
         $this->amoAccount   = Auth::user()->amoAccount();
@@ -49,15 +53,24 @@ class SettingScreen extends Screen
         }
 
         return [
-            'active'    => $this->setting->active,
+            'setting'   => $this->setting,
             'staffs'    => $this->amoAccount->amoStaffs,
             'pipelines' => $this->amoAccount->amoPipelines,
-            'setting'   => $this->setting,
             'statuses'  => $this->amoAccount
                 ->amoStatuses()
                 ->where('name', '!=', 'Неразобранное')
                 ->orderBy('id')
                 ->get(),
+            'whForm' => Auth::user()
+                ->webhooks()
+                ->where('app_id', 3)
+                ->where('type', 'status_form')
+                ->first(),
+            'whOrder'   => Auth::user()
+                ->webhooks()
+                ->where('app_id', 3)
+                ->where('type', 'status_order')
+                ->first(),
         ];
     }
 
@@ -76,7 +89,7 @@ class SettingScreen extends Screen
 
             Link::make('Инструкция')
                 ->icon('docs')
-                ->href('https://www.youtube.com/watch?v=kUdNZeGh1jY'),//TODO
+                ->href(''),//TODO
 
             ModalToggle::make('Обратная связь')
                 ->method('feedbackSave')
@@ -90,7 +103,7 @@ class SettingScreen extends Screen
         return [
             Layout::block(Layout::rows([
 
-                RadioButtons::make('active')
+                RadioButtons::make('setting.active')
                     ->options([
                         true  => 'Включена',
                         null  => 'Выключена',
@@ -131,19 +144,15 @@ class SettingScreen extends Screen
             Layout::tabs([
                 'Статусы' => Layout::columns([
                     Layout::rows([
-                        Input::make('status_id_form')
+                        Input::make('setting.status_id_form')
                             ->type('text')
                             ->title('Для новых заявок'),
 
-                        Input::make('status_id_payment')
-                            ->type('text')
-                            ->title('Для новых оплат'),
-
-                        Input::make('status_id_order')
+                        Input::make('setting.status_id_order')
                             ->type('text')
                             ->title('Для новых заказов'),
 
-                        Input::make('status_id_order_close')
+                        Input::make('setting.status_id_order_close')
                             ->type('text')
                             ->title('Для оплаченных заказов'),
                     ]),
@@ -152,19 +161,15 @@ class SettingScreen extends Screen
                 'Ответственные' => Layout::columns([
 
                     Layout::rows([
-                        Input::make('response_user_id_default')
+                        Input::make('setting.response_user_id_default')
                             ->type('numeric')
                             ->title('По умолчанию'),
 
-                        Input::make('response_user_id_form')
+                        Input::make('setting.response_user_id_form')
                             ->type('numeric')
                             ->title('Для новых заявок'),
 
-                        Input::make('response_user_id_payment')
-                            ->type('numeric')
-                            ->title('Для новых платежей'),
-
-                        Input::make('response_user_id_order')
+                        Input::make('setting.response_user_id_order')
                             ->type('numeric')
                             ->title('Для новых заказов'),
                     ]),
@@ -173,21 +178,20 @@ class SettingScreen extends Screen
 
                 'Вебхуки' => [
                     Layout::rows([
-                        Label::make('wh1')
-                            ->title('Хук для заявок с форм'),
-//                            ->value(URL::route($this->whStatusCame->path, [
-//                                'webhook' => $this->whStatusCame->uuid,
-//                            ])),
-                        Label::make('wh2')
-                            ->title('Хук для заказов'),
-//                            ->value(URL::route($this->whStatusOmission->path, [
-//                                'webhook' => $this->whStatusOmission->uuid,
-//                            ])),
-                        Label::make('wh2')
-                            ->title('Хук для оплат'),
-//                            ->value(URL::route($this->whStatusOmission->path, [
-//                                'webhook' => $this->whStatusOmission->uuid,
-//                            ])),
+                        Label::make('wfForm')
+                            ->title('Хук для заявок с форм')
+                            ->value(
+                                URL::route($this->whForm->path, [
+                                    'webhook' => $this->whForm->uuid
+                                ]).$this->whForm->params
+                            ),
+                        Label::make('wfOrders')
+                            ->title('Хук для заказов')
+                            ->value(
+                                URL::route($this->whOrder->path, [
+                                    'webhook' => $this->whOrder->uuid,
+                                ]).$this->whOrder->params
+                            ),
                     ]),
                 ],
             ]),
@@ -203,12 +207,12 @@ class SettingScreen extends Screen
 
         } catch (\Exception $exception) {
 
-            $this->setting->active = false;//TODO
+            $this->setting->active = false;
             $this->setting->save();
 
-            Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
-
             Alert::error('Ошибка обновления');
+
+            Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
         }
     }
 
@@ -223,8 +227,23 @@ class SettingScreen extends Screen
 
             Toast::error($request->get('toast', 'Произошла ошибка'));
 
-//            Log::channel('bizon')->error(.Auth::user()->email.' '.$exception->getMessage());
+            Log::channel('getcourse')->error(Auth::user()->email.' '.$exception->getMessage());
         }
     }
 
+    public function save(Request $request)
+    {
+        try {
+            $this->setting->fill($request->toArray()['setting']);
+            $this->setting->save();
+
+            Toast::success($request->get('toast', 'Успешно сохранено'));
+
+        } catch (\Throwable $exception) {
+
+            Toast::error($request->get('toast', 'Произошла ошибка при сохранении'));
+
+            Log::channel('getcourse')->error(Auth::user()->email.' '.$exception->getMessage());
+        }
+    }
 }

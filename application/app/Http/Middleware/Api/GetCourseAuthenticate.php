@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\Api;
 
+use App\Models\Webhook;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;

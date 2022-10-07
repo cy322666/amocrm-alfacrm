@@ -105,6 +105,13 @@ return [
             'days' => 14,
         ],
 
+        'getcourse' => [
+            'driver' => 'daily',
+            'path'  => storage_path('logs/getcourse/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
         //TODO
         'critical' => [
 //            'driver' => 'daily',

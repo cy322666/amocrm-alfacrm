@@ -20,6 +20,7 @@ class Webhook extends Model
         'platform',
         'uuid',
         'user_id',
+        'params',
     ];
 
     public function user()
@@ -35,5 +36,10 @@ class Webhook extends Model
     public function alfaSetting()
     {
         return $this->belongsTo(Setting::class, 'setting_id', 'id');
+    }
+
+    public function getcourseSetting()
+    {
+        return $this->belongsTo(\App\Models\GetCourse\Setting::class, 'setting_id', 'id');
     }
 }

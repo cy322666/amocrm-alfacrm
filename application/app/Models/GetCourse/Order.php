@@ -23,6 +23,7 @@ class Order extends Model
         'payed_money',
         'order_status',
         'status',
+        'status_order',
         'webhook_id',
         'user_id',
         'lead_id',

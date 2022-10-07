@@ -299,8 +299,7 @@ class BizonSettingScreen extends Screen
             $this->setting->staff_id_hot  = $request->staffHot;
             $this->setting->active  = $request->active ?? false;
 
-            if ($this->setting->save() &&
-                $this->bizonAccount->save()) {
+            if ($this->setting->save() && $this->bizonAccount->save()) {
 
                 Toast::success($request->get('toast', 'Успешно'));
             } else {
@@ -309,8 +308,9 @@ class BizonSettingScreen extends Screen
 
         } catch (\Exception $exception) {
 
-            Toast::error($request->get('toast', $exception->getMessage()));
-//            Toast::error($request->get('toast', 'Произошла ошибка при сохранении'));
+            Toast::error($request->get('toast', 'Произошла ошибка при сохранении'));
+
+            Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
         }
     }
 
@@ -328,7 +328,7 @@ class BizonSettingScreen extends Screen
 
             Log::error(__METHOD__.' : '.Auth::user()->email.' '.$exception->getMessage());
 
-            Alert::error('Ошибка обновления');
+            Alert::error('Произошла ошибка');
         }
     }
 
@@ -343,7 +343,7 @@ class BizonSettingScreen extends Screen
 
             Toast::error($request->get('toast', 'Произошла ошибка'));
 
-//            Log::channel('bizon')->error(.Auth::user()->email.' '.$exception->getMessage());
+            Log::channel('bizon')->error(Auth::user()->email.' '.$exception->getMessage());
         }
     }
 

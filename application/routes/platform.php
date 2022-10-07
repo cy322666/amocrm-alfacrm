@@ -22,7 +22,6 @@ use App\Orchid\Screens\AccountIndexScreen;
 
 use App\Orchid\Screens\GetCourse\FormsScreen;
 use App\Orchid\Screens\GetCourse\OrdersScreen;
-use App\Orchid\Screens\GetCourse\PaymentsScreen;
 use App\Orchid\Screens\GetCourse\SettingScreen;
 
 /*
@@ -55,7 +54,6 @@ Route::screen('bizon/settings', \App\Orchid\Screens\Bizon\BizonSettingScreen::cl
 /* GETCOURSE */
 
 Route::screen('getcourse/orders',   OrdersScreen::class)->name('getcourse.orders');
-Route::screen('getcourse/payments', PaymentsScreen::class)->name('getcourse.payments');
 Route::screen('getcourse/forms',    FormsScreen::class)->name('getcourse.forms');
 Route::screen('getcourse/settings', SettingScreen::class)->name('getcourse.settings');
 

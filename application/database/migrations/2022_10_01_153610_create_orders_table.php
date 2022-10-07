@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string('left_cost_money')->nullable();
             $table->string('cost_money')->nullable();
             $table->string('payed_money')->nullable();
-            $table->string('order_status')->nullable();
             $table->integer('status')->default(0);
+            $table->string('status_order')->nullable();
 
             $table->integer('lead_id')->nullable();
             $table->integer('contact_id')->nullable();

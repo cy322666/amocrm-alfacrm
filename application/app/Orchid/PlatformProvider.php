@@ -68,11 +68,6 @@ class PlatformProvider extends OrchidServiceProvider
                         ->icon('clock')
                         ->route('getcourse.orders'),
 
-                    Menu::make('Платежи')
-                        ->icon('list')
-                        ->icon('clock')
-                        ->route('getcourse.payments'),
-
                     Menu::make('Регистрации')
                         ->icon('list')
                         ->icon('clock')

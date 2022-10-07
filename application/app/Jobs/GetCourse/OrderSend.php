@@ -21,14 +21,17 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    private Setting $setting;
+
     public function __construct(
         public Webhook $webhook,
         public Order $order,
-        public Setting $setting,
         public User $user,
     )
     {
         $this->onQueue('getcourse_order');
+
+        $this->setting = $user->getcourseSetting;
     }
 
     /**

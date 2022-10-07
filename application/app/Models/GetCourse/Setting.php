@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Webhook;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 use Ramsey\Uuid\Uuid;
 
 class Setting extends Model
@@ -21,6 +22,9 @@ class Setting extends Model
         'status_id_order',
         'status_id_order_close',
         'active',
+        'response_user_id_default',
+        'response_user_id_form',
+        'response_user_id_order',
     ];
 
     public function webhooks()
@@ -35,12 +39,7 @@ class Setting extends Model
 
     public function orders()
     {
-        return $this->hasMany(Order::class);
-    }
-
-    public function payments()
-    {
-        return $this->hasMany(Payment::class);
+        return $this->belongsTo(Order::class);
     }
 
     public function createWebhooks(User $user)
@@ -54,17 +53,7 @@ class Setting extends Model
             'type'     => 'status_form',
             'platform' => 'getcourse',
             'uuid'     => Uuid::uuid4(),
-        ]);
-
-        $this->webhooks()->create([
-            'user_id'  => $user->id,
-            'app_name' => 'getcourse',
-            'app_id'   => 3,
-            'active'   => true,
-            'path'     => 'getcourse.payment',
-            'type'     => 'status_payment',
-            'platform' => 'getcourse',
-            'uuid'     => Uuid::uuid4(),
+            'params'   => Config::get('services.getcourse.wh_form_params')
         ]);
 
         $this->webhooks()->create([
@@ -76,6 +65,7 @@ class Setting extends Model
             'type'     => 'status_order',
             'platform' => 'getcourse',
             'uuid'     => Uuid::uuid4(),
+            'params'   => Config::get('services.getcourse.wh_order_params')
         ]);
     }
 }

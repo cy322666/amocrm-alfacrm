@@ -20,13 +20,11 @@ return new class extends Migration
             $table->integer('user_id')->nullable();
 
             $table->string('status_id_form')->nullable();
-            $table->string('status_id_payment')->nullable();
             $table->string('status_id_order')->nullable();
             $table->string('status_id_order_close')->nullable();
 
             $table->integer('response_user_id_default')->nullable();
             $table->integer('response_user_id_form')->nullable();
-            $table->integer('response_user_id_payment')->nullable();
             $table->integer('response_user_id_order')->nullable();
 
             $table->boolean('active')->default(false);
