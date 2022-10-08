@@ -1,9 +1,10 @@
 FROM ubuntu:20.04
 
-RUN apt-get update && apt-get install supervisor -y
+RUN apt-get update
 
 RUN apt install lsb-release ca-certificates apt-transport-https software-properties-common -y
 RUN add-apt-repository ppa:ondrej/php
+RUN apt-get install cron -y
 
 RUN apt install php8.1 -y
 RUN apt install php8.1-pgsql -y \
@@ -18,9 +19,6 @@ RUN apt install php8.1-pgsql -y \
     php8.1-zip \
     php8.1-mbstring
 
-COPY files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-#COPY files/worker.conf /etc/supervisor/conf.d/worker.conf
+COPY files/root /var/spool/cron/crontabs/root
 
-EXPOSE 8008
-
-CMD ["/usr/bin/supervisord"]
+ENTRYPOINT ["cron", "-f"]

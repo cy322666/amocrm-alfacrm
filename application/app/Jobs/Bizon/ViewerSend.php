@@ -70,7 +70,7 @@ class ViewerSend implements ShouldQueue, ShouldBeUnique
         private User $user,
     )
     {
-//        $this->onQueue('bizon_export');
+        $this->onQueue('bizon_export');
     }
 
     /**

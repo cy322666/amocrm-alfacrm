@@ -9,6 +9,7 @@ services:
         links:
             - postgresql
             - supervisor
+            - crontab
             - redis
         networks:
             - cluster
@@ -40,14 +41,20 @@ services:
             - cluster
         restart: always
     supervisor:
-        build: docker/images/supervisor
+        build: ./docker/images/supervisor
         restart: unless-stopped
         volumes:
             - ./application:/app
+            - ./docker/images/supervisor/files:/etc/supervisor/conf.d/
         ports:
             - "8008:8008"
         networks:
             - cluster
+    crontab:
+        build: ./docker/images/crontab
+        ports:
+            - "8009:8009"
+        restart: always
 networks:
     cluster:
         name: cluster

@@ -16,6 +16,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class OrderSend implements ShouldQueue, ShouldBeUnique
 {
@@ -34,6 +35,11 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
         $this->setting = $user->getcourseSetting;
     }
 
+    public function tags()
+    {
+        return ['render', 'getcourse_order:'.$this->order->id];
+    }
+
     /**
      * Execute the job.
      *
@@ -41,6 +47,8 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
      */
     public function handle(): bool
     {
+        Log::channel('getcourse')->info('запуск getcourse order job '.$this->order->id);
+
         try {
             $manager = (new GetCourseManager($this->webhook));
 
@@ -99,6 +107,8 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
 
             return false;
         }
+
+        Log::channel('getcourse')->info('конец getcourse order job '.$this->order->id);
 
         return true;
     }

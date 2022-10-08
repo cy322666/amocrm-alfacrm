@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Api\GetCourse\OrderRequest;
-use App\Http\Requests\Api\GetCourse\PaymentRequest;
 use App\Http\Requests\Api\GetCourse\SiteRequest;
 use App\Jobs\GetCourse\FormSend;
 use App\Jobs\GetCourse\OrderSend;
-use App\Jobs\GetCourse\PaymentSend;
 use App\Models\Webhook;
 use Illuminate\Support\Facades\Log;
 
@@ -51,6 +49,8 @@ class GetCourseController extends Controller
                         'user_id'    => $user->id,
                     ])
                 );
+
+            Log::channel('getcourse')->info(__METHOD__.' > ставим в очередь order id : '.$order->id);
 
             OrderSend::dispatch($webhook, $order, $user);
 
