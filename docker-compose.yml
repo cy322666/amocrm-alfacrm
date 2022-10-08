@@ -9,7 +9,6 @@ services:
         links:
             - postgresql
             - supervisor
-            - crontab
             - redis
         networks:
             - cluster
@@ -50,11 +49,6 @@ services:
             - "8008:8008"
         networks:
             - cluster
-    crontab:
-        build: ./docker/images/crontab
-        ports:
-            - "8009:8009"
-        restart: always
 networks:
     cluster:
         name: cluster

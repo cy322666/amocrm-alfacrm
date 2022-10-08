@@ -30,13 +30,10 @@ class AlfaCRMManager
 
         $this->amoAccount = $user->amoAccount();
 
-        try {
+        $this->amoApi = (new amoApi($this->amoAccount));
+        $this->amoApi->init();
 
-            $this->amoApi = (new amoApi($this->amoAccount))->init();
-
-        } catch (\Throwable $exception) {
-
-            Log::error(__METHOD__.' : '.$exception->getMessage());
+        if ($this->amoApi->auth == false) {
 
             $user->notify(new amoCRMAuthException());
         }
