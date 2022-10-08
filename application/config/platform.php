@@ -113,7 +113,7 @@ return [
             '/platform/app.css',
         ],
         'scripts'     => [
-//            'https://www.amocrm.ru/auth/button.min.js',
+            '/platform/site/chat.js',
         ],
     ],
 
