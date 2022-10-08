@@ -1,6 +1,6 @@
-@guest
-{{--    <p>BLACK <span class="me-1">🖤</span> CLEVER</p>--}}
-@else
+{{--<p>BLACK CLEVER</p>--}}
+
+@include('chat')
 
 {{--    <div class="text-center user-select-none">--}}
 {{--        <p class="small m-0">--}}
@@ -10,5 +10,4 @@
 {{--            </a>--}}
 {{--        </p>--}}
 {{--    </div>--}}
-@endguest
-<?php
+

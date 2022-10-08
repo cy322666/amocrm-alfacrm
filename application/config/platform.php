@@ -113,7 +113,6 @@ return [
             '/platform/app.css',
         ],
         'scripts'     => [
-            '/platform/site/chat.js',
         ],
     ],
 
