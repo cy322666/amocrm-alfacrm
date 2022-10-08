@@ -4,10 +4,11 @@ namespace App\Models\GetCourse;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Screen\AsSource;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, AsSource;
 
     protected $table = 'getcourse_orders';
 

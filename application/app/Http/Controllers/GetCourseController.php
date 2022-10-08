@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class GetCourseController extends Controller
 {
-    public function form(Webhook $webhook, SiteRequest $request)
+    public function forms(Webhook $webhook, SiteRequest $request)
     {
         try {
             $user = $webhook->user;
@@ -19,12 +19,15 @@ class GetCourseController extends Controller
             $setting = $user->getcourseSetting;
 
             $form = $setting->forms()->create($request->toArray());
+            $form->webhook_id = $webhook->id;
+            $form->user_id    = $user->id;
+            $form->save();
 
-            FormSend::dispatch($webhook, $form, $setting, $user);
+            FormSend::dispatch($webhook, $form->refresh(), $setting, $user);
 
         } catch (\Throwable $exception) {
 
-
+            dd($exception->getMessage().' '.$exception->getFile().' '.$exception->getLine());
         }
     }
 
@@ -52,7 +55,7 @@ class GetCourseController extends Controller
 
             Log::channel('getcourse')->info(__METHOD__.' > ставим в очередь order id : '.$order->id);
 
-            OrderSend::dispatch($webhook, $order, $user);
+            OrderSend::dispatch($webhook, $order->refresh(), $user);
 
         } catch (\Throwable $exception) {
 

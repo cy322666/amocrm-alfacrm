@@ -9,7 +9,7 @@ RUN apt install php8.1 -y
 RUN apt install php8.1-pgsql -y \
     php8.1-gd \
     php8.1-fpm \
-#    php8.1-cli \
+    php8.1-curl \
     php8.1-common \
     php8.1-imap \
     php8.1-redis \

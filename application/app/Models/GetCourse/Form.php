@@ -4,10 +4,11 @@ namespace App\Models\GetCourse;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Screen\AsSource;
 
 class Form extends Model
 {
-    use HasFactory;
+    use HasFactory, AsSource;
 
     protected $table = 'getcourse_forms';
 
@@ -28,9 +29,9 @@ class Form extends Model
         $note = [
             "Информация о заявке",
             '----------------------',
-            ' - Имя : ' . $this->form->name,
-            ' - Телефон : ' . $this->form->phone,
-            ' - Почта : ' . $this->form->email,
+            ' - Имя : ' . $this->name,
+            ' - Телефон : ' . $this->phone,
+            ' - Почта : ' . $this->email,
         ];
         return implode("\n", $note);
     }

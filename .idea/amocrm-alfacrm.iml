@@ -129,6 +129,7 @@
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/predis/predis" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/polyfill-uuid" />
       <excludeFolder url="file://$MODULE_DIR$/application/vendor/symfony/uid" />
+      <excludeFolder url="file://$MODULE_DIR$/application/vendor/curl/curl" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

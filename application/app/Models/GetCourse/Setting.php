@@ -34,7 +34,7 @@ class Setting extends Model
 
     public function forms()
     {
-        return $this->hasMany(Form::class);
+        return $this->belongsTo(Form::class);
     }
 
     public function orders()

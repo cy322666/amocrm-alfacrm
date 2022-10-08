@@ -39,7 +39,7 @@ class FormSend implements ShouldQueue, ShouldBeUnique
 
     public function tags()
     {
-        return ['render', 'getcourse_form:'.$this->form->id];
+        return [$this->user->email, 'getcourse_form:'.$this->form->id];
     }
 
     /**
@@ -69,7 +69,7 @@ class FormSend implements ShouldQueue, ShouldBeUnique
                 $contact = Contacts::create($amoApi, $this->form->name);
 
                 $contact = Contacts::update($contact, [
-                    'Телефоны' => $this->form->phone,
+                    'Телефоны' => [$this->form->phone],
                     'Почта'    => $this->form->email,
                 ]);
             }
@@ -98,6 +98,7 @@ class FormSend implements ShouldQueue, ShouldBeUnique
 
             $this->form->contact_id = $contact->id;
             $this->form->lead_id = $lead->id;
+            $this->form->status = 1;
             $this->form->save();
 
             Notes::addOne($lead, $this->form->text());

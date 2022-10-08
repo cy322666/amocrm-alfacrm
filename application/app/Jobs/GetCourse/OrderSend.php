@@ -35,16 +35,11 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
         $this->setting = $user->getcourseSetting;
     }
 
-    public function tags()
+    public function tags(): array
     {
-        return ['render', 'getcourse_order:'.$this->order->id];
+        return [$this->user->email, 'getcourse_order:'.$this->order->id];
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return false
-     */
     public function handle(): bool
     {
         Log::channel('getcourse')->info('запуск getcourse order job '.$this->order->id);
@@ -56,6 +51,7 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
             $account = $manager->amoAccount;
 
             $responsibleId = $this->setting->responsible_user_id_order ?? $this->setting->responsible_user_id_default;
+            $statusId = $this->setting->status_id_order ?? $this->setting->status_id_default;
 
             $contact = Contacts::search([
                 'Телефоны' => [$this->order->phone],
@@ -67,8 +63,9 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
                 $contact = Contacts::create($amoApi, $this->order->name);
 
                 $contact = Contacts::update($contact, [
-                    'Телефоны' => $this->order->phone,
+                    'Телефоны' => [$this->order->phone],
                     'Почта'    => $this->order->email,
+                    'Ответственный' => $responsibleId,
                 ]);
             }
 
@@ -84,8 +81,8 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
             if (empty($lead)) {
 
                 $lead = Leads::create($contact, [
-                    'status_id' => $this->setting->status_id_order,
-                    'responsible_user_id' => $responsibleId,
+                    'status_id' => $statusId,
+                    'responsible_user_id' => $contact->responsible_user_id,
                 ], 'Новый заказ GetCourse');
 
             } else {
@@ -96,13 +93,14 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
 
             $this->order->contact_id = $contact->id;
             $this->order->lead_id = $lead->id;
+            $this->order->status = 1;
             $this->order->save();
 
             Notes::addOne($lead, $this->order->text());
 
         } catch (\Throwable $exception) {
 
-            $this->order->error = $exception->getMessage();
+            $this->order->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
             $this->order->save();
 
             return false;
