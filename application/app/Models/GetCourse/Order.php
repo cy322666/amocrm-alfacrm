@@ -24,6 +24,7 @@ class Order extends Model
         'payed_money',
         'order_status',
         'status',
+        'payment_link',
         'status_order',
         'webhook_id',
         'user_id',
@@ -47,6 +48,7 @@ class Order extends Model
             ' - Оплачено : ' . $this->payed_money,
             ' - Осталось заплатить : ' . $this->left_cost_money,
             ' - Статус заказа : ' . $this->status_order,
+            ' - Ссылка : ' . $this->payment_link,
         ];
         return implode("\n", $note);
     }
