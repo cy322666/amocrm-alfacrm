@@ -1,6 +1,7 @@
 FROM php:8.1-cli-alpine
 
-WORKDIR /app
+
+WORKDIR /var/www/html/
 
 # PHP: Copy configuration files & remove dist files
 #RUN mkdir /phpIni
@@ -50,13 +51,13 @@ RUN apk add --no-cache nodejs npm && \
     npm install -g chokidar
 
 ENV SWOOLE_MAX_REQUESTS "100"
-ENV SWOOLE_TASK_WORKERS "3"
+ENV SWOOLE_TASK_WORKERS "1"
 ENV SWOOLE_WATCH $true
-ENV SWOOLE_WORKERS "50"
+ENV SWOOLE_WORKERS "10"
 
-RUN chown -R www-data:www-data /app
+RUN chown -R www-data:www-data /var/www/html/
 
-#RUN chmod -R 777 storage/
+#RUN chmod -R 777 /storage
 
 COPY ./start.sh /
 RUN chmod +x /start.sh

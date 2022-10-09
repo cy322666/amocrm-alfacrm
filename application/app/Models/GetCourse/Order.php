@@ -40,13 +40,13 @@ class Order extends Model
             ' - Имя : ' . $this->name,
             ' - Телефон : ' . $this->phone,
             ' - Почта : ' . $this->email,
-            ' - № Number : ' . $this->number,
-            ' - № Заказа : ' . $this->order_id,
-            ' - Позиции : ' . $this->positions,
-            ' - Сумма : ' . $this->cost_money,
+            ' - Номер заказа : ' . $this->number,
+            ' - ID Заказа : ' . $this->order_id,
+            ' - Название тарифа : ' . $this->positions,
+            ' - Стоимость тарифа : ' . $this->cost_money,
             ' - Оплачено : ' . $this->payed_money,
-            ' - Осталось : ' . $this->left_cost_money,
-            ' - Статус : ' . $this->order_status,
+            ' - Осталось заплатить : ' . $this->left_cost_money,
+            ' - Статус заказа : ' . $this->status_order,
         ];
         return implode("\n", $note);
     }

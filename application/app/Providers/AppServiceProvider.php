@@ -32,12 +32,12 @@ class AppServiceProvider extends ServiceProvider
     {
         DB::listen(function ($query) {
 
-            Log::channel('query')->debug('>', [
-                    $query->sql,
-                    $query->bindings,
-                    $query->time,
-                ]
-            );
+//            Log::channel('query')->debug('>', [
+//                    $query->sql,
+//                    $query->bindings,
+//                    $query->time,
+//                ]
+//            );
         });
     }
 }

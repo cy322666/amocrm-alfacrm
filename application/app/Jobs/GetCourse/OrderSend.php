@@ -58,24 +58,21 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
                 'Почта'    => $this->order->email,
             ], $amoApi);
 
-            if ($contact !== null) {
+            if ($contact == null) {
 
                 $contact = Contacts::create($amoApi, $this->order->name);
-
-                $contact = Contacts::update($contact, [
-                    'Телефоны' => [$this->order->phone],
-                    'Почта'    => $this->order->email,
-                    'Ответственный' => $responsibleId,
-                ]);
             }
+
+            $contact = Contacts::update($contact, [
+                'Телефоны' => [$this->order->phone],
+                'Почта'    => $this->order->email,
+                'Ответственный' => $responsibleId,
+            ]);
 
             $lead = $contact->leads->filter(function ($lead) {
 
-                if ($lead->status_id !== 142 &&
-                    $lead->status_id !== 143) {
+                return $lead->status_id !== 142 && $lead->status_id !== 143;
 
-                    return $lead;
-                }
             })?->first();
 
             if (empty($lead)) {

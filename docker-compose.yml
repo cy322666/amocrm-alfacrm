@@ -41,9 +41,10 @@ services:
         restart: always
     supervisor:
         build: ./docker/images/supervisor
+        working_dir: /var/www/html
         restart: unless-stopped
         volumes:
-            - ./application:/app
+            - ./application:/var/www/html
             - ./docker/images/supervisor/files:/etc/supervisor/conf.d/
         ports:
             - "8008:8008"
