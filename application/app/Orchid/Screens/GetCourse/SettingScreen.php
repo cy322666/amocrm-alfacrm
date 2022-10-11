@@ -53,6 +53,7 @@ class SettingScreen extends Screen
         }
 
         return [
+            'amoApi'    => $this->amoApi,
             'setting'   => $this->setting,
             'staffs'    => $this->amoAccount->amoStaffs,
             'pipelines' => $this->amoAccount->amoPipelines,
@@ -201,8 +202,6 @@ class SettingScreen extends Screen
     public function updateStatuses()
     {
         try {
-            $this->amoApi = (new AmoApi($this->amoAccount));
-
             Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
 
             Toast::success('Успешно обновлено');
@@ -221,8 +220,6 @@ class SettingScreen extends Screen
     public function updateStaffs(Request $request)
     {
         try {
-            $this->amoApi = (new AmoApi($this->amoAccount));
-
             Staff::updateStaffs($this->amoApi, $this->amoAccount);
 
             Toast::success($request->get('toast', 'Успешно'));
