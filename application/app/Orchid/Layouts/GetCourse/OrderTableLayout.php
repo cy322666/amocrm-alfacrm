@@ -47,8 +47,8 @@ class OrderTableLayout extends Table
             TD::make('left_cost_money', 'Осталось')->defaultHidden(),
             TD::make('cost_money', 'Бюджет'),
             TD::make('payed_money', 'Оплачено'),
-            TD::make('payment_status', 'Статус заказа'),
-//            TD::make('link', 'Ссылка на платеж')->defaultHidden(),
+            TD::make('link', 'Ссылка')->defaultHidden(),
+            TD::make('order_status', 'Статус заказа'),
             TD::make('contact_id', 'ID контакта')
                 ->render(function (Order $order) use ($subdomain) {
 
