@@ -10,6 +10,7 @@ use App\Models\Webhook;
 use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
 use App\Orchid\Layouts\Bizon\Staffs;
 use App\Services\amoCRM\Client as amoApi;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -38,9 +39,12 @@ class SettingScreen extends Screen
     public Webhook $whForm;
     public Webhook $whOrder;
 
+    /**
+     * @throws Exception
+     */
     public function query(): iterable
     {
-        $this->amoAccount   = Auth::user()->amoAccount();
+        $this->amoAccount = Auth::user()->amoAccount();
 
         $this->setting = Auth::user()->getcourseSetting;
 
@@ -53,7 +57,6 @@ class SettingScreen extends Screen
         }
 
         return [
-            'amoApi'    => $this->amoApi,
             'setting'   => $this->setting,
             'staffs'    => $this->amoAccount->amoStaffs,
             'pipelines' => $this->amoAccount->amoPipelines,
@@ -202,11 +205,16 @@ class SettingScreen extends Screen
     public function updateStatuses()
     {
         try {
-            Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
+            $account = Auth::user()->amoAccount();
+
+            $this->amoApi = (new AmoApi($account));
+            $this->amoApi->init();
+
+            Pipeline::updateStatuses($this->amoApi, $account);
 
             Toast::success('Успешно обновлено');
 
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
 
             $this->setting->active = false;
             $this->setting->save();
@@ -217,16 +225,21 @@ class SettingScreen extends Screen
         }
     }
 
-    public function updateStaffs(Request $request)
+    public function updateStaffs()
     {
         try {
-            Staff::updateStaffs($this->amoApi, $this->amoAccount);
+            $account = Auth::user()->amoAccount();
 
-            Toast::success($request->get('toast', 'Успешно'));
+            $this->amoApi = (new AmoApi($account));
+            $this->amoApi->init();
 
-        } catch (\Exception $exception) {
+            Staff::updateStaffs($this->amoApi, $account);
 
-            Toast::error($request->get('toast', 'Произошла ошибка'));
+            Toast::success('Успешно');
+
+        } catch (Exception $exception) {
+
+            Toast::error('Произошла ошибка');
 
             Log::channel('getcourse')->error(Auth::user()->email.' '.$exception->getMessage());
         }
@@ -235,6 +248,7 @@ class SettingScreen extends Screen
     public function save(Request $request)
     {
         try {
+            $this->setting = Auth::user()->getcourseSetting;
             $this->setting->fill($request->toArray()['setting']);
             $this->setting->save();
 

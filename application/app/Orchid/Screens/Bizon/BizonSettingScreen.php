@@ -13,6 +13,7 @@ use App\Orchid\Layouts\AlfaCRM\Settings\Statuses;
 use App\Orchid\Layouts\Bizon\Staffs;
 use App\Orchid\Screens\ScreenHelper;
 use App\Services\amoCRM\Client;
+use App\Services\amoCRM\Client as amoApi;
 use Illuminate\Auth\SessionGuard;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store;
@@ -34,7 +35,6 @@ use Orchid\Support\Color;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
-use App\Services\amoCRM\Client as amoApi;
 
 class BizonSettingScreen extends Screen
 {
@@ -278,6 +278,9 @@ class BizonSettingScreen extends Screen
     public function save(Request $request)
     {
         try {
+            $this->amoAccount   = Auth::user()->amoAccount();
+            $this->bizonAccount = Auth::user()->bizonAccount();
+
             $this->bizonAccount->access_token = $request->token;
 
             if ($request->token)
@@ -317,7 +320,12 @@ class BizonSettingScreen extends Screen
     public function updateStatuses()
     {
         try {
-            Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
+            $account = Auth::user()->amoAccount();
+
+            $this->amoApi = (new AmoApi($account));
+            $this->amoApi->init();
+
+            Pipeline::updateStatuses($this->amoApi, $account);
 
             Toast::success('Успешно обновлено');
 
@@ -335,7 +343,12 @@ class BizonSettingScreen extends Screen
     public function updateStaffs(Request $request)
     {
         try {
-            Staff::updateStaffs($this->amoApi, $this->amoAccount);
+            $account = Auth::user()->amoAccount();
+
+            $this->amoApi = (new AmoApi($account));
+            $this->amoApi->init();
+
+            Staff::updateStaffs($this->amoApi, $account);
 
             Toast::success($request->get('toast', 'Успешно'));
 

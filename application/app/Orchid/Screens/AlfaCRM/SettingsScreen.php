@@ -480,7 +480,12 @@ class SettingsScreen extends Screen
     public function updateFieldsAmo()
     {
         try {
-            Field::updateFields($this->amoApi, $this->amoAccount);
+            $account = Auth::user()->amoAccount();
+
+            $this->amoApi = (new AmoApi($account));
+            $this->amoApi->init();
+
+            Field::updateFields($this->amoApi, $account);
 
             Toast::success('Успешно обновлено');
 
@@ -498,7 +503,12 @@ class SettingsScreen extends Screen
     public function updateStatusesAmo()
     {
         try {
-            Pipeline::updateStatuses($this->amoApi, $this->amoAccount);
+            $account = Auth::user()->amoAccount();
+
+            $this->amoApi = (new AmoApi($account));
+            $this->amoApi->init();
+
+            Pipeline::updateStatuses($this->amoApi, $account);
 
             Toast::success('Успешно обновлено');
 
