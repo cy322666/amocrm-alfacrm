@@ -31,9 +31,9 @@ use Orchid\Support\Facades\Toast;
 
 class SettingScreen extends Screen
 {
-    private Account $amoAccount;
-    private amoApi $amoApi;
-    private Setting $setting;
+    public Account $amoAccount;
+    public amoApi $amoApi;
+    public Setting $setting;
 
     public Webhook $whForm;
     public Webhook $whOrder;
