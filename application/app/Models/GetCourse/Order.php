@@ -36,7 +36,7 @@ class Order extends Model
     public function text(): string
     {
         $note = [
-            "Информация о заявке",
+            "Информация о заказе",
             '----------------------',
             ' - Имя : ' . $this->name,
             ' - Телефон : ' . $this->phone,
