@@ -57,8 +57,6 @@ ENV SWOOLE_WORKERS "10"
 
 RUN chown -R www-data:www-data /var/www/html/
 
-#RUN chmod -R 777 /storage
-
 COPY ./start.sh /
 RUN chmod +x /start.sh
 ENTRYPOINT ["/start.sh"]
