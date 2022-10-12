@@ -12,7 +12,8 @@
 
                 <div class="card col-md-4 col-8 my-auto px-4 py-sm-3">
                     <div class="col-md-12 col-6 my-auto">
-                        <form>
+                        <form method="post">
+                            {{ csrf_field() }}
                             <div class="input-group input-group-static mb-4">
                                 <label>Имя</label>
                                 <input type="text" name="name" class="form-control" placeholder="">
