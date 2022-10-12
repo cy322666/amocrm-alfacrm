@@ -45,14 +45,8 @@
                     </div>
 
                     <div class="col-lg-6 ms-auto">
-                        <div class="row justify-content-start">
-                            <div class="col-md-6">
-                                <div class="info">
-                                    <i class="material-icons text-gradient text-primary text-3xl">fast_forward</i>
-                                    <h5 class="font-weight-bolder mt-3">Скорость</h5>
-                                    <p class="pe-5">Работа с клиентами осуществляется быстрее, за счет оптимизированных бизнес-процессов и их автоматизации</p>
-                                </div>
-                            </div>
+
+                        <div class="row justify-content-start mt-5">
                             <div class="col-md-6">
                                 <div class="info">
                                     <i class="material-icons text-gradient text-primary text-3xl">border_style</i>
@@ -60,20 +54,10 @@
                                     <p class="pe-3">Система позволяет мониторить действия менеджеров вплоть до клика в режиме реального времени</p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row justify-content-start mt-5">
-                            <div class="col-md-6 mt-3">
+                            <div class="col-md-6">
                                 <i class="material-icons text-gradient text-primary text-3xl">auto_graph</i>
                                 <h5 class="font-weight-bolder mt-3">Эффективность</h5>
                                 <p class="pe-5">Согласно исследованиям, эффективность отдела повышается в среднем на 40%. Также в разы возрастает количество клиентов на одного менеджера</p>
-                            </div>
-                            <div class="col-md-6 mt-3">
-                                <div class="info">
-                                    <i class="material-icons text-gradient text-primary text-3xl">equalizer</i>
-                                    <h5 class="font-weight-bolder mt-3">Аналитика</h5>
-                                    <p class="pe-3">Не выходя из amoCRM можно строить отчеты по многим показателям, которые ранее не были доступны</p>
-                                </div>
                             </div>
                         </div>
 
@@ -93,6 +77,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
 
                     <div class="container mt-sm-5">
@@ -154,6 +139,26 @@
                 </div>
             </div>
 
+            <section class="my-3">
+                <div class="container">
+                    <div class="row pt-4">
+                        <div class="col-md-5 col-12 my-auto">
+                            <img class="w-70 border-radius-lg shadow-lg" src={{ asset("site/img/staffs/slava.jpeg") }} alt="Product" alt="">
+                        </div>
+                        <div class="col-md-7 col-12 my-auto">
+                            <h3 class="text-gradient text-primary mb-0">Основатель</h3>
+                            <h3>Вячеслав Трофимов</h3>
+                            <p class="pe-md-5 mb-4">
+                             "В наше неспокойное время DIGITAL`изации, автоматизация бизнеса становится не просто преимуществом, а средством выживания компании. Мы в этом помогаем"
+                            </p>
+                            <div class="github-buttons">
+                                <a href="#contact-form" class="btn btn-md  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">Связаться</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <div class="container mt-sm-5 mt-3 my-5">
                 <div class="row">
                     <div class="col-lg-6 ms-auto">
@@ -211,14 +216,14 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6 col-12 mt-n5">
                                             <div class="p-3 pe-md-0">
-                                                <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/slava.jpeg") }} alt="image">
+                                                <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/kris.jpeg") }} alt="image">
                                             </div>
                                         </div>
                                         <div class="col-lg-8 col-md-6 col-12 my-auto">
                                             <div class="card-body ps-lg-0">
-                                                <h5 class="mb-0">Вячеслав</h5>
-                                                <h6 class="text-rose">Основатель</h6>
-                                                <p class="mb-0">Бэкенд разработчик и аналитик со стажем более 5 лет в сфере СРМ систем. Умеет все, что касается amoCRM</p>
+                                                <h5 class="mb-0">Кристина</h5>
+                                                <h6 class="text-rose">Руководитель отдела внедрения</h6>
+                                                <p class="mb-0">Несколько лет работы в сфере СРМ. Экспертные компетенции в Мой склад и Sensei</p>
                                             </div>
                                         </div>
                                     </div>
@@ -230,15 +235,15 @@
                                         <div class="col-lg-4 col-md-6 col-12 mt-n5">
                                             <a href="javascript:;">
                                                 <div class="p-3 pe-md-0">
-                                                    <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/kris.jpeg") }} alt="image">
+                                                    <img class="w-80 border-radius-md shadow-lg" src={{ asset("site/img/staffs/bot.png") }} alt="image">
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="col-lg-8 col-md-6 col-12 my-auto">
                                             <div class="card-body ps-lg-0">
-                                                <h5 class="mb-0">Кристина</h5>
-                                                <h6 class="text-rose">Руководитель отдела внедрения</h6>
-                                                <p class="mb-0">Несколько лет работы в сфере СРМ. Помимо технических и аналитических скиллов, прокачала компетенции в Мой склад и Sensei</p>
+                                                <h5 class="mb-0">CLEVER</h5>
+                                                <h6 class="text-rose">Супер помощник</h6>
+                                                <p class="mb-0">Помогает в рутинных задачах. Никогда не спит и не просит денег</p>
                                             </div>
                                         </div>
                                     </div>
