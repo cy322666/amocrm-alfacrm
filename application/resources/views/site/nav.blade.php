@@ -4,7 +4,7 @@
             <nav class="navbar navbar-expand-lg  blur border-radius-xl top-0 z-index-fixed shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                 <div class="container-fluid">
                     <a class="navbar-brand font-weight-bolder ms-sm-3" href="{{ route('site') }}" rel="tooltip" data-placement="bottom" target="_blank">
-                        BLACK CLEVER
+                        CLEVER
                     </a>
                     <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon mt-2">

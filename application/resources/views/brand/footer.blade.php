@@ -1,4 +1,3 @@
-{{--<p>BLACK CLEVER</p>--}}
 
 @include('chat')
 

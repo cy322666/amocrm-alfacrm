@@ -11,7 +11,7 @@
 {{--    <link rel="apple-touch-icon" sizes="76x76" href={{ asset("site/img/apple-icon.png") }}>--}}
 {{--    <link rel="icon" type="image/png" href={{ asset("site/img/favicon.png") }}>--}}
 
-    <title>Black Clever</title>
+    <title>Clever</title>
 </head>
 
 <body class="sign-in-basic">

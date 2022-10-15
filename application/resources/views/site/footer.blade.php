@@ -42,7 +42,7 @@
             <div class="col-12">
                 <div class="text-center">
                     <p class="text-dark my-4 text-sm font-weight-normal">
-                        All rights reserved. Copyright © <script>document.write(new Date().getFullYear())</script> Black Clever.
+                        All rights reserved. Copyright © <script>document.write(new Date().getFullYear())</script> Clever.
                     </p>
                 </div>
             </div>
