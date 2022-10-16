@@ -1,12 +1,11 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\AlfaCRMController;
 use App\Http\Controllers\Auth\amoCRMController;
 use App\Http\Controllers\BizonController;
 use App\Http\Controllers\GetCourseController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,5 +55,15 @@ Route::prefix('getcourse')->group(function () {
 
         Route::get('orders/{webhook:uuid}', [GetCourseController::class, 'orders'])
             ->name('getcourse.api.order');
+    });
+});
+
+/* TILDA */
+Route::prefix('tilda')->group(function () {
+
+    Route::middleware(['api.tilda'])->group(function () {
+
+        Route::get('sites/{webhook:uuid}', [GetCourseController::class, 'sites'])
+            ->name('tilda.api.sites');
     });
 });

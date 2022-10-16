@@ -67,49 +67,56 @@ return [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
         ],
 
         'memory' => [
             'driver' => 'daily',
             'path'  => storage_path('logs/memory/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
         ],
 
         'requests' => [
             'driver' => 'daily',
             'path'  => storage_path('logs/requests/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
         ],
 
         'query' => [
             'driver' => 'daily',
             'path'  => storage_path('logs/queries/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
         ],
 
         'bizon' => [
             'driver' => 'daily',
             'path'  => storage_path('logs/bizon/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
         ],
 
         'alfacrm' => [
             'driver' => 'daily',
             'path'  => storage_path('logs/alfacrm/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
         ],
 
         'getcourse' => [
             'driver' => 'daily',
             'path'  => storage_path('logs/getcourse/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
-            'days' => 14,
+            'days' => 7,
+        ],
+
+        'tilda' => [
+            'driver' => 'daily',
+            'path'  => storage_path('logs/tilda/laravel.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 7,
         ],
 
         //TODO
