@@ -277,7 +277,7 @@
                                         <div class="col-lg-4 col-md-6 col-12 mt-n5">
                                             <a href="javascript:;">
                                                 <div class="p-3 pe-md-0">
-                                                    <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/egor.jpeg") }} alt="image">
+                                                    <img class="w-100 border-radius-md shadow-lg" src={{ asset("site/img/staffs/egor.jpg") }} alt="image">
                                                 </div>
                                             </a>
                                         </div>
