@@ -16,7 +16,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class OrderSend implements ShouldQueue, ShouldBeUnique
 {
@@ -42,8 +41,6 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
 
     public function handle(): bool
     {
-        Log::channel('getcourse')->info('запуск getcourse order job '.$this->order->id);
-
         try {
             $manager = (new GetCourseManager($this->webhook));
 
@@ -51,7 +48,12 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
             $account = $manager->amoAccount;
 
             $responsibleId = $this->setting->responsible_user_id_order ?? $this->setting->responsible_user_id_default;
-            $statusId = $this->setting->status_id_order ?? $this->setting->status_id_default;
+
+            if ($this->order->payed_money == $this->order->cost_money) {
+
+                $statusId = $this->setting->status_id_order_close ?? $this->setting->status_id_order;
+            } else
+                $statusId = $this->setting->status_id_order;
 
             $contact = Contacts::search([
                 'Телефоны' => [$this->order->phone],
@@ -99,12 +101,7 @@ class OrderSend implements ShouldQueue, ShouldBeUnique
 
             $this->order->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
             $this->order->save();
-
-            return false;
         }
-
-        Log::channel('getcourse')->info('конец getcourse order job '.$this->order->id);
-
         return true;
     }
 }

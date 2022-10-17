@@ -16,7 +16,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Log;
 
 class FormSend implements ShouldQueue, ShouldBeUnique
 {
@@ -49,8 +48,6 @@ class FormSend implements ShouldQueue, ShouldBeUnique
      */
     public function handle(): bool
     {
-        Log::channel('getcourse')->info('запуск getcourse form job '.$this->form->id);
-
         try {
             $manager = (new GetCourseManager($this->webhook));
 
@@ -105,11 +102,7 @@ class FormSend implements ShouldQueue, ShouldBeUnique
             $this->form->error = $exception->getMessage().' '.$exception->getFile().' '.$exception->getLine();
             $this->form->save();
 
-            return false;
         }
-
-        Log::channel('getcourse')->info('конец getcourse form job '.$this->form->id);
-
         return true;
     }
 }
