@@ -5,7 +5,7 @@ namespace App\Services\amoCRM;
 use AmoCRM\Client\AmoCRMApiClient;
 use AmoCRM\Client\AmoCRMApiClientFactory;
 use AmoCRM\Exceptions\AmoCRMoAuthApiException;
-use App\Models\Api\Core\Account;
+use App\Models\Account;
 use League\OAuth2\Client\Token\AccessToken;
 
 class Client
@@ -15,13 +15,6 @@ class Client
      */
     public function getInstance(Account $account): AmoCRMApiClient
     {
-        if(!$this->checkAuth($account)) {
-
-            throw new AmoCRMoAuthApiException();
-            //TODO custom exception
-            //TODO event notification
-        }
-
         $apiClient = (new AmoCRMApiClientFactory(
             new OauthEloquentConfig($account),
             new OauthEloquentService($account))
@@ -39,7 +32,7 @@ class Client
                 $account->access_token  = $access_token->getToken();
                 $account->refresh_token = $access_token->getRefreshToken();
                 $account->expires_in    = $access_token->getExpires();
-                $account->work = 1;
+//                $account->work = 1;
                 $account->save();
             }
         } else {

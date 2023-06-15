@@ -3,7 +3,7 @@
 namespace App\Services\amoCRM;
 
 use AmoCRM\OAuth\OAuthServiceInterface;
-use App\Models\Api\Core\Account;
+use App\Models\Account;
 use League\OAuth2\Client\Token\AccessTokenInterface;
 
 class OauthEloquentService implements OAuthServiceInterface

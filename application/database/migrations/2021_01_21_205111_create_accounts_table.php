@@ -16,6 +16,7 @@ class CreateAccountsTable extends Migration
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
             $table->string('subdomain')->nullable();
+            $table->string('expires_in')->nullable();
             $table->integer('created_at')->nullable();
             $table->string('referer')->nullable();
             $table->text('code')->nullable();

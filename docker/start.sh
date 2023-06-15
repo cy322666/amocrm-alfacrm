@@ -9,9 +9,8 @@ run_server() {
 if run_server; then
     echo Server OK.
 else
-#  orchid install?
 #  composer install
-#  php artisan key:generate
+  php artisan key:generate
 
 	php artisan octane:install --server="swoole"
     run_server;

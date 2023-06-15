@@ -3,7 +3,7 @@
 namespace App\Services\amoCRM;
 
 use AmoCRM\OAuth\OAuthConfigInterface;
-use App\Models\Api\Core\Account;
+use App\Models\Account;
 
 class OauthEloquentConfig implements OAuthConfigInterface
 {

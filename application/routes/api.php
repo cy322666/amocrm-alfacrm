@@ -3,9 +3,6 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\BizonController;
-use App\Http\Controllers\Api\CronController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,17 +14,12 @@ use App\Http\Controllers\Api\CronController;
 |
 */
 
-/* AMOCRM */
-Route::get('/install', [AuthController::class, 'installAction']);
-
-Route::post('/amocrm/secrets', [AuthController::class, 'secrets']);
-
-/* BIZON */
-Route::post('/bizon/hook/{account:endpoint}', [BizonController::class, 'hook']);//TODO user::endpoint
-
-Route::post('/bizon/cron/viewers', [BizonController::class, 'cron']);
-
-/* CRON */
-Route::post('/cron/tariff', [CronController::class, 'tariff']);
-
-Route::get('/test', [CronController::class, 'test']);
+//Route::group(['prefix' => 'bitrix'], function (Request $request) {
+//
+//    Route::get('leads', );
+//});
+//
+//Route::group(['prefix' => 'amocrm'], function (Request $request) {
+//
+//
+//});
